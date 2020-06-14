@@ -20,4 +20,4 @@ part 'src/dialog_utils.dart';
 part 'src/app_update.dart';
 part 'src/utils.dart';
 part 'src/verify_utils.dart';
-part './src/toast_utils.dart';
+part 'src/toast_utils.dart';

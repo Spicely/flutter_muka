@@ -11,7 +11,8 @@ class HttpRes {
     try {
       HttpResponse res = HttpResponse.fromJson(data);
       switch (res.status) {
-        case 200: callback?.call(res.data);
+        case 200:
+          callback?.call(res.data);
           break;
         case 201:
           ToastUtils.error(context, res.msg);
