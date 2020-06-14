@@ -16,9 +16,22 @@ class AppUpdate {
     Color progressColor,
     Animation<Color> progressValueColor,
     double progressHeight = 8,
+    bool verify = false,
   }) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
+    if (verify) {
+      try {
+        Response res = await Dio().post('https://api.muka.site/app/verify', data: {'appId': packageInfo.packageName});
+        HttpRes.verify(context, res.data, callback: (dynamic data) {
+          if (!data['status']) {
+            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          }
+        });
+      } catch (e) {
+        print('服务器异常-----获取失败');
+      }
+    }
     Map<dynamic, dynamic> res = await HttpUtils.request(url, data: {
       'version': version,
       'platform': Utils.platform,
