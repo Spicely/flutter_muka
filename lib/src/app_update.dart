@@ -11,7 +11,7 @@ class AppUpdate {
   static checkUpdate(
     BuildContext context, {
     @required String url,
-    @required Image bgUrl,
+    @required Image updateImage,
     @required String appId,
     Color progressColor,
     Animation<Color> progressValueColor,
@@ -74,7 +74,7 @@ class AppUpdate {
             content: (context, state) {
               return Column(
                 children: <Widget>[
-                  bgUrl,
+                  updateImage,
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(20),
