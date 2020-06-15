@@ -1,15 +1,16 @@
-part of '../muka.dart';
-
 /////////////////////////////////////////////////////////////////////////
 //// All rights reserved.
 //// author: Spicely
 //// Summary: 组件样式ListItem
 //// Date: 2020年05月26日 15:19:53 Tuesday
 //////////////////////////////////////////////////////////////////////////
+part of '../muka.dart';
 
 enum FieldType {
+  /// 以title为flex 1
   TITLE,
 
+  /// 以value为flex 1
   VALUE,
 }
 
@@ -73,7 +74,9 @@ class _ListItemState extends State<ListItem> {
         color: widget.color,
         child: Row(
           children: <Widget>[
-            widget.fieldType.index == 0 ? Expanded(child: Container(child: widget.title)) : Container(child: widget.title),
+            widget.fieldType.index == 0
+                ? Expanded(child: Container(child: widget.title))
+                : Container(child: widget.title),
             widget.fieldType.index == 0
                 ? Container(
                     alignment: widget.labelAlignment,

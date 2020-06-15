@@ -15,10 +15,11 @@ import 'package:overlay_support/overlay_support.dart';
 import 'model/update/index.dart';
 import 'model/Response/index.dart';
 
-part 'src/list_item.dart';
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
 part 'src/app_update.dart';
 part 'src/utils.dart';
 part 'src/verify_utils.dart';
 part 'src/toast_utils.dart';
+part 'components/list_item.dart';
+part 'components/text_field.dart';
