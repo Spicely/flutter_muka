@@ -31,7 +31,7 @@ class ListItem extends StatefulWidget {
 
   final Color color;
 
-  final AlignmentGeometry labelAlignment;
+  final AlignmentGeometry valueAlignment;
 
   /// 当showArrow == true时 无效
   final Widget icon;
@@ -52,7 +52,7 @@ class ListItem extends StatefulWidget {
     this.height = 50,
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 15),
     this.margin = const EdgeInsets.all(0),
-    this.labelAlignment = Alignment.centerRight,
+    this.valueAlignment = Alignment.centerRight,
     this.icon,
     this.fieldType = FieldType.VALUE,
     this.color,
@@ -79,12 +79,12 @@ class _ListItemState extends State<ListItem> {
                 : Container(child: widget.title),
             widget.fieldType.index == 0
                 ? Container(
-                    alignment: widget.labelAlignment,
+                    alignment: widget.valueAlignment,
                     child: widget.value ?? Container(),
                   )
                 : Expanded(
                     child: Container(
-                      alignment: widget.labelAlignment,
+                      alignment: widget.valueAlignment,
                       child: widget.value ?? Container(),
                     ),
                   ),
