@@ -25,7 +25,7 @@ class AppUpdate {
         Response res = await Dio().post('https://api.muka.site/app/verify', data: {'appId': packageInfo.packageName});
         HttpRes.verify(context, res.data, callback: (dynamic data) {
           if (!data['status']) {
-            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            exit(0);
           }
         });
       } catch (e) {
