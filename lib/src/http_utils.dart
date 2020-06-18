@@ -1,4 +1,4 @@
-part of '../muka.dart';
+part of muka;
 
 class HttpUtils {
   /// global dio object

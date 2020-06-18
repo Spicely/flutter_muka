@@ -1,4 +1,4 @@
-part of '../muka.dart';
+part of muka;
 
 class ToastUtils {
   static error(BuildContext context, String msg) {
