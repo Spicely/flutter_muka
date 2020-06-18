@@ -9,16 +9,7 @@ part of '../muka.dart';
 ///自带删除的ITextField
 typedef void ITextFieldCallBack(String content);
 
-enum ITextInputType {
-  text,
-  multiline,
-  number,
-  phone,
-  datetime,
-  emailAddress,
-  url,
-  password
-}
+enum ITextInputType { text, multiline, number, phone, datetime, emailAddress, url, password }
 
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
@@ -31,7 +22,7 @@ class ITextField extends StatefulWidget {
 
   final TextStyle hintStyle;
 
-  final ITextFieldCallBack fieldCallBack;
+  final ITextFieldCallBack onChanged;
 
   final Icon deleteIcon;
 
@@ -59,7 +50,9 @@ class ITextField extends StatefulWidget {
 
   final FormFieldValidator<String> validator;
 
-  final String value;
+  final TextEditingController controller;
+
+  final FocusNode focusNode;
 
   ITextField({
     Key key,
@@ -69,7 +62,7 @@ class ITextField extends StatefulWidget {
     this.hintText,
     this.digitsOnly,
     this.hintStyle,
-    this.fieldCallBack,
+    this.onChanged,
     this.suffixIconWidth,
     this.cursorColor,
     this.deleteIcon,
@@ -80,7 +73,8 @@ class ITextField extends StatefulWidget {
     this.obscureText,
     this.enabledBorder,
     this.focusedBorder,
-    @required this.value,
+    this.focusNode,
+    @required this.controller,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
     this.validator,
   })  : assert(maxLines == null || maxLines > 0),
@@ -93,7 +87,6 @@ class ITextField extends StatefulWidget {
 }
 
 class _ITextFieldState extends State<ITextField> {
-  String _inputText = '';
   bool _status = true;
   bool _hasdeleteIcon = false;
   bool _isNumber = false;
@@ -128,32 +121,15 @@ class _ITextFieldState extends State<ITextField> {
   ///输入范围
   List<TextInputFormatter> _getTextInputFormatter() {
     return _isNumber && (widget.digitsOnly == true)
-        ? <TextInputFormatter>[
-            WhitelistingTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(widget.maxLength ?? -1)
-          ]
-        : widget.maxLength != null
-            ? <TextInputFormatter>[
-                LengthLimitingTextInputFormatter(widget.maxLength)
-              ]
-            : null;
+        ? <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(widget.maxLength ?? -1)]
+        : widget.maxLength != null ? <TextInputFormatter>[LengthLimitingTextInputFormatter(widget.maxLength)] : null;
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _controller = TextEditingController.fromValue(
-      TextEditingValue(
-        text: _status ? widget.value : _inputText,
-        selection: TextSelection.fromPosition(
-          TextPosition(
-            affinity: TextAffinity.downstream,
-            offset: _status ? widget.value?.length ?? 0 : _inputText.length,
-          ),
-        ),
-      ),
-    );
     TextField textField = TextField(
-      controller: _controller,
+      controller: widget.controller,
+      focusNode: widget.focusNode,
       cursorColor: widget.cursorColor ?? Theme.of(context).primaryColor,
       enableInteractiveSelection: true,
       decoration: InputDecoration(
@@ -161,9 +137,7 @@ class _ITextFieldState extends State<ITextField> {
         contentPadding: widget.contentPadding,
         counterStyle: TextStyle(color: Colors.white),
         hintText: widget.hintText,
-        border: widget.inputBorder != null
-            ? widget.inputBorder
-            : UnderlineInputBorder(),
+        border: widget.inputBorder != null ? widget.inputBorder : UnderlineInputBorder(),
         focusedBorder: widget.focusedBorder,
         enabledBorder: widget.enabledBorder,
         fillColor: Colors.transparent,
@@ -175,7 +149,7 @@ class _ITextFieldState extends State<ITextField> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              (_hasdeleteIcon || (_status && widget.value?.length != 0))
+              (_hasdeleteIcon || (_status && widget.controller.text?.length != 0))
                   ? Container(
                       width: 20.0,
                       height: 20.0,
@@ -191,11 +165,9 @@ class _ITextFieldState extends State<ITextField> {
                               ),
                         onPressed: () {
                           _status = false;
-                          setState(() {
-                            _inputText = "";
-                            _hasdeleteIcon = (_inputText.isNotEmpty);
-                            widget.fieldCallBack(_inputText);
-                          });
+                          _hasdeleteIcon = widget.controller.text.isNotEmpty;
+                          widget.controller.text = '';
+                          setState(() {});
                         },
                       ),
                     )
@@ -205,14 +177,7 @@ class _ITextFieldState extends State<ITextField> {
           ),
         ),
       ),
-      onChanged: (str) {
-        _status = false;
-        setState(() {
-          _inputText = str;
-          _hasdeleteIcon = (_inputText.isNotEmpty);
-          widget.fieldCallBack(_inputText);
-        });
-      },
+      onChanged: widget.onChanged,
       keyboardType: _getTextInputType(),
       maxLines: widget.maxLines,
       inputFormatters: _getTextInputFormatter(),
