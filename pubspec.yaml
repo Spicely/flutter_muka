@@ -19,6 +19,7 @@ dependencies:
   install_plugin:
   package_info:
   overlay_support:
+  connectivity:
 
 dev_dependencies:
   flutter_test:
