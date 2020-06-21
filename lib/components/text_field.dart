@@ -165,8 +165,8 @@ class _ITextFieldState extends State<ITextField> {
                               ),
                         onPressed: () {
                           _status = false;
-                          _hasdeleteIcon = widget.controller.text.isNotEmpty;
                           widget.controller.text = '';
+                          _hasdeleteIcon = false;
                           setState(() {});
                         },
                       ),
@@ -177,7 +177,11 @@ class _ITextFieldState extends State<ITextField> {
           ),
         ),
       ),
-      onChanged: widget.onChanged,
+      onChanged: (val) {
+        setState(() {
+          widget.onChanged?.call(val);
+        });
+      },
       keyboardType: _getTextInputType(),
       maxLines: widget.maxLines,
       inputFormatters: _getTextInputFormatter(),
