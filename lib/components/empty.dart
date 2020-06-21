@@ -39,7 +39,7 @@ class Empty extends StatefulWidget {
   State<StatefulWidget> createState() => _EmptyState();
 }
 
-class _EmptyState extends State<Empty> {
+class _EmptyState extends State<Empty> with SingleTickerProviderStateMixin {
   /// 错误状态
   /// true显示 false 不显示
   bool _status = false;
@@ -55,7 +55,7 @@ class _EmptyState extends State<Empty> {
     if (widget.controller == null) {
       Future.delayed(Duration(microseconds: 500), () async {
         _network = await _getNetwork();
-        if(widget.child == null) {
+        if (widget.child == null) {
           _status = true;
         }
         setState(() {});
