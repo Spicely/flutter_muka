@@ -71,7 +71,7 @@ class _ListItemState extends State<ListItem> {
         height: widget.height,
         margin: widget.margin,
         padding: widget.contentPadding,
-        color: widget.color,
+        color: widget.color ?? Colors.transparent,
         child: Row(
           children: <Widget>[
             widget.fieldType.index == 0
