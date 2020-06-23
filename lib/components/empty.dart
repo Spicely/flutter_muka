@@ -39,7 +39,7 @@ class Empty extends StatefulWidget {
   State<StatefulWidget> createState() => _EmptyState();
 }
 
-class _EmptyState extends State<Empty> with SingleTickerProviderStateMixin {
+class _EmptyState extends State<Empty> {
   /// 错误状态
   /// true显示 false 不显示
   bool _status = false;
