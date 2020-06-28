@@ -6,7 +6,7 @@ Flutter样式组件
 
 ```
     muka:
-        git: https://github.com/Spicely/muka.git
+      git: https://github.com/Spicely/flutter-muka.git
 ```
 
 ### Empty
