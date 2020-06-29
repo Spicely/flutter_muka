@@ -54,6 +54,9 @@ class ITextField extends StatefulWidget {
 
   final FocusNode focusNode;
 
+  /// 显示删除按钮
+  final bool showDeleteIcon;
+
   ITextField({
     Key key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -77,6 +80,7 @@ class ITextField extends StatefulWidget {
     @required this.controller,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
     this.validator,
+    this.showDeleteIcon = true,
   })  : assert(maxLines == null || maxLines > 0),
         assert(maxLength == null || maxLength > 0),
         keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
@@ -87,8 +91,6 @@ class ITextField extends StatefulWidget {
 }
 
 class _ITextFieldState extends State<ITextField> {
-  bool _status = true;
-  bool _hasdeleteIcon = false;
   bool _isNumber = false;
 
   ///输入类型
@@ -149,27 +151,27 @@ class _ITextFieldState extends State<ITextField> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              (_hasdeleteIcon || (_status && widget.controller.text?.length != 0))
+              widget.showDeleteIcon
                   ? Container(
                       width: 20.0,
                       height: 20.0,
-                      child: IconButton(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(0.0),
-                        iconSize: 18.0,
-                        icon: widget.deleteIcon != null
-                            ? widget.deleteIcon
-                            : Icon(
-                                Icons.cancel,
-                                color: Color.fromRGBO(0, 0, 0, 0.3),
-                              ),
-                        onPressed: () {
-                          _status = false;
-                          widget.controller.text = '';
-                          _hasdeleteIcon = false;
-                          setState(() {});
-                        },
-                      ),
+                      child: widget.controller.text.length > 0
+                          ? IconButton(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(0.0),
+                              iconSize: 18.0,
+                              icon: widget.deleteIcon != null
+                                  ? widget.deleteIcon
+                                  : Icon(
+                                      Icons.cancel,
+                                      color: Color.fromRGBO(0, 0, 0, 0.3),
+                                    ),
+                              onPressed: () {
+                                widget.controller.text = '';
+                                setState(() {});
+                              },
+                            )
+                          : null,
                     )
                   : Container(),
               widget.suffixIcon ?? Container(),
