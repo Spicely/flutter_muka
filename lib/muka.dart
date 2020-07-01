@@ -24,6 +24,7 @@ part 'src/utils.dart';
 part 'src/verify_utils.dart';
 part 'src/toast_utils.dart';
 part 'src/local_auth_utils.dart';
+part 'src/extend_class.dart';
 part 'components/list_item.dart';
 part 'components/text_field.dart';
 part 'components/empty.dart';
