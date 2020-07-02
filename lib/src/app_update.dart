@@ -11,8 +11,8 @@ class AppUpdate {
   static checkUpdate(
     BuildContext context, {
     @required String url,
-    @required Image updateImage,
     @required String appId,
+    Image updateImage,
     Color progressColor,
     Animation<Color> progressValueColor,
     double progressHeight = 8,
@@ -74,7 +74,7 @@ class AppUpdate {
             content: (context, state) {
               return Column(
                 children: <Widget>[
-                  updateImage,
+                  updateImage ?? Image.asset("packages/muka/assets/images/bg_update_top.png"),
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(20),
@@ -144,7 +144,8 @@ class AppUpdate {
                                       hasDown = true;
                                       Directory storageDir = await getExternalStorageDirectory();
                                       String storagePath = storageDir.path;
-                                      File file = File('$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
+                                      File file = File(
+                                          '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
                                       if (!file.existsSync()) {
                                         file.createSync();
                                       }
@@ -188,4 +189,3 @@ class AppUpdate {
     );
   }
 }
-

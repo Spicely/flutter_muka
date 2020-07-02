@@ -41,6 +41,7 @@ flutter:
    - assets/images/qq.png
    - assets/images/qq_zone.png
    - assets/images/mic_blog.png
+   - assets/images/bg_update_top.png
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
