@@ -16,6 +16,7 @@ import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'model/update/index.dart';
+import 'model/dialog_share_data/index.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';

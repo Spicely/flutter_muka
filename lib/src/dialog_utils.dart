@@ -29,6 +29,95 @@ class DialogUtils {
     );
   }
 
+  static List<DialogShareData> _shareData = [
+    DialogShareData.fromJson({"icon": "packages/muka/assets/images/wx.png", "title": "微信好友", "key": "wx"}),
+    DialogShareData.fromJson({"icon": "packages/muka/assets/images/wx_friend.png", "title": "朋友圈", "key": "wx_firend"}),
+    DialogShareData.fromJson({"icon": "packages/muka/assets/images/qq.png", "title": "QQ", "key": "qq"}),
+    DialogShareData.fromJson({"icon": "packages/muka/assets/images/qq_zone.png", "title": "QQ空间", "key": "qq_zone"}),
+    DialogShareData.fromJson({"icon": "packages/muka/assets/images/mic_blog.png", "title": "微博", "key": "mic_blog"}),
+  ];
+
+  static List<DialogShareData> get shareData => _shareData;
+
+  /// 分享
+  ///
+  /// title 标题
+  ///
+  /// divider 标题两边分割西
+  ///
+  /// titleStyle 标题样式
+  ///
+  /// data 渲染列表
+  static void share(
+    BuildContext context, {
+    String title = "分享到",
+    bool divider = true,
+    TextStyle titleStyle = const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+    ShapeBorder shape,
+    List<DialogShareData> data,
+    void Function(String val) onPressed,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: shape,
+      builder: (BuildContext context) {
+        return Container(
+          height: 160,
+          child: Column(
+            children: <Widget>[
+              ListItem(
+                value: Row(
+                  children: <Widget>[
+                    Expanded(child: divider ? Divider(height: 0.1) : Container()),
+                    Container(
+                      width: 120,
+                      alignment: Alignment.center,
+                      child: Text(title, style: titleStyle),
+                    ),
+                    Expanded(child: divider ? Divider(height: 0.1) : Container()),
+                  ],
+                ),
+                valueAlignment: Alignment.center,
+              ),
+              Container(
+                height: 90,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        onPressed?.call((data ?? shareData)[index].key);
+                      },
+                      child: Container(
+                        width: 70,
+                        height: 70,
+                        margin: EdgeInsets.only(left: 10),
+                        child: Column(
+                          children: <Widget>[
+                            Image.asset(
+                              (data ?? shareData)[index].icon,
+                              width: 60,
+                              height: 60,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 5),
+                              child: Text((data ?? shareData)[index].title),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: (data ?? _shareData).length,
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static void showInfo(
     BuildContext context, {
     @required Widget Function(BuildContext, void Function(void Function())) content,
