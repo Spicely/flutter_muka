@@ -17,6 +17,7 @@ class AppUpdate {
     Animation<Color> progressValueColor,
     double progressHeight = 8,
     bool verify = false,
+    String method = "POST",
   }) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
@@ -32,10 +33,14 @@ class AppUpdate {
         print('服务器异常-----获取失败');
       }
     }
-    Map<dynamic, dynamic> res = await HttpUtils.request(url, data: {
-      'version': version,
-      'platform': Utils.platform,
-    });
+    Map<dynamic, dynamic> res = await HttpUtils.request(
+      url,
+      data: {
+        'version': version,
+        'platform': Utils.platform,
+      },
+      method: method,
+    );
     HttpRes.verify(
       context,
       res,
