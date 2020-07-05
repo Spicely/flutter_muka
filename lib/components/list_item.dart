@@ -42,6 +42,8 @@ class ListItem extends StatefulWidget {
 
   final FieldType fieldType;
 
+  final BorderRadiusGeometry borderRadius;
+
   ListItem({
     Key key,
     this.showArrow = false,
@@ -56,6 +58,7 @@ class ListItem extends StatefulWidget {
     this.icon,
     this.fieldType = FieldType.VALUE,
     this.color,
+    this.borderRadius,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _ListItemState();
@@ -71,12 +74,13 @@ class _ListItemState extends State<ListItem> {
         height: widget.height,
         margin: widget.margin,
         padding: widget.contentPadding,
-        color: widget.color ?? Colors.transparent,
+        decoration: BoxDecoration(
+          color: widget.color ?? Colors.transparent,
+          borderRadius: widget.borderRadius,
+        ),
         child: Row(
           children: <Widget>[
-            widget.fieldType.index == 0
-                ? Expanded(child: Container(child: widget.title))
-                : Container(child: widget.title),
+            widget.fieldType.index == 0 ? Expanded(child: Container(child: widget.title)) : Container(child: widget.title),
             widget.fieldType.index == 0
                 ? Container(
                     alignment: widget.valueAlignment,

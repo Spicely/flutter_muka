@@ -40,6 +40,8 @@ class ITextField extends StatefulWidget {
 
   final Widget suffixIcon;
 
+  final TextStyle labelStyle;
+
   final bool digitsOnly;
 
   final Color cursorColor;
@@ -56,6 +58,8 @@ class ITextField extends StatefulWidget {
 
   /// 显示删除按钮
   final bool showDeleteIcon;
+
+  final String labelText;
 
   ITextField({
     Key key,
@@ -77,10 +81,11 @@ class ITextField extends StatefulWidget {
     this.enabledBorder,
     this.focusedBorder,
     this.focusNode,
+    this.labelText,
     @required this.controller,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
     this.validator,
-    this.showDeleteIcon = true,
+    this.showDeleteIcon = true, this.labelStyle,
   })  : assert(maxLines == null || maxLines > 0),
         assert(maxLength == null || maxLength > 0),
         keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
@@ -143,6 +148,8 @@ class _ITextFieldState extends State<ITextField> {
         focusedBorder: widget.focusedBorder,
         enabledBorder: widget.enabledBorder,
         fillColor: Colors.transparent,
+        labelText: widget.labelText,
+        labelStyle: widget.labelStyle,
         // filled: true,
         prefixIcon: widget.prefixIcon,
         suffixIcon: Container(
