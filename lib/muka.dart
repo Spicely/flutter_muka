@@ -19,6 +19,8 @@ import 'package:overlay_support/overlay_support.dart';
 import 'model/update/index.dart';
 import 'model/dialog_share_data/index.dart';
 
+export 'package:overlay_support/overlay_support.dart';
+
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
 part 'src/app_update.dart';
