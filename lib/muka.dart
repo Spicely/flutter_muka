@@ -28,4 +28,5 @@ part 'src/local_auth_utils.dart';
 part 'src/extend_class.dart';
 part 'components/list_item.dart';
 part 'components/text_field.dart';
+part 'components/code_time.dart';
 part 'components/empty.dart';
