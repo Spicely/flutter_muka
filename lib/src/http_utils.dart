@@ -90,6 +90,15 @@ class HttpUtils {
       String appDocPath = appDocDir.path;
       PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
       dio.interceptors.add(CookieManager(cookieJar));
+
+      /// 设置代理
+      if (PROXY_URL != null) {
+        (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+          client.findProxy = (uri) {
+            return "PROXY $uri";
+          };
+        };
+      }
     }
 
     return dio;
@@ -99,4 +108,7 @@ class HttpUtils {
   static clear() {
     dio = null;
   }
+
+  /// 代理设置 代理地址
+  static String PROXY_URL;
 }
