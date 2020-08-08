@@ -41,13 +41,13 @@ class DialogUtils {
 
   /// 分享
   ///
-  /// title 标题
+  /// `title` 标题
   ///
-  /// divider 标题两边分割西
+  /// `divider` 标题两边分割西
   ///
-  /// titleStyle 标题样式
+  /// `titleStyle` 标题样式
   ///
-  /// data 渲染列表
+  /// `data` 渲染列表
   static void share(
     BuildContext context, {
     String title = "分享到",
@@ -240,12 +240,13 @@ class DialogUtils {
   static void showLoading(
     BuildContext context, {
     String text,
+    bool willPop = true,
   }) {
     showDialog(
       context: context,
       builder: (_) => WillPopScope(
         onWillPop: () {
-          return Future.value(true);
+          return Future.value(willPop);
         },
         child: AlertDialog(
           content: Container(
