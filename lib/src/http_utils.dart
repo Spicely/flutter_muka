@@ -18,7 +18,7 @@ class HttpUtils {
   static const String DELETE = 'DELETE';
 
   /// request method
-  static Future<Map> request(
+  static Future<dynamic> request(
     String url, {
     dynamic data,
     String method = 'POST',
