@@ -34,3 +34,4 @@ part 'components/list_item.dart';
 part 'components/text_field.dart';
 part 'components/code_time.dart';
 part 'components/empty.dart';
+part 'components/page_init.dart';

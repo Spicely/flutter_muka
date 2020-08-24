@@ -39,6 +39,15 @@ Flutter样式组件
     );
 ```
 
+#### PageInit
+```
+    /// 监听返回按键 点击空白处关闭键盘
+    PageInit(
+        exitLabel: '再按一次推辞'
+        child: Text('111)
+    );
+```
+
 #### 指纹验证
 
 ```
