@@ -22,6 +22,39 @@ Flutter样式组件
     <string>Why is my app authenticating using face id?</string>
 ```
 
+#### GridBox、GridItem 网格组件
+```
+    GridBox(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        children: [
+          GridItem(
+            image: CachedNetworkImage(
+              width: 50,
+              height: 50,
+              imageUrl: 'https://img.muka.site/icon/activity.png',
+            ),
+            text: Text('帮助'),
+          ),
+          GridItem(
+            image: CachedNetworkImage(
+              width: 50,
+              height: 50,
+              imageUrl: 'https://img.muka.site/icon/activity.png',
+            ),
+            text: Text('帮助'),
+          ),
+          GridItem(
+            image: CachedNetworkImage(
+              width: 50,
+              height: 50,
+              imageUrl: 'https://img.muka.site/icon/activity.png',
+            ),
+            text: Text('帮助'),
+          ),
+        ],
+      )
+```
+
 #### Empty
 ```
     /// 全局样式
