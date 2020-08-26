@@ -39,6 +39,7 @@ class _GridBoxState extends State<GridBox> {
     return GridView.builder(
       padding: widget.padding,
       itemCount: widget.children.length,
+      shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: widget.crossAxisCount,
