@@ -21,6 +21,8 @@ class GridItem extends StatefulWidget {
 
   final EdgeInsetsGeometry padding;
 
+  final void Function() onTap;
+
   const GridItem({
     Key key,
     this.width,
@@ -28,6 +30,7 @@ class GridItem extends StatefulWidget {
     this.text,
     this.textMargin = const EdgeInsets.only(top: 5),
     this.padding = const EdgeInsets.symmetric(vertical: 10),
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -37,16 +40,19 @@ class GridItem extends StatefulWidget {
 class _GridItemState extends State<GridItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width ?? double.infinity,
-      child: Column(
-        children: [
-          widget.image ?? Container(),
-          Container(
-            margin: widget.textMargin,
-            child: widget.text ?? Container(),
-          ),
-        ],
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        width: widget.width ?? double.infinity,
+        child: Column(
+          children: [
+            widget.image ?? Container(),
+            Container(
+              margin: widget.textMargin,
+              child: widget.text ?? Container(),
+            ),
+          ],
+        ),
       ),
     );
   }
