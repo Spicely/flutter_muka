@@ -18,7 +18,15 @@ class GridBox extends StatefulWidget {
 
   final double childAspectRatio;
 
+  final double height;
+
   final EdgeInsetsGeometry padding;
+
+  final EdgeInsetsGeometry margin;
+
+  final Color color;
+
+  final BorderRadiusGeometry borderRadius;
 
   const GridBox({
     Key key,
@@ -27,7 +35,11 @@ class GridBox extends StatefulWidget {
     this.mainAxisSpacing = 0,
     this.crossAxisSpacing = 5.0,
     this.childAspectRatio = 1.0,
-    this.padding = const EdgeInsets.all(0),
+    this.padding = const EdgeInsets.symmetric(vertical: 10),
+    this.borderRadius = const BorderRadius.all(Radius.circular(0)),
+    this.margin = const EdgeInsets.all(0),
+    this.color = Colors.white,
+    this.height,
   }) : super(key: key);
   @override
   _GridBoxState createState() => _GridBoxState();
@@ -36,20 +48,29 @@ class GridBox extends StatefulWidget {
 class _GridBoxState extends State<GridBox> {
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return Container(
+      height: widget.height,
+      margin: widget.margin,
       padding: widget.padding,
-      itemCount: widget.children.length,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: widget.crossAxisCount,
-        mainAxisSpacing: widget.mainAxisSpacing,
-        crossAxisSpacing: widget.crossAxisSpacing,
-        childAspectRatio: widget.childAspectRatio,
+      decoration: BoxDecoration(
+        borderRadius: widget.borderRadius,
+        color: widget.color,
       ),
-      itemBuilder: (BuildContext context, int index) {
-        return widget.children[index];
-      },
+      child: GridView.builder(
+        padding: EdgeInsets.all(0),
+        itemCount: widget.children.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: widget.crossAxisCount,
+          mainAxisSpacing: widget.mainAxisSpacing,
+          crossAxisSpacing: widget.crossAxisSpacing,
+          childAspectRatio: widget.childAspectRatio,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return widget.children[index];
+        },
+      ),
     );
   }
 }

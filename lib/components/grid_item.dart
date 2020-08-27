@@ -29,7 +29,7 @@ class GridItem extends StatefulWidget {
     this.image,
     this.text,
     this.textMargin = const EdgeInsets.only(top: 5),
-    this.padding = const EdgeInsets.symmetric(vertical: 10),
+    this.padding = const EdgeInsets.all(0),
     this.onTap,
   }) : super(key: key);
 
