@@ -44,6 +44,8 @@ class ListItem extends StatefulWidget {
 
   final BorderRadiusGeometry borderRadius;
 
+  final List<BoxShadow> boxShadow;
+
   ListItem({
     Key key,
     this.showArrow = false,
@@ -59,6 +61,7 @@ class ListItem extends StatefulWidget {
     this.fieldType = FieldType.VALUE,
     this.color,
     this.borderRadius,
+    this.boxShadow,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _ListItemState();
@@ -77,6 +80,7 @@ class _ListItemState extends State<ListItem> {
         decoration: BoxDecoration(
           color: widget.color ?? Colors.transparent,
           borderRadius: widget.borderRadius,
+          boxShadow: widget.boxShadow,
         ),
         child: Row(
           children: <Widget>[
