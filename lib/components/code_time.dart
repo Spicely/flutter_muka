@@ -5,7 +5,7 @@ class CodeTime extends StatefulWidget {
   final int countdown;
 
   /// 用户点击时的回调函数。
-  Future<bool> Function() onTap;
+  final Future<bool> Function() onTap;
 
   /// 是否否可以获取验证码，默认为`false`。
   final bool available;

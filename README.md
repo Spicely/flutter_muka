@@ -9,12 +9,6 @@ Flutter样式组件
       git: https://github.com/Spicely/flutter-muka.git
 ```
 
-#### Android `AndoridManifest.xml`
-```
-    <!--指纹验证权限-->
-    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
-```
-
 #### Ios `Info.plist`
 
 ```
@@ -81,7 +75,7 @@ Flutter样式组件
     );
 ```
 
-#### 指纹验证
+#### 指纹验证 `已删除`
 
 ```
     // 修改 MainActivity.kt
@@ -97,4 +91,76 @@ Flutter样式组件
             GeneratedPluginRegistrant.registerWith(flutterEngine)
         }
     }
+```
+
+#### AppUpdate
+```
+    /// 检测更新 请求返回数据是固定的
+    AppUpdate.checkUpdate(
+      context,
+      url: '/home/app',
+      appId: 'io.cordova.maixiaobu',
+    );
+
+    /// 要求返回的数据格式
+    {
+      'data': {
+        /// 是否更新
+        bool hasUpdate;
+
+        /// 是否强制更新
+        bool isIgnorable;
+
+        /// 是否跳转appStore
+        bool isAppStore;
+
+        /// app版本号
+        String versionCode;
+
+        /// app大小
+        String apkSize;
+
+        /// 下载地址
+        String downloadUrl;
+
+        /// 更新内容
+        String updateContent;
+      },
+      'status': 200,
+      'msg': '请求成功'
+    }
+```
+
+#### ListItem
+```
+  /// 列表组件
+  ListItem(
+    height: 30, 
+    title: Text("左标题"),
+    value: Text("右值"),
+    showArrow: true,
+    fieldType: FieldType.TITLE,
+  );
+```
+#### CustomStepper
+```
+  /// 步骤条组件 和flutter的使用方式基本一致
+  CustomStepper(
+      type: CustomStepperType.horizontal,
+      currentStep: 0,
+      lineHeight: 10.0,
+      lineMargin: EdgeInsets.all(0),
+      steps: <CustomStep>[
+        CustomStep(
+          title: Text('身份信息'),
+          content: Text('显示内容'),
+          // state: CustomStepState.complete,
+          isActive: true,
+        ),
+        CustomStep(
+          title: Text('个人资料'),
+          content: Container(),
+        ),
+      ],
+    );
 ```
