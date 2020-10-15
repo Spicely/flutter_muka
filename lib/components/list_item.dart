@@ -85,13 +85,14 @@ class _ListItemState extends State<ListItem> {
           color: widget.color ?? Colors.transparent,
           borderRadius: widget.borderRadius,
           boxShadow: widget.boxShadow,
-          border: widget.showDivider ??
-              Border(
-                bottom: BorderSide(
-                  color: Theme.of(context).disabledColor,
-                  width: 0.2,
-                ),
-              ),
+          border: widget.showDivider
+              ? Border(
+                  bottom: BorderSide(
+                    color: Theme.of(context).disabledColor,
+                    width: 0.2,
+                  ),
+                )
+              : null,
         ),
         child: Row(
           children: <Widget>[
