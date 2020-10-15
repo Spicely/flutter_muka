@@ -46,6 +46,9 @@ class ListItem extends StatefulWidget {
 
   final List<BoxShadow> boxShadow;
 
+  /// 显示分割线
+  final bool showDivider;
+
   ListItem({
     Key key,
     this.showArrow = false,
@@ -62,6 +65,7 @@ class ListItem extends StatefulWidget {
     this.color,
     this.borderRadius,
     this.boxShadow,
+    this.showDivider = false,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _ListItemState();
@@ -81,6 +85,13 @@ class _ListItemState extends State<ListItem> {
           color: widget.color ?? Colors.transparent,
           borderRadius: widget.borderRadius,
           boxShadow: widget.boxShadow,
+          border: widget.showDivider ??
+              Border(
+                bottom: BorderSide(
+                  color: Theme.of(context).disabledColor,
+                  width: 0.2,
+                ),
+              ),
         ),
         child: Row(
           children: <Widget>[
