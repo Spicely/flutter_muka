@@ -7,6 +7,13 @@ Flutter样式组件
 ```
     muka:
       git: https://github.com/Spicely/flutter-muka.git
+
+
+    /// 在pubspec.yaml中增加
+    dev_dependencies:
+      flutter_test:
+        sdk: flutter
+  +   json_serializable:
 ```
 
 #### Ios `Info.plist`
