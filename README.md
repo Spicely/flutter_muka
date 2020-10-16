@@ -171,3 +171,28 @@ Flutter样式组件
       ],
     );
 ```
+
+#### StartUp
+```
+  StartUp(
+    timer: StartupTimerType.bottom,
+    child: Image.asset(
+      'assets/images/3.png',
+      width: double.infinity,
+      fit: BoxFit.cover,
+    ),
+    logo: Center(
+      child: Image.asset(
+        'assets/images/btm.jpg',
+        width: 140,
+      ),
+    ),
+    onTimeEnd: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => Welcome()),
+        // (route) => false,
+      );
+    },
+  )
+```
