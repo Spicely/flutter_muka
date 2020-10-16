@@ -36,4 +36,4 @@ part 'components/page_init.dart';
 part 'components/grid_box.dart';
 part 'components/grid_item.dart';
 part 'components/custom_stepper.dart';
-part 'components/startup_page.dart';
+part 'components/start_up.dart';
