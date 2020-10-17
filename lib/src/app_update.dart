@@ -39,7 +39,7 @@ class AppUpdate {
         'version': version,
         'platform': Utils.platform,
       },
-      method: method,
+      method: HttpUtilsMethod.POST,
     );
     HttpRes.verify(
       context,
@@ -149,8 +149,7 @@ class AppUpdate {
                                       hasDown = true;
                                       Directory storageDir = await getExternalStorageDirectory();
                                       String storagePath = storageDir.path;
-                                      File file = File(
-                                          '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
+                                      File file = File('$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
                                       if (!file.existsSync()) {
                                         file.createSync();
                                       }
