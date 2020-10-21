@@ -1,7 +1,6 @@
 name: muka
-description: A new Flutter package.
+description: 封装UI库
 version: 0.0.1
-author:
 homepage: https://github.com/Spicely/flutter-muka.git
 
 environment:
@@ -10,22 +9,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cookie_jar:
-  dio_cookie_manager:
-  dio:
-  path_provider:
-  permission_handler:
-  flutter_html:
-  install_plugin:
-  package_info:
-  overlay_support:
-  connectivity:
+  cookie_jar: ^1.0.1
+  dio_cookie_manager: ^1.0.0
+  dio: ^3.0.10
+  path_provider: ^1.6.21
+  permission_handler: ^5.0.1+1
+  flutter_html: ^1.0.2
+  install_plugin: ^2.0.1
+  package_info: ^0.4.3
+  overlay_support: ^1.0.5
+  connectivity: ^0.4.9+5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner:
-  json_serializable:
+  build_runner: ^1.10.3
+  json_serializable: ^3.5.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

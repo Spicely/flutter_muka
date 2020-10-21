@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'index.g.dart';
-
-@JsonSerializable()
 class HttpResponse {
   int status;
   
@@ -18,3 +13,22 @@ class HttpResponse {
   
   Map<String, dynamic> toJson() => _$HttpResponseToJson(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+HttpResponse _$HttpResponseFromJson(Map<String, dynamic> json) {
+  return HttpResponse(
+    json['status'] as int,
+    json['msg'] as String,
+    json['data'],
+  );
+}
+
+Map<String, dynamic> _$HttpResponseToJson(HttpResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'msg': instance.msg,
+      'data': instance.data,
+    };
