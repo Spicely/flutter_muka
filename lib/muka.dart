@@ -20,6 +20,7 @@ import 'model/update/index.dart';
 import 'model/dialog_share_data/index.dart';
 
 export 'package:overlay_support/overlay_support.dart';
+export 'package:dio/dio.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
