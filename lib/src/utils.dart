@@ -16,4 +16,18 @@ class Utils {
       return 'windows';
     }
   }
+
+  static Map<String, String> getUrlParams(String params) {
+    List<String> value = params.split('&');
+    Map<String, String> data = {};
+    value.forEach((i) {
+      List<String> v = i.split('=');
+      data[v[0]] = v[1];
+    });
+    return data;
+  }
+
+  static String getSecrecyMobile(String mobile) {
+    return mobile.replaceRange(3, 7, '****');
+  }
 }
