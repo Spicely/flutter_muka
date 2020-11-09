@@ -43,6 +43,7 @@ class HttpUtils {
     Map<String, dynamic> headers,
     String contentType,
     CancelToken cancelToken,
+    bool interceptor = true,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};
@@ -67,7 +68,7 @@ class HttpUtils {
       print('请求参数：【' + data.toString() + '】');
     }
 
-    Dio dio = await createInstance();
+    Dio dio = await createInstance(interceptor);
     var result;
 
     // try {} on DioError catch (e) {
@@ -112,7 +113,7 @@ class HttpUtils {
   }
 
   /// 创建 dio 实例对象
-  static Future<Dio> createInstance() async {
+  static Future<Dio> createInstance(bool interceptor) async {
     if (_dio == null) {
       BaseOptions options = BaseOptions(
         baseUrl: BASE_URL,
@@ -121,14 +122,16 @@ class HttpUtils {
       );
 
       _dio = Dio(options);
-      interceptors?.call(_dio)?.forEach((i) {
-        _dio.interceptors.add(i);
-      });
+      if (interceptor) {
+        interceptors?.call(_dio)?.forEach((i) {
+          _dio.interceptors.add(i);
+        });
+      }
       var appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
       PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
       _dio.interceptors.add(CookieManager(cookieJar));
-      
+
       /// 设置代理
       if (PROXY_URL != null) {
         (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {

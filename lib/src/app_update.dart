@@ -17,13 +17,16 @@ class AppUpdate {
     Animation<Color> progressValueColor,
     double progressHeight = 8,
     bool verify = false,
-    String method = "POST",
+    HttpUtilsMethod method = HttpUtilsMethod.POST,
+    Map<dynamic, dynamic> data,
   }) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     if (verify) {
       try {
-        Response res = await Dio().post('https://api.muka.site/app/verify', data: {'appId': packageInfo.packageName});
+        Response res = await Dio().post('https://api.muka.site/app/verify', data: {
+          'appId': packageInfo.packageName,
+        });
         HttpRes.verify(context, res.data, callback: (dynamic data) {
           if (!data['status']) {
             exit(0);
@@ -33,13 +36,20 @@ class AppUpdate {
         print('服务器异常-----获取失败');
       }
     }
+    Map<dynamic, dynamic> params = {
+      'version': version,
+      'platform': Utils.platform,
+    };
+    if (data != null) {
+      data.forEach((key, value) {
+        params[key] = value;
+      });
+    }
     Map<dynamic, dynamic> res = await HttpUtils.request(
       url,
-      data: {
-        'version': version,
-        'platform': Utils.platform,
-      },
-      method: HttpUtilsMethod.POST,
+      data: params,
+      method: method,
+      interceptor: false,
     );
     HttpRes.verify(
       context,
@@ -149,7 +159,8 @@ class AppUpdate {
                                       hasDown = true;
                                       Directory storageDir = await getExternalStorageDirectory();
                                       String storagePath = storageDir.path;
-                                      File file = File('$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
+                                      File file = File(
+                                          '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
                                       if (!file.existsSync()) {
                                         file.createSync();
                                       }
