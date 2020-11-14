@@ -30,4 +30,9 @@ class Utils {
   static String getSecrecyMobile(String mobile) {
     return mobile.replaceRange(3, 7, '****');
   }
+
+  /// 判断是否为打包环境
+  static bool get isProd {
+    return bool.fromEnvironment('dart.vm.product');
+  }
 }
