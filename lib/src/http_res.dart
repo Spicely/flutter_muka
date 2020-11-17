@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:muka/model/Response/index.dart';
 
 class HttpRes {
-  static verify(BuildContext context, dynamic data, {void Function(dynamic data) callback}) {
+  static Future<dynamic> verify(BuildContext context, dynamic data) {
     try {
       HttpResponse res = HttpResponse.fromJson(data);
       switch (res.status) {
         case 200:
-          callback?.call(res.data);
-          break;
+          return Future.value(res.data);
+        default:
+          return Future.error('暂无更新');
       }
     } catch (e) {
-      print(e);
+      return Future.error(e);
     }
   }
 }
