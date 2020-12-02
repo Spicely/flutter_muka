@@ -33,6 +33,7 @@ class Utils {
 
   /// 判断是否为打包环境
   static bool get isProd {
-    return bool.fromEnvironment('dart.vm.product');
+    const product = bool.fromEnvironment('dart.vm.product');
+    return product;
   }
 }
