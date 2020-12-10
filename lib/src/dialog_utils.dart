@@ -122,7 +122,6 @@ class DialogUtils {
     BuildContext context, {
     @required Widget Function(BuildContext, void Function(void Function())) content,
     VoidCallback onOk,
-    double height = 440,
     double width,
     BorderRadiusGeometry borderRadius = const BorderRadius.all(Radius.circular(10)),
     DecorationImage background,
@@ -146,20 +145,19 @@ class DialogUtils {
             contentPadding: EdgeInsets.all(0),
             elevation: elevation,
             backgroundColor: color,
-            content: Stack(
-              children: <Widget>[
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Container(
-                  height: height,
                   width: width == null ? MediaQuery.of(context).size.width - 60 : width,
                   constraints: BoxConstraints(
-                    maxHeight: height,
                     maxWidth: width == null ? MediaQuery.of(context).size.width - 60 : width,
                   ),
                   decoration: BoxDecoration(
                     borderRadius: borderRadius,
                     image: background,
                   ),
-                  child: Center(child: content(context, state)),
+                  child: content(context, state),
                 ),
                 showClose
                     ? close ??

@@ -61,28 +61,23 @@ class AppUpdate {
           context,
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height * 0.6,
           elevation: 0,
           showClose: !val.isIgnorable,
           willPop: !val.isIgnorable,
           close: val.isIgnorable
               ? null
-              : Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Column(
-                    children: <Widget>[
-                      Container(height: 40, width: 1, color: Colors.white),
-                      GestureDetector(
-                        onTap: () {
-                          hasState = false;
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.highlight_off, color: Colors.white, size: 30),
-                      ),
-                    ],
-                  ),
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(height: 40, width: 1, color: Colors.white),
+                    GestureDetector(
+                      onTap: () {
+                        hasState = false;
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.highlight_off, color: Colors.white, size: 30),
+                    ),
+                  ],
                 ),
           content: (context, state) {
             return Column(
