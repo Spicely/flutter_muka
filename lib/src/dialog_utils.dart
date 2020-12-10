@@ -159,7 +159,7 @@ class DialogUtils {
                     borderRadius: borderRadius,
                     image: background,
                   ),
-                  child: content(context, state),
+                  child: Center(child: content(context, state)),
                 ),
                 showClose
                     ? close ??

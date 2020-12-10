@@ -60,7 +60,8 @@ class AppUpdate {
         DialogUtils.showInfo(
           context,
           color: Colors.transparent,
-          height: 490,
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.6,
           elevation: 0,
           showClose: !val.isIgnorable,
           willPop: !val.isIgnorable,
