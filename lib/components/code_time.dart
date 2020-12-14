@@ -53,12 +53,6 @@ class _CodeTimeState extends State<CodeTime> {
   /// 当前墨水瓶（`InkWell`）的文本。
   String _verifyStr = '获取验证码';
 
-  @override
-  void initState() {
-    super.initState();
-    _seconds = widget.countdown;
-  }
-
   /// 启动倒计时的计时器。
   void _startTimer() {
     // 计时器（`Timer`）组件的定期（`periodic`）构造函数，创建一个新的重复计时器。
@@ -84,6 +78,18 @@ class _CodeTimeState extends State<CodeTime> {
   void _cancelTimer() {
     // 计时器（`Timer`）组件的取消（`cancel`）方法，取消计时器。
     _timer?.cancel();
+  }
+
+  @override
+  void dispose() {
+    _cancelTimer();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _seconds = widget.countdown;
   }
 
   @override
