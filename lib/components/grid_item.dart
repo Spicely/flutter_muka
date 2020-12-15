@@ -14,7 +14,7 @@ class GridItem extends StatefulWidget {
   final Widget image;
 
   /// 文字
-  final Widget text;
+  final Widget label;
 
   /// 文字间距
   final EdgeInsetsGeometry textMargin;
@@ -27,7 +27,7 @@ class GridItem extends StatefulWidget {
     Key key,
     this.width,
     this.image,
-    this.text,
+    this.label,
     this.textMargin = const EdgeInsets.only(top: 5),
     this.padding = const EdgeInsets.all(0),
     this.onTap,
@@ -49,7 +49,7 @@ class _GridItemState extends State<GridItem> {
             widget.image ?? Container(),
             Container(
               margin: widget.textMargin,
-              child: widget.text ?? Container(),
+              child: widget.label ?? Container(),
             ),
           ],
         ),
