@@ -18,7 +18,7 @@ class GridBox extends StatefulWidget {
 
   final double childAspectRatio;
 
-  final double height;
+  final double? height;
 
   final EdgeInsetsGeometry padding;
 
@@ -29,7 +29,7 @@ class GridBox extends StatefulWidget {
   final BorderRadiusGeometry borderRadius;
 
   const GridBox({
-    Key key,
+    Key? key,
     this.children = const [],
     this.crossAxisCount = 4,
     this.mainAxisSpacing = 0,

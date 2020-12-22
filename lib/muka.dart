@@ -2,6 +2,7 @@ library muka;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,12 @@ import 'package:install_plugin/install_plugin.dart';
 import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:signature/signature.dart';
 import 'model/update/index.dart';
 import 'model/dialog_share_data/index.dart';
 
 export 'package:overlay_support/overlay_support.dart';
-export 'package:dio/dio.dart';
+// export 'package:dio/dio.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
@@ -38,3 +40,4 @@ part 'components/grid_box.dart';
 part 'components/grid_item.dart';
 part 'components/custom_stepper.dart';
 part 'components/start_up.dart';
+part 'components/signature_view.dart';

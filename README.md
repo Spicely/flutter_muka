@@ -196,3 +196,14 @@ Flutter样式组件
     },
   )
 ```
+
+#### DialogUtils
+
+```
+  /// 弹出签名 并获取签名
+  Uint8List? image = await DialogUtils.signature(context);
+
+  final tempDir = await getTemporaryDirectory();
+  final file = await File('${tempDir.path}/image.png').create();
+  file.writeAsBytesSync(image!);
+```

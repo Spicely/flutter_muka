@@ -23,34 +23,34 @@ class ListItem extends StatefulWidget {
 
   final EdgeInsetsGeometry contentPadding;
 
-  final Widget title;
+  final Widget? title;
 
-  final Widget value;
+  final Widget? value;
 
   final EdgeInsetsGeometry margin;
 
-  final Color color;
+  final Color? color;
 
   final AlignmentGeometry valueAlignment;
 
   /// 当showArrow == true时 无效
-  final Widget icon;
+  final Widget? icon;
 
-  final void Function() onTap;
+  final void Function()? onTap;
 
-  final void Function() onLongPress;
+  final void Function()? onLongPress;
 
   final FieldType fieldType;
 
-  final BorderRadiusGeometry borderRadius;
+  final BorderRadiusGeometry? borderRadius;
 
-  final List<BoxShadow> boxShadow;
+  final List<BoxShadow>? boxShadow;
 
   /// 显示分割线
   final bool showDivider;
 
   ListItem({
-    Key key,
+    Key? key,
     this.showArrow = false,
     this.title,
     this.onTap,

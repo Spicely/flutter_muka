@@ -10,15 +10,15 @@ part of muka;
 class AppUpdate {
   static checkUpdate(
     BuildContext context, {
-    @required String url,
-    @required String appId,
-    Image updateImage,
-    Color progressColor,
-    Animation<Color> progressValueColor,
+    required String url,
+    required String appId,
+    Image? updateImage,
+    Color? progressColor,
+    Animation<Color>? progressValueColor,
     double progressHeight = 8,
     bool verify = false,
     HttpUtilsMethod method = HttpUtilsMethod.POST,
-    Map<dynamic, dynamic> data,
+    Map<dynamic, dynamic>? data,
   }) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
@@ -45,15 +45,15 @@ class AppUpdate {
           params[key] = value;
         });
       }
-      Map<dynamic, dynamic> res = await HttpUtils.request(
+      Map<dynamic, dynamic> res = await (HttpUtils.request(
         url,
         data: params,
         method: method,
         interceptor: false,
-      );
+      ) as FutureOr<Map<dynamic, dynamic>>);
       dynamic body = await HttpRes.verify(context, res);
       Update val = Update.fromJson(body);
-      if (val.hasUpdate) {
+      if (val.hasUpdate!) {
         bool hasDown = false;
         double progress = 0;
         bool hasState = true;
@@ -62,9 +62,9 @@ class AppUpdate {
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width * 0.8,
           elevation: 0,
-          showClose: !val.isIgnorable,
-          willPop: !val.isIgnorable,
-          close: val.isIgnorable
+          showClose: !val.isIgnorable!,
+          willPop: !val.isIgnorable!,
+          close: val.isIgnorable!
               ? null
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +105,7 @@ class AppUpdate {
                           padding: EdgeInsets.all(0),
                           children: <Widget>[
                             Html(
-                              data: val.updateContent,
+                              data: val.updateContent!,
                             )
                           ],
                         ),
@@ -134,7 +134,7 @@ class AppUpdate {
                                       color: Colors.white,
                                       child: Text(
                                         '${(progress * 100).toStringAsFixed(1)}%',
-                                        style: TextStyle(color: progressValueColor ?? Theme.of(context).primaryColor),
+                                        style: TextStyle(color: progressValueColor as Color? ?? Theme.of(context).primaryColor),
                                       ),
                                     ),
                                   )
@@ -146,8 +146,8 @@ class AppUpdate {
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22.0))),
                                 child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
                                 onPressed: () async {
-                                  if (val.isAppStore) {
-                                    InstallPlugin.gotoAppStore(val.downloadUrl);
+                                  if (val.isAppStore!) {
+                                    InstallPlugin.gotoAppStore(val.downloadUrl!);
                                   } else {
                                     hasDown = true;
                                     Directory storageDir = await getExternalStorageDirectory();
@@ -159,7 +159,7 @@ class AppUpdate {
                                     }
                                     state(() {});
                                     Response response = await Dio().get(
-                                      val.downloadUrl,
+                                      val.downloadUrl!,
                                       onReceiveProgress: (int received, int total) {
                                         if (total != -1 && hasState) {
                                           progress = received / total;

@@ -68,9 +68,9 @@ class CustomStep {
   ///
   /// The [title], [content], and [state] arguments must not be null.
   const CustomStep({
-    @required this.title,
+    required this.title,
     this.subtitle,
-    @required this.content,
+    required this.content,
     this.state = CustomStepState.indexed,
     this.isActive = false,
   })  : assert(title != null),
@@ -84,7 +84,7 @@ class CustomStep {
   /// font size. It typically gives more details that complement the title.
   ///
   /// If null, the subtitle is not shown.
-  final Widget subtitle;
+  final Widget? subtitle;
 
   /// The content of the step that appears below the [title] and [subtitle].
   ///
@@ -121,8 +121,8 @@ class CustomStepper extends StatefulWidget {
   ///
   /// The [steps], [type], and [currentStep] arguments must not be null.
   const CustomStepper({
-    Key key,
-    @required this.steps,
+    Key? key,
+    required this.steps,
     this.physics,
     this.type = CustomStepperType.vertical,
     this.currentStep = 0,
@@ -150,7 +150,7 @@ class CustomStepper extends StatefulWidget {
   ///
   /// If the stepper is contained within another scrollable it
   /// can be helpful to set this property to [ClampingScrollPhysics].
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// The type of stepper that determines the layout. In the case of
   /// [CustomStepperType.horizontal], the content of the current step is displayed
@@ -163,17 +163,17 @@ class CustomStepper extends StatefulWidget {
 
   /// The callback called when a step is tapped, with its index passed as
   /// an argument.
-  final ValueChanged<int> onStepTapped;
+  final ValueChanged<int>? onStepTapped;
 
   /// The callback called when the 'continue' button is tapped.
   ///
   /// If null, the 'continue' button will be disabled.
-  final VoidCallback onStepContinue;
+  final VoidCallback? onStepContinue;
 
   /// The callback called when the 'cancel' button is tapped.
   ///
   /// If null, the 'cancel' button will be disabled.
-  final VoidCallback onStepCancel;
+  final VoidCallback? onStepCancel;
 
   /// The callback for creating custom controls.
   ///
@@ -223,7 +223,7 @@ class CustomStepper extends StatefulWidget {
   /// }
   /// ```
   /// {@end-tool}
-  final ControlsWidgetBuilder controlsBuilder;
+  final ControlsWidgetBuilder? controlsBuilder;
 
   /// 线宽
   final double lineHeight;
@@ -236,8 +236,8 @@ class CustomStepper extends StatefulWidget {
 }
 
 class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
-  List<GlobalKey> _keys;
-  List<GlobalKey> _textKeys;
+  late List<GlobalKey> _keys;
+  late List<GlobalKey> _textKeys;
   final Map<int, CustomStepState> _oldStates = <int, CustomStepState>{};
 
   @override
@@ -287,8 +287,8 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildCircleChild(int index, bool oldState) {
-    final CustomStepState state = oldState ? _oldStates[index] : widget.steps[index].state;
+  Widget? _buildCircleChild(int index, bool oldState) {
+    final CustomStepState state = oldState ? _oldStates[index]! : widget.steps[index].state;
     final bool isDarkActive = _isDark() && widget.steps[index].isActive;
     assert(state != null);
     switch (state) {
@@ -390,9 +390,9 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
 
   Widget _buildVerticalControls() {
     if (widget.controlsBuilder != null)
-      return widget.controlsBuilder(context, onStepContinue: widget.onStepContinue, onStepCancel: widget.onStepCancel);
+      return widget.controlsBuilder!(context, onStepContinue: widget.onStepContinue, onStepCancel: widget.onStepCancel);
 
-    Color cancelColor;
+    Color? cancelColor;
 
     switch (Theme.of(context).brightness) {
       case Brightness.light:
@@ -436,7 +436,7 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
     );
   }
 
-  TextStyle _titleStyle(int index) {
+  TextStyle? _titleStyle(int index) {
     final ThemeData themeData = Theme.of(context);
     final TextTheme textTheme = themeData.textTheme;
 
@@ -447,14 +447,14 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
       case CustomStepState.complete:
         return textTheme.body2;
       case CustomStepState.disabled:
-        return textTheme.body2.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
+        return textTheme.body2!.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
       case CustomStepState.error:
-        return textTheme.body2.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
+        return textTheme.body2!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
     return null;
   }
 
-  TextStyle _subtitleStyle(int index) {
+  TextStyle? _subtitleStyle(int index) {
     final ThemeData themeData = Theme.of(context);
     final TextTheme textTheme = themeData.textTheme;
 
@@ -465,9 +465,9 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
       case CustomStepState.complete:
         return textTheme.caption;
       case CustomStepState.disabled:
-        return textTheme.caption.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
+        return textTheme.caption!.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
       case CustomStepState.error:
-        return textTheme.caption.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
+        return textTheme.caption!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
     return null;
   }
@@ -475,7 +475,7 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
   Widget _buildHeaderText(int index) {
     final List<Widget> children = <Widget>[
       AnimatedDefaultTextStyle(
-        style: _titleStyle(index),
+        style: _titleStyle(index)!,
         duration: kThemeAnimationDuration,
         curve: Curves.fastOutSlowIn,
         child: widget.steps[index].title,
@@ -487,10 +487,10 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
         Container(
           margin: const EdgeInsets.only(top: 2.0),
           child: AnimatedDefaultTextStyle(
-            style: _subtitleStyle(index),
+            style: _subtitleStyle(index)!,
             duration: kThemeAnimationDuration,
             curve: Curves.fastOutSlowIn,
-            child: widget.steps[index].subtitle,
+            child: widget.steps[index].subtitle!,
           ),
         ),
       );
@@ -583,12 +583,12 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
                     // In the vertical case we need to scroll to the newly tapped
                     // step.
                     Scrollable.ensureVisible(
-                      _keys[i].currentContext,
+                      _keys[i].currentContext!,
                       curve: Curves.fastOutSlowIn,
                       duration: kThemeAnimationDuration,
                     );
 
-                    if (widget.onStepTapped != null) widget.onStepTapped(i);
+                    if (widget.onStepTapped != null) widget.onStepTapped!(i);
                   }
                 : null,
             child: _buildVerticalHeader(i),
@@ -635,7 +635,7 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
         GestureDetector(
           onTap: widget.steps[i].state != CustomStepState.disabled
               ? () {
-                  if (widget.onStepTapped != null) widget.onStepTapped(i);
+                  if (widget.onStepTapped != null) widget.onStepTapped!(i);
                 }
               : null,
           child: Column(
@@ -709,14 +709,12 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
             'https://material.io/archive/guidelines/components/steppers.html#steppers-usage');
       return true;
     }());
-    assert(widget.type != null);
     switch (widget.type) {
       case CustomStepperType.vertical:
         return _buildVertical();
       case CustomStepperType.horizontal:
         return _buildHorizontal();
     }
-    return null;
   }
 }
 
@@ -727,7 +725,7 @@ class _TrianglePainter extends CustomPainter {
     this.color,
   });
 
-  final Color color;
+  final Color? color;
 
   @override
   bool hitTest(Offset point) => true; // Hitting the rectangle is fine enough.
@@ -750,7 +748,7 @@ class _TrianglePainter extends CustomPainter {
 
     canvas.drawPath(
       Path()..addPolygon(points, true),
-      Paint()..color = color,
+      Paint()..color = color!,
     );
   }
 }

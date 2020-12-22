@@ -1,24 +1,24 @@
 class Update {
   /// 是否更新
-  bool hasUpdate;
+  bool? hasUpdate;
 
   /// 是否强制更新
-  bool isIgnorable;
+  bool? isIgnorable;
 
   /// 是否跳转appStore
-  bool isAppStore;
+  bool? isAppStore;
 
   /// app版本号
-  String versionCode;
+  String? versionCode;
 
   /// app大小
-  String apkSize;
+  String? apkSize;
 
   /// 下载地址
-  String downloadUrl;
+  String? downloadUrl;
 
   /// 更新内容
-  String updateContent;
+  String? updateContent;
 
   Update(
     this.hasUpdate,
@@ -43,13 +43,13 @@ class Update {
 
 Update _$UpdateFromJson(Map<String, dynamic> json) {
   return Update(
-    json['hasUpdate'] as bool,
-    json['apkSize'] as String,
-    json['isAppStore'] as bool,
-    json['downloadUrl'] as String,
-    json['updateContent'] as String,
-    json['isIgnorable'] as bool,
-    json['versionCode'] as String,
+    json['hasUpdate'] as bool?,
+    json['apkSize'] as String?,
+    json['isAppStore'] as bool?,
+    json['downloadUrl'] as String?,
+    json['updateContent'] as String?,
+    json['isIgnorable'] as bool?,
+    json['versionCode'] as String?,
   );
 }
 
