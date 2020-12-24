@@ -3,11 +3,6 @@ part of muka;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// TODO(dragostis): Missing functionality:
-//   * mobile horizontal mode with adding/removing steps
-//   * alternative labeling
-//   * stepper feedback in the case of high-latency interactions
-
 /// The state of a [Step] which is used to control the style of the circle and
 /// text.
 ///
@@ -73,9 +68,7 @@ class CustomStep {
     required this.content,
     this.state = CustomStepState.indexed,
     this.isActive = false,
-  })  : assert(title != null),
-        assert(content != null),
-        assert(state != null);
+  });
 
   /// The title of the step that typically describes it.
   final Widget title;
@@ -132,11 +125,7 @@ class CustomStepper extends StatefulWidget {
     this.controlsBuilder,
     this.lineHeight = 1.0,
     this.lineMargin = const EdgeInsets.symmetric(horizontal: 4.0),
-  })  : assert(steps != null),
-        assert(type != null),
-        assert(currentStep != null),
-        assert(0 <= currentStep && currentStep < steps.length),
-        super(key: key);
+  });
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
   ///
@@ -290,7 +279,6 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
   Widget? _buildCircleChild(int index, bool oldState) {
     final CustomStepState state = oldState ? _oldStates[index]! : widget.steps[index].state;
     final bool isDarkActive = _isDark() && widget.steps[index].isActive;
-    assert(state != null);
     switch (state) {
       case CustomStepState.indexed:
       case CustomStepState.disabled:
@@ -313,7 +301,6 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
       case CustomStepState.error:
         return const Text('!', style: _kStepStyle);
     }
-    return null;
   }
 
   Color _circleColor(int index) {
@@ -403,8 +390,6 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
         break;
     }
 
-    assert(cancelColor != null);
-
     final ThemeData themeData = Theme.of(context);
     final MaterialLocalizations localizations = MaterialLocalizations.of(context);
 
@@ -439,26 +424,22 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
   TextStyle? _titleStyle(int index) {
     final ThemeData themeData = Theme.of(context);
     final TextTheme textTheme = themeData.textTheme;
-
-    assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
       case CustomStepState.indexed:
       case CustomStepState.editing:
       case CustomStepState.complete:
-        return textTheme.body2;
+        return textTheme.bodyText2;
       case CustomStepState.disabled:
-        return textTheme.body2!.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
+        return textTheme.bodyText2!.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
       case CustomStepState.error:
-        return textTheme.body2!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
+        return textTheme.bodyText2!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
-    return null;
   }
 
   TextStyle? _subtitleStyle(int index) {
     final ThemeData themeData = Theme.of(context);
     final TextTheme textTheme = themeData.textTheme;
 
-    assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
       case CustomStepState.indexed:
       case CustomStepState.editing:
@@ -469,7 +450,6 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
       case CustomStepState.error:
         return textTheme.caption!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
-    return null;
   }
 
   Widget _buildHeaderText(int index) {

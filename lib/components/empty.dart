@@ -14,14 +14,17 @@ class Empty extends StatefulWidget {
   /// 空数据图片地址
   ///
   /// 本地图片地址
+  // ignore: non_constant_identifier_names
   static String GLOBAL_EMPTY_DATA_URL = '';
 
   /// 无网络图片地址
   ///
   /// 本地图片地址
+  // ignore: non_constant_identifier_names
   static String GLOBAL_NOT_NETWORK_URL = '';
 
   /// 全局图片宽度
+  // ignore: non_constant_identifier_names
   static double IMG_WIDTH = 120.0;
 
   /// 控制器

@@ -85,10 +85,9 @@ class ITextField extends StatefulWidget {
     required this.controller,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
     this.validator,
-    this.showDeleteIcon = true, this.labelStyle,
-  })  : assert(maxLines == null || maxLines > 0),
-        assert(maxLength == null || maxLength > 0),
-        keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
+    this.showDeleteIcon = true,
+    this.labelStyle,
+  })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
   @override
@@ -128,8 +127,10 @@ class _ITextFieldState extends State<ITextField> {
   ///输入范围
   List<TextInputFormatter>? _getTextInputFormatter() {
     return _isNumber && (widget.digitsOnly == true)
-        ? <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(widget.maxLength ?? -1)]
-        : widget.maxLength != null ? <TextInputFormatter>[LengthLimitingTextInputFormatter(widget.maxLength)] : null;
+        ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(widget.maxLength ?? -1)]
+        : widget.maxLength != null
+            ? <TextInputFormatter>[LengthLimitingTextInputFormatter(widget.maxLength)]
+            : null;
   }
 
   @override
