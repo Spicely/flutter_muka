@@ -49,6 +49,12 @@ class ListItem extends StatefulWidget {
   /// 显示分割线
   final bool showDivider;
 
+  /// 分割线左边距离
+  final double dividerIndex;
+
+  /// 分割线dk边距离
+  final double dividerEndIndex;
+
   ListItem({
     Key? key,
     this.showArrow = false,
@@ -66,6 +72,8 @@ class ListItem extends StatefulWidget {
     this.borderRadius,
     this.boxShadow,
     this.showDivider = false,
+    this.dividerIndex = 0,
+    this.dividerEndIndex = 0,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _ListItemState();
@@ -77,49 +85,54 @@ class _ListItemState extends State<ListItem> {
     return GestureDetector(
       onLongPress: widget.onLongPress,
       onTap: widget.onTap,
-      child: Container(
-        height: widget.height,
-        margin: widget.margin,
-        padding: widget.contentPadding,
-        decoration: BoxDecoration(
-          color: widget.color ?? Colors.transparent,
-          borderRadius: widget.borderRadius,
-          boxShadow: widget.boxShadow,
-          border: widget.showDivider
-              ? Border(
-                  bottom: BorderSide(
-                    color: Theme.of(context).disabledColor,
-                    width: 0.2,
-                  ),
-                )
-              : null,
-        ),
-        child: Row(
-          children: <Widget>[
-            widget.fieldType.index == 0 ? Expanded(child: Container(child: widget.title)) : Container(child: widget.title),
-            widget.fieldType.index == 0
-                ? Container(
-                    alignment: widget.valueAlignment,
-                    child: widget.value ?? Container(),
-                  )
-                : Expanded(
-                    child: Container(
-                      alignment: widget.valueAlignment,
-                      child: widget.value ?? Container(),
-                    ),
-                  ),
-            widget.showArrow
-                ? Padding(
-                    padding: EdgeInsets.only(left: 10, top: 3),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 13,
-                      color: Colors.black38,
-                    ),
-                  )
-                : widget.icon ?? Container()
-          ],
-        ),
+      child: Column(
+        children: [
+          Container(
+            height: widget.showDivider ? widget.height + 0.1 : widget.height,
+            margin: widget.margin,
+            padding: widget.contentPadding,
+            decoration: BoxDecoration(
+              color: widget.color ?? Colors.transparent,
+              borderRadius: widget.borderRadius,
+              boxShadow: widget.boxShadow,
+              // border: widget.showDivider
+              //     ? Border(
+              //         bottom: BorderSide(
+              //           color: Theme.of(context).disabledColor,
+              //           width: 0.1,
+              //         ),
+              //       )
+              //     : null,
+            ),
+            child: Row(
+              children: <Widget>[
+                widget.fieldType.index == 0 ? Expanded(child: Container(child: widget.title)) : Container(child: widget.title),
+                widget.fieldType.index == 0
+                    ? Container(
+                        alignment: widget.valueAlignment,
+                        child: widget.value ?? Container(),
+                      )
+                    : Expanded(
+                        child: Container(
+                          alignment: widget.valueAlignment,
+                          child: widget.value ?? Container(),
+                        ),
+                      ),
+                widget.showArrow
+                    ? Padding(
+                        padding: EdgeInsets.only(left: 10, top: 3),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 13,
+                          color: Colors.black38,
+                        ),
+                      )
+                    : widget.icon ?? Container()
+              ],
+            ),
+          ),
+          widget.showDivider ? Divider(height: 0.1, indent: widget.dividerIndex, endIndent: widget.dividerEndIndex) : Container(),
+        ],
       ),
     );
   }
