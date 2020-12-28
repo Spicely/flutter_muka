@@ -83,7 +83,7 @@ class _StartUpState extends State<StartUp> {
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     _timer?.cancel();
     super.dispose();
   }
