@@ -133,7 +133,7 @@ Flutter样式组件
         /// 更新内容
         String updateContent;
       },
-      'status': 200,
+      'code': 200,
       'msg': '请求成功'
     }
 ```

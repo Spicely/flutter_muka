@@ -1,16 +1,16 @@
 class HttpResponse {
-  int? status;
-  
+  int? code;
+
   String? msg;
 
   dynamic data;
-  
-  HttpResponse(this.status, this.msg, this.data);
+
+  HttpResponse(this.code, this.msg, this.data);
 
   HttpResponse.empty();
 
   factory HttpResponse.fromJson(Map<String, dynamic> json) => _$HttpResponseFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$HttpResponseToJson(this);
 }
 
@@ -26,9 +26,8 @@ HttpResponse _$HttpResponseFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$HttpResponseToJson(HttpResponse instance) =>
-    <String, dynamic>{
-      'status': instance.status,
+Map<String, dynamic> _$HttpResponseToJson(HttpResponse instance) => <String, dynamic>{
+      'code': instance.code,
       'msg': instance.msg,
       'data': instance.data,
     };

@@ -5,7 +5,7 @@ class HttpRes {
   static Future<dynamic> verify(BuildContext context, dynamic data) {
     try {
       HttpResponse res = HttpResponse.fromJson(data);
-      switch (res.status) {
+      switch (res.code) {
         case 200:
           return Future.value(res.data);
         default:
