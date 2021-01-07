@@ -43,7 +43,6 @@ class HttpUtils {
     Map<String, dynamic>? headers,
     String? contentType,
     CancelToken? cancelToken,
-    bool interceptor = true,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};
@@ -68,7 +67,7 @@ class HttpUtils {
       print('请求参数：【' + data.toString() + '】');
     }
 
-    Dio dio = await (createInstance(interceptor) as FutureOr<Dio>);
+    Dio dio = await createInstance();
     var result;
 
     // try {} on DioError catch (e) {
@@ -113,7 +112,7 @@ class HttpUtils {
   }
 
   /// 创建 dio 实例对象
-  static Future<Dio?> createInstance(bool interceptor) async {
+  static Future<Dio> createInstance() async {
     if (_dio == null) {
       BaseOptions options = BaseOptions(
         baseUrl: BASE_URL,
@@ -122,11 +121,9 @@ class HttpUtils {
       );
 
       _dio = Dio(options);
-      if (interceptor) {
-        interceptors?.call(_dio).forEach((i) {
-          _dio!.interceptors.add(i);
-        });
-      }
+      interceptors?.call(_dio).forEach((i) {
+        _dio!.interceptors.add(i);
+      });
       var appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
       PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
@@ -142,7 +139,7 @@ class HttpUtils {
       }
     }
 
-    return _dio;
+    return _dio!;
   }
 
   /// 清空 dio 对象

@@ -17,7 +17,7 @@ class AppUpdate {
     Animation<Color>? progressValueColor,
     double progressHeight = 8,
     bool verify = false,
-    HttpUtilsMethod method = HttpUtilsMethod.POST,
+    String method = 'POST',
     Map<dynamic, dynamic>? data,
   }) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -45,13 +45,13 @@ class AppUpdate {
           params[key] = value;
         });
       }
-      dynamic res = await HttpUtils.request(
+      Response<dynamic> res = await Dio().request(
         url,
-        data: params,
-        method: method,
-        interceptor: false,
+        options: Options(method: method),
+        data: method.toUpperCase() != 'GET' ? params : null,
+        queryParameters: method.toUpperCase() == 'GET' ? params : null,
       );
-      dynamic body = await HttpRes.verify(context, res);
+      dynamic body = await HttpRes.verify(context, res.data);
       Update val = Update.fromJson(body);
       if (val.hasUpdate!) {
         bool hasDown = false;
