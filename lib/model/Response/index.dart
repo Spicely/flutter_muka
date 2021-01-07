@@ -20,7 +20,7 @@ class HttpResponse {
 
 HttpResponse _$HttpResponseFromJson(Map<String, dynamic> json) {
   return HttpResponse(
-    json['status'] as int?,
+    json['code'] as int?,
     json['msg'] as String?,
     json['data'],
   );
