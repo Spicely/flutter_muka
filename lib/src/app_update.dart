@@ -36,7 +36,7 @@ class AppUpdate {
       }
     }
     try {
-      Map<dynamic, dynamic> params = {
+      Map<String, dynamic> params = {
         'version': version,
         'platform': Utils.platform,
       };
@@ -45,7 +45,7 @@ class AppUpdate {
           params[key] = value;
         });
       }
-      Map<dynamic, dynamic> res = await HttpUtils.request(
+      dynamic res = await HttpUtils.request(
         url,
         data: params,
         method: method,
@@ -193,6 +193,8 @@ class AppUpdate {
           },
         );
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 }
