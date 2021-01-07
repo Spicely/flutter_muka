@@ -45,12 +45,12 @@ class AppUpdate {
           params[key] = value;
         });
       }
-      Map<dynamic, dynamic> res = await (HttpUtils.request(
+      Map<dynamic, dynamic> res = await HttpUtils.request(
         url,
         data: params,
         method: method,
         interceptor: false,
-      ) as FutureOr<Map<dynamic, dynamic>>);
+      );
       dynamic body = await HttpRes.verify(context, res);
       Update val = Update.fromJson(body);
       if (val.hasUpdate!) {
