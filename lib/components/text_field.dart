@@ -155,7 +155,7 @@ class _ITextFieldState extends State<ITextField> {
         prefixIcon: widget.prefixIcon,
         suffixIcon: Container(
           alignment: Alignment.centerRight,
-          width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 10,
+          width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
