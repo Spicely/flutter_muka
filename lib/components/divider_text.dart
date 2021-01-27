@@ -1,23 +1,23 @@
 part of muka;
 
 class DividerText extends StatefulWidget {
-  final double? indent;
+  final double indent;
 
   final String text;
 
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry margin;
 
-  final Color? textColor;
+  final Color textColor;
 
-  final double? textSize;
+  final double textSize;
 
   const DividerText({
-    Key? key,
+    Key key,
     this.indent = 20,
     this.textColor,
     this.textSize = 14,
     this.margin = const EdgeInsets.symmetric(vertical: 20),
-    required this.text,
+    @required this.text,
   }) : super(key: key);
 
   @override

@@ -10,7 +10,7 @@ part of muka;
 class PersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   final ListItem child;
 
-  PersistentHeaderDelegate({required this.child});
+  PersistentHeaderDelegate({@required this.child});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

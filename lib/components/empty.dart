@@ -28,15 +28,15 @@ class Empty extends StatefulWidget {
   static double IMG_WIDTH = 120.0;
 
   /// 控制器
-  final EmptyController? controller;
+  final EmptyController controller;
 
-  final Widget? child;
+  final Widget child;
 
   /// 无数据填充
-  final Widget? empty;
+  final Widget empty;
 
   /// 无网络填充
-  final Widget? network;
+  final Widget network;
 
   @override
   State<StatefulWidget> createState() => _EmptyState();
@@ -69,7 +69,7 @@ class _EmptyState extends State<Empty> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.controller?._bindEmptyState(this);
+    widget.controller._bindEmptyState(this);
   }
 
   @override
@@ -119,7 +119,7 @@ class _EmptyState extends State<Empty> {
 }
 
 class EmptyController {
-  _EmptyState? _easyState;
+  _EmptyState _easyState;
 
   /// 绑定状态
   void _bindEmptyState(_EmptyState state) {
@@ -128,12 +128,12 @@ class EmptyController {
 
   /// 显示
   void show() {
-    _easyState!._setVisible(true);
+    _easyState._setVisible(true);
   }
 
   /// 隐藏
   void hide() {
-    _easyState!._setVisible(false);
+    _easyState._setVisible(false);
   }
 
   /// 销毁

@@ -16,53 +16,53 @@ class ITextField extends StatefulWidget {
 
   final int maxLines;
 
-  final int? maxLength;
+  final int maxLength;
 
-  final String? hintText;
+  final String hintText;
 
-  final TextStyle? hintStyle;
+  final TextStyle hintStyle;
 
-  final ITextFieldCallBack? onChanged;
+  final ITextFieldCallBack onChanged;
 
-  final Icon? deleteIcon;
+  final Icon deleteIcon;
 
-  final InputBorder? inputBorder;
+  final InputBorder inputBorder;
 
-  final InputBorder? focusedBorder;
+  final InputBorder focusedBorder;
 
-  final InputBorder? enabledBorder;
+  final InputBorder enabledBorder;
 
-  final double? suffixIconWidth;
+  final double suffixIconWidth;
 
-  final Widget? prefixIcon;
+  final Widget prefixIcon;
 
-  final TextStyle? textStyle;
+  final TextStyle textStyle;
 
-  final Widget? suffixIcon;
+  final Widget suffixIcon;
 
-  final TextStyle? labelStyle;
+  final TextStyle labelStyle;
 
-  final bool? digitsOnly;
+  final bool digitsOnly;
 
-  final Color? cursorColor;
+  final Color cursorColor;
 
-  final bool? obscureText;
+  final bool obscureText;
 
   final EdgeInsetsGeometry contentPadding;
 
-  final FormFieldValidator<String>? validator;
+  final FormFieldValidator<String> validator;
 
   final TextEditingController controller;
 
-  final FocusNode? focusNode;
+  final FocusNode focusNode;
 
   /// 显示删除按钮
   final bool showDeleteIcon;
 
-  final String? labelText;
+  final String labelText;
 
   ITextField({
-    Key? key,
+    Key key,
     ITextInputType keyboardType: ITextInputType.text,
     this.maxLines = 1,
     this.maxLength,
@@ -82,7 +82,7 @@ class ITextField extends StatefulWidget {
     this.focusedBorder,
     this.focusNode,
     this.labelText,
-    required this.controller,
+    @required this.controller,
     this.contentPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
     this.validator,
     this.showDeleteIcon = true,
@@ -125,7 +125,7 @@ class _ITextFieldState extends State<ITextField> {
   }
 
   ///输入范围
-  List<TextInputFormatter>? _getTextInputFormatter() {
+  List<TextInputFormatter> _getTextInputFormatter() {
     return _isNumber && (widget.digitsOnly == true)
         ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(widget.maxLength ?? -1)]
         : widget.maxLength != null
@@ -155,7 +155,7 @@ class _ITextFieldState extends State<ITextField> {
         prefixIcon: widget.prefixIcon,
         suffixIcon: Container(
           alignment: Alignment.centerRight,
-          width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
+          width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 10,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -169,7 +169,7 @@ class _ITextFieldState extends State<ITextField> {
                               padding: EdgeInsets.all(0.0),
                               iconSize: 18.0,
                               icon: widget.deleteIcon != null
-                                  ? widget.deleteIcon!
+                                  ? widget.deleteIcon
                                   : Icon(
                                       Icons.cancel,
                                       color: Color.fromRGBO(0, 0, 0, 0.3),

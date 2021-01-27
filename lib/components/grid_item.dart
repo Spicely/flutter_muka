@@ -8,23 +8,23 @@ part of muka;
 //////////////////////////////////////////////////////////////////////////
 
 class GridItem extends StatefulWidget {
-  final double? width;
+  final double width;
 
   /// 网格图片
-  final Widget? image;
+  final Widget image;
 
   /// 文字
-  final Widget? label;
+  final Widget label;
 
   /// 文字间距
   final EdgeInsetsGeometry textMargin;
 
   final EdgeInsetsGeometry padding;
 
-  final void Function()? onTap;
+  final void Function() onTap;
 
   const GridItem({
-    Key? key,
+    Key key,
     this.width,
     this.image,
     this.label,

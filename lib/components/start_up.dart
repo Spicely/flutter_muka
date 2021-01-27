@@ -27,7 +27,7 @@ class StartUp extends StatefulWidget {
   final Widget child;
 
   /// 底部Logo视图
-  final Widget? logo;
+  final Widget logo;
 
   /// 计时器位置
   final StartUpTimerType timer;
@@ -39,14 +39,14 @@ class StartUp extends StatefulWidget {
   final String waitLabel;
 
   /// 计时完成或点击跳过回调
-  final Function? onTimeEnd;
+  final Function onTimeEnd;
 
   /// 视图是否全屏
   final bool isFull;
 
   StartUp({
-    Key? key,
-    required this.child,
+    Key key,
+    @required this.child,
     this.logoHeight = 120,
     this.color = Colors.white,
     this.logo,
@@ -61,9 +61,9 @@ class StartUp extends StatefulWidget {
 }
 
 class _StartUpState extends State<StartUp> {
-  Timer? _timer;
+  Timer _timer;
 
-  late int _time;
+  int _time;
 
   @override
   void initState() {

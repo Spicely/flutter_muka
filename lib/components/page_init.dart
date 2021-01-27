@@ -1,12 +1,12 @@
 part of muka;
 
 class PageInit extends StatefulWidget {
-  final Widget? child;
+  final Widget child;
 
   /// 退出App提示
-  final String? exitLabel;
+  final String exitLabel;
 
-  const PageInit({Key? key, this.child, this.exitLabel}) : super(key: key);
+  const PageInit({Key key, this.child, this.exitLabel}) : super(key: key);
   @override
   _PageInitState createState() => _PageInitState();
 }
@@ -26,7 +26,7 @@ class _PageInitState extends State<PageInit> {
       Future.delayed(const Duration(milliseconds: 1500), () {
         _lastClickTime = 0;
       });
-      toast(widget.exitLabel!);
+      toast(widget.exitLabel);
       return Future.value(false);
     }
   }

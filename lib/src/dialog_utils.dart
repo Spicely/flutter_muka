@@ -2,9 +2,9 @@ part of muka;
 
 class DialogUtils {
   static void showMsg({
-    required BuildContext context,
-    required String text,
-    VoidCallback? onOk,
+    @required BuildContext context,
+    @required String text,
+    VoidCallback onOk,
   }) {
     onOk = onOk ?? () {};
     showDialog(
@@ -19,7 +19,7 @@ class DialogUtils {
             FlatButton(
               child: Text('确认'),
               onPressed: () {
-                onOk!();
+                onOk();
                 Navigator.of(context).pop();
               },
             ),
@@ -53,9 +53,9 @@ class DialogUtils {
     String title = "分享到",
     bool divider = true,
     TextStyle titleStyle = const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-    ShapeBorder? shape,
-    List<DialogShareData>? data,
-    void Function(String? val)? onPressed,
+    ShapeBorder shape,
+    List<DialogShareData> data,
+    void Function(String val) onPressed,
   }) {
     showModalBottomSheet<void>(
       context: context,
@@ -95,13 +95,13 @@ class DialogUtils {
                         child: Column(
                           children: <Widget>[
                             Image.asset(
-                              (data ?? shareData)[index].icon!,
+                              (data ?? shareData)[index].icon,
                               width: 60,
                               height: 60,
                             ),
                             Container(
                               padding: EdgeInsets.only(top: 5),
-                              child: Text((data ?? shareData)[index].title!),
+                              child: Text((data ?? shareData)[index].title),
                             ),
                           ],
                         ),
@@ -119,7 +119,7 @@ class DialogUtils {
   }
 
   /// 手写签名
-  static Future<Uint8List?> signature(context) {
+  static Future<Uint8List> signature(context) {
     return showInfo<Uint8List>(
       context,
       width: MediaQuery.of(context).size.height + MediaQuery.of(context).padding.top,
@@ -132,19 +132,19 @@ class DialogUtils {
     );
   }
 
-  static Future<T?> showInfo<T>(
+  static Future<T> showInfo<T>(
     BuildContext context, {
-    required Widget Function(BuildContext, void Function(void Function())) content,
-    VoidCallback? onOk,
-    double? width,
-    double? height,
+    @required Widget Function(BuildContext, void Function(void Function())) content,
+    VoidCallback onOk,
+    double width,
+    double height,
     BorderRadiusGeometry borderRadius = const BorderRadius.all(Radius.circular(10)),
-    DecorationImage? background,
-    Color? color,
-    double? elevation,
+    DecorationImage background,
+    Color color,
+    double elevation,
     bool willPop = true,
     bool showClose = true,
-    Widget? close,
+    Widget close,
   }) {
     onOk = onOk ?? () {};
     return showDialog(
@@ -202,13 +202,13 @@ class DialogUtils {
   }
 
   static void showTitleMsg({
-    required BuildContext context,
-    required String text,
-    String? title,
-    Widget? icon,
-    VoidCallback? onOk,
+    @required BuildContext context,
+    @required String text,
+    String title,
+    Widget icon,
+    VoidCallback onOk,
     bool showCancel = false,
-    VoidCallback? onCancel,
+    VoidCallback onCancel,
   }) {
     onOk = onOk ?? () {};
     onCancel = onCancel ?? () {};
@@ -233,7 +233,7 @@ class DialogUtils {
                 ? FlatButton(
                     child: Text('取消'),
                     onPressed: () {
-                      onCancel!();
+                      onCancel();
                       Navigator.of(context).pop();
                     },
                   )
@@ -242,7 +242,7 @@ class DialogUtils {
               child: Text('确认'),
               onPressed: () {
                 Navigator.of(context).pop();
-                onOk!();
+                onOk();
               },
             ),
           ],
@@ -253,7 +253,7 @@ class DialogUtils {
 
   static void showLoading(
     BuildContext context, {
-    String? text,
+    String text,
     bool willPop = true,
   }) {
     showDialog(

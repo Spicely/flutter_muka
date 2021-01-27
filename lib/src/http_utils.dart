@@ -1,6 +1,6 @@
 part of muka;
 
-typedef List<Interceptor> HttpUtilsInterceptors(Dio? dio);
+typedef List<Interceptor> HttpUtilsInterceptors(Dio dio);
 
 enum HttpUtilsMethod {
   GET,
@@ -12,7 +12,7 @@ enum HttpUtilsMethod {
 
 class HttpUtils {
   /// global dio object
-  static Dio? _dio;
+  static Dio _dio;
 
   /// 请求地址
   // ignore: non_constant_identifier_names
@@ -30,19 +30,19 @@ class HttpUtils {
 
   /// 代理设置 代理地址
   // ignore: non_constant_identifier_names
-  static String? PROXY_URL;
+  static String PROXY_URL;
 
   /// 添加额外功能
-  static HttpUtilsInterceptors? interceptors;
+  static HttpUtilsInterceptors interceptors;
 
   /// request method
   static Future<dynamic> request(
     String url, {
     dynamic data,
     HttpUtilsMethod method = HttpUtilsMethod.POST,
-    Map<String, dynamic>? headers,
-    String? contentType,
-    CancelToken? cancelToken,
+    Map<String, dynamic> headers,
+    String contentType,
+    CancelToken cancelToken,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};
@@ -121,17 +121,17 @@ class HttpUtils {
       );
 
       _dio = Dio(options);
-      interceptors?.call(_dio).forEach((i) {
-        _dio!.interceptors.add(i);
+      interceptors.call(_dio).forEach((i) {
+        _dio.interceptors.add(i);
       });
       var appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
       PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
-      _dio!.interceptors.add(CookieManager(cookieJar));
+      _dio.interceptors.add(CookieManager(cookieJar));
 
       /// 设置代理
       if (PROXY_URL != null) {
-        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+        (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
           client.findProxy = (uri) {
             return "PROXY $uri";
           };
@@ -139,7 +139,7 @@ class HttpUtils {
       }
     }
 
-    return _dio!;
+    return _dio;
   }
 
   /// 清空 dio 对象
