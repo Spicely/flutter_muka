@@ -13,13 +13,16 @@ class DividerText extends StatefulWidget {
 
   final double dividerHeight;
 
+  final Color color;
+
   const DividerText({
     Key key,
     this.indent = 20,
     this.textColor,
     this.textSize = 14,
     this.margin = const EdgeInsets.symmetric(vertical: 20),
-    this.dividerHeight = 0.1,
+    this.dividerHeight = 0.5,
+    this.color,
     @required this.text,
   }) : super(key: key);
 
@@ -36,8 +39,9 @@ class _DividerTextState extends State<DividerText> {
         children: [
           Expanded(
             child: Divider(
+              color: widget.color,
               endIndent: widget.indent,
-              height: widget.dividerHeight,
+              thickness: widget.dividerHeight,
             ),
           ),
           Text(
@@ -49,8 +53,9 @@ class _DividerTextState extends State<DividerText> {
           ),
           Expanded(
             child: Divider(
+              color: widget.color,
               indent: widget.indent,
-              height: widget.dividerHeight,
+              thickness: widget.dividerHeight,
             ),
           ),
         ],
