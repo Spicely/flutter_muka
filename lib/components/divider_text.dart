@@ -42,6 +42,7 @@ class _DividerTextState extends State<DividerText> {
               color: widget.color,
               endIndent: widget.indent,
               thickness: widget.dividerHeight,
+              height: widget.dividerHeight,
             ),
           ),
           Text(
@@ -56,6 +57,7 @@ class _DividerTextState extends State<DividerText> {
               color: widget.color,
               indent: widget.indent,
               thickness: widget.dividerHeight,
+              height: widget.dividerHeight,
             ),
           ),
         ],
