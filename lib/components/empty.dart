@@ -7,9 +7,15 @@ part of muka;
 //// Date: 2020年06月19日 20:33:24 Friday
 //////////////////////////////////////////////////////////////////////////
 class Empty extends StatefulWidget {
-  Empty({this.controller, this.child, this.empty, this.network})
-      : assert(GLOBAL_EMPTY_DATA_URL.isNotEmpty || empty != null, '你需要至少保证全局空数据图片地址或无数据填充其中一个有值'),
-        assert(GLOBAL_NOT_NETWORK_URL.isNotEmpty || network != null, '你需要至少保证全局无网络图片地址或无网络填充其中一个有值');
+  Empty({
+    Key key,
+    this.controller,
+    this.child,
+    this.empty,
+    this.network,
+  })  : assert(GLOBAL_EMPTY_DATA_URL.isNotEmpty || empty != null, '你需要至少保证全局空数据图片地址或无数据填充其中一个有值'),
+        assert(GLOBAL_NOT_NETWORK_URL.isNotEmpty || network != null, '你需要至少保证全局无网络图片地址或无网络填充其中一个有值'),
+        super(key: key);
 
   /// 空数据图片地址
   ///

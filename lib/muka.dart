@@ -43,3 +43,4 @@ part 'components/custom_stepper.dart';
 part 'components/start_up.dart';
 part 'components/signature_view.dart';
 part 'components/divider_text.dart';
+part 'components/price_number.dart';
