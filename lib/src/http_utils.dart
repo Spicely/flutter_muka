@@ -64,7 +64,15 @@ class HttpUtils {
     // /// 打印请求相关信息：请求地址、请求方式、请求参数
     if (DEBUG) {
       print('请求地址：【' + _getMethod(method) + '  ' + url + '】');
-      print('请求参数：【' + data.toString() + '】');
+      if (data is FormData) {
+        Map params = {};
+        data.fields.forEach((i) {
+          params[i.key] = i.value;
+        });
+        print('请求参数：【' + params.toString() + '】');
+      } else {
+        print('请求参数：【' + data.toString() + '】');
+      }
     }
 
     Dio dio = await createInstance();
