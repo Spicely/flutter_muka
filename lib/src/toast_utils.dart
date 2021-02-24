@@ -2,10 +2,10 @@ part of muka;
 
 class ToastUtils {
   static error(BuildContext context, String msg) {
-    showSimpleNotification(Text(msg), background: Colors.red);
+    // showSimpleNotification(Text(msg), background: Colors.red);
   }
 
   static success(BuildContext context, String msg) {
-    showSimpleNotification(Text(msg), background: Colors.green);
+    // showSimpleNotification(Text(msg), background: Colors.green);
   }
 }

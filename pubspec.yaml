@@ -17,7 +17,6 @@ dependencies:
   flutter_html: ^1.0.2
   install_plugin: ^2.0.1
   package_info: ^0.4.3
-  overlay_support: ^1.0.5
   connectivity: ^0.4.9+5
   signature: ^3.2.0
   flutter_easyloading: ^2.2.2

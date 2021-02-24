@@ -10,18 +10,17 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:muka/src/http_res.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:install_plugin/install_plugin.dart';
 import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:signature/signature.dart';
 import 'model/update/index.dart';
 import 'model/dialog_share_data/index.dart';
 
-export 'package:overlay_support/overlay_support.dart';
 export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:dio/dio.dart';
 

@@ -683,10 +683,10 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
     assert(debugCheckHasMaterialLocalizations(context));
     assert(() {
       // ignore: deprecated_member_use
-      if (context.ancestorWidgetOfExactType(Stepper) != null)
-        throw FlutterError('Steppers must not be nested. The material specification advises '
-            'that one should avoid embedding steppers within steppers. '
-            'https://material.io/archive/guidelines/components/steppers.html#steppers-usage');
+      // if (context.ancestorWidgetOfExactType(Stepper) != null)
+      //   throw FlutterError('Steppers must not be nested. The material specification advises '
+      //       'that one should avoid embedding steppers within steppers. '
+      //       'https://material.io/archive/guidelines/components/steppers.html#steppers-usage');
       return true;
     }());
     switch (widget.type) {

@@ -91,7 +91,6 @@ class _StartUpState extends State<StartUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       backgroundColor: widget.color,
       body: Stack(
         children: [
