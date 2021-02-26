@@ -17,7 +17,7 @@ class CodeTime extends StatefulWidget {
   final TextStyle inkWellStyle;
 
   CodeTime({
-    @required this.onTap,
+    required this.onTap,
     this.countdown = 60,
     this.available = false,
     this.unavailableStyle = const TextStyle(
@@ -36,10 +36,10 @@ class CodeTime extends StatefulWidget {
 
 class _CodeTimeState extends State<CodeTime> {
   /// 倒计时的计时器。
-  Timer _timer;
+  Timer? _timer;
 
   /// 当前倒计时的秒数。
-  int _seconds;
+  int _seconds = 0;
 
   // 当前是否可点击
   bool _available = true;

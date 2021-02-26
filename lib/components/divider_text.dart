@@ -7,23 +7,23 @@ class DividerText extends StatefulWidget {
 
   final EdgeInsetsGeometry margin;
 
-  final Color textColor;
+  final Color? textColor;
 
   final double textSize;
 
   final double dividerHeight;
 
-  final Color color;
+  final Color? color;
 
   const DividerText({
-    Key key,
+    Key? key,
     this.indent = 20,
     this.textColor,
     this.textSize = 14,
     this.margin = const EdgeInsets.symmetric(vertical: 20),
     this.dividerHeight = 0.5,
     this.color,
-    @required this.text,
+    required this.text,
   }) : super(key: key);
 
   @override

@@ -11,7 +11,7 @@ class SignatureView extends StatefulWidget {
   final double penStrokeWidth;
 
   const SignatureView({
-    Key key,
+    Key? key,
     this.penColor = Colors.black,
     this.background = Colors.white,
     this.penStrokeWidth = 4,
@@ -21,7 +21,7 @@ class SignatureView extends StatefulWidget {
 }
 
 class _SignatureViewState extends State<SignatureView> {
-  SignatureController _controller;
+  late SignatureController _controller;
 
   @override
   void initState() {

@@ -15,19 +15,19 @@ class PriceNumber extends StatefulWidget {
   final double decimalSize;
 
   /// 小数点颜色
-  final Color decimalColor;
+  final Color? decimalColor;
 
   /// 整数大小
   final double intSize;
 
   /// 整数颜色
-  final Color intColor;
+  final Color? intColor;
 
   /// 金额单位
-  final String unit;
+  final String? unit;
 
   /// 金额单位颜色
-  final Color unitColor;
+  final Color? unitColor;
 
   /// 整体颜色
   final Color color;
@@ -36,8 +36,8 @@ class PriceNumber extends StatefulWidget {
   final double unitSize;
 
   const PriceNumber({
-    Key key,
-    @required this.value,
+    Key? key,
+    required this.value,
     this.decimalSize = 10,
     this.decimalColor,
     this.intSize = 16,
@@ -62,7 +62,7 @@ class _PriceNumberState extends State<PriceNumber> {
         widget.unit == null
             ? Container()
             : Text(
-                widget.unit,
+                widget.unit!,
                 style: TextStyle(
                   fontSize: widget.unitSize,
                   color: widget.unitColor ?? widget.color,
