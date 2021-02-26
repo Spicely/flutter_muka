@@ -55,7 +55,7 @@ class PriceNumber extends StatefulWidget {
 class _PriceNumberState extends State<PriceNumber> {
   @override
   Widget build(BuildContext context) {
-    List<String> data = widget.value.split('.');
+    List<String?> data = widget.value.split('.');
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       children: [
@@ -76,7 +76,7 @@ class _PriceNumberState extends State<PriceNumber> {
           ),
         ),
         Text(
-          '.' + data[1] ?? '.00',
+          '.' + (data[1] ?? '.00'),
           style: TextStyle(
             fontSize: widget.decimalSize,
             color: widget.decimalColor ?? widget.color,

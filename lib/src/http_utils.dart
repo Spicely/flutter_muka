@@ -33,7 +33,7 @@ class HttpUtils {
   static String? PROXY_URL;
 
   /// 添加额外功能
-  static late HttpUtilsInterceptors interceptors;
+  static HttpUtilsInterceptors? interceptors;
 
   /// request method
   static Future<dynamic> request(
@@ -129,7 +129,7 @@ class HttpUtils {
       );
 
       _dio = Dio(options);
-      interceptors.call(_dio).forEach((i) {
+      interceptors!.call(_dio).forEach((i) {
         _dio!.interceptors.add(i);
       });
       var appDocDir = await getApplicationDocumentsDirectory();
