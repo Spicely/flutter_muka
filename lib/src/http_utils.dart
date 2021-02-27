@@ -42,7 +42,7 @@ class HttpUtils {
     HttpUtilsMethod method = HttpUtilsMethod.POST,
     Map<String, dynamic>? headers,
     String? contentType,
-    required CancelToken cancelToken,
+    CancelToken? cancelToken,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};

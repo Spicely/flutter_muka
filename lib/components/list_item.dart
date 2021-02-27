@@ -27,7 +27,7 @@ class ListItem extends StatefulWidget {
 
   final Widget? value;
 
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? margin;
 
   final Color? color;
 
