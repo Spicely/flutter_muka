@@ -42,6 +42,8 @@ class ITextField extends StatefulWidget {
 
   final TextStyle? labelStyle;
 
+  final TextStyle? errorStyle;
+
   final bool? digitsOnly;
 
   final Color? cursorColor;
@@ -52,7 +54,7 @@ class ITextField extends StatefulWidget {
 
   final FormFieldValidator<String>? validator;
 
-  final TextEditingController controller;
+  final ITextEditingController controller;
 
   final FocusNode? focusNode;
 
@@ -60,6 +62,12 @@ class ITextField extends StatefulWidget {
   final bool showDeleteIcon;
 
   final String? labelText;
+
+  final int? errorMaxLines;
+
+  final InputBorder? errorBorder;
+
+  final InputBorder? focusedErrorBorder;
 
   ITextField({
     Key? key,
@@ -87,6 +95,10 @@ class ITextField extends StatefulWidget {
     this.validator,
     this.showDeleteIcon = true,
     this.labelStyle,
+    this.errorStyle,
+    this.errorMaxLines,
+    this.errorBorder,
+    this.focusedErrorBorder,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -96,6 +108,8 @@ class ITextField extends StatefulWidget {
 
 class _ITextFieldState extends State<ITextField> {
   bool _isNumber = false;
+
+  String? _errorText;
 
   ///输入类型
   TextInputType _getTextInputType() {
@@ -142,9 +156,15 @@ class _ITextFieldState extends State<ITextField> {
       enableInteractiveSelection: true,
       decoration: InputDecoration(
         hintStyle: widget.hintStyle,
+        isCollapsed: true,
         contentPadding: widget.contentPadding,
         counterStyle: TextStyle(color: Colors.white),
         hintText: widget.hintText,
+        errorText: _errorText,
+        errorStyle: widget.errorStyle,
+        errorMaxLines: widget.errorMaxLines,
+        errorBorder: widget.errorBorder,
+        focusedErrorBorder: widget.focusedErrorBorder,
         border: widget.inputBorder != null ? widget.inputBorder : UnderlineInputBorder(),
         focusedBorder: widget.focusedBorder,
         enabledBorder: widget.enabledBorder,
@@ -175,8 +195,7 @@ class _ITextFieldState extends State<ITextField> {
                                       color: Color.fromRGBO(0, 0, 0, 0.3),
                                     ),
                               onPressed: () {
-                                widget.controller.text = '';
-                                setState(() {});
+                                widget.controller.clear();
                               },
                             )
                           : null,
@@ -199,5 +218,44 @@ class _ITextFieldState extends State<ITextField> {
       obscureText: widget.obscureText ?? false,
     );
     return textField;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.controller._bindTextState(this);
+  }
+
+  void _showError(String label) {
+    setState(() {
+      _errorText = label;
+    });
+  }
+
+  void _clearError() {
+    setState(() {
+      _errorText = null;
+    });
+  }
+}
+
+class ITextEditingController extends TextEditingController {
+  ITextEditingController({String? text});
+
+  _ITextFieldState? _state;
+
+  /// 绑定状态
+  void _bindTextState(_ITextFieldState state) {
+    _state = state;
+  }
+
+  /// 显示错误信息
+  void showError(String label) {
+    _state!._showError(label);
+  }
+
+  /// 删除错误信息
+  void clearError() {
+    _state!._clearError();
   }
 }
