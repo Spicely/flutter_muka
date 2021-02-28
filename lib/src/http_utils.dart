@@ -132,10 +132,13 @@ class HttpUtils {
       interceptors!.call(_dio).forEach((i) {
         _dio!.interceptors.add(i);
       });
-      var appDocDir = await getApplicationDocumentsDirectory();
-      String appDocPath = appDocDir.path;
-      PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
-      _dio!.interceptors.add(CookieManager(cookieJar));
+
+      if (!kIsWeb) {
+        var appDocDir = await getApplicationDocumentsDirectory();
+        String appDocPath = appDocDir.path;
+        PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
+        _dio!.interceptors.add(CookieManager(cookieJar));
+      }
 
       /// 设置代理
       if (PROXY_URL != null) {
