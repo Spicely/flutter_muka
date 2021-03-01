@@ -133,7 +133,11 @@ class HttpUtils {
         _dio!.interceptors.add(i);
       });
 
-      if (!kIsWeb) {
+      if (kIsWeb) {
+        var adapter = BrowserHttpClientAdapter();
+        adapter.withCredentials = true;
+        _dio!.httpClientAdapter = adapter;
+      } else {
         var appDocDir = await getApplicationDocumentsDirectory();
         String appDocPath = appDocDir.path;
         PersistCookieJar cookieJar = PersistCookieJar(dir: appDocPath + '/.cookies/');
