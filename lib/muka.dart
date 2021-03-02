@@ -5,7 +5,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
-import 'package:dio/adapter_browser.dart';
 // import 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
