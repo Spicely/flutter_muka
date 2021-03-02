@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/adapter_browser.dart';
+// import 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -24,7 +25,7 @@ import 'model/update/index.dart';
 import 'model/dialog_share_data/index.dart';
 
 // export 'package:flutter_easyloading/flutter_easyloading.dart';
-// export 'package:dio/dio.dart';
+export 'package:dio/dio.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';

@@ -83,7 +83,7 @@ class _SignatureViewState extends State<SignatureView> {
                 IconButton(
                   icon: Icon(Icons.done, color: Colors.green),
                   onPressed: () async {
-                    Uint8List image = await _controller.toPngBytes();
+                    Uint8List? image = await _controller.toPngBytes();
                     Navigator.pop(context, image);
                   },
                 ),

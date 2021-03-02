@@ -150,8 +150,8 @@ class AppUpdate {
                                     InstallPlugin.gotoAppStore(val.downloadUrl!);
                                   } else {
                                     hasDown = true;
-                                    Directory storageDir = await getExternalStorageDirectory();
-                                    String storagePath = storageDir.path;
+                                    Directory? storageDir = await getExternalStorageDirectory();
+                                    String storagePath = storageDir!.path;
                                     File file = File(
                                         '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
                                     if (!file.existsSync()) {
