@@ -69,6 +69,8 @@ class ITextField extends StatefulWidget {
 
   final InputBorder? focusedErrorBorder;
 
+  final bool readOnly;
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -99,6 +101,7 @@ class ITextField extends StatefulWidget {
     this.errorMaxLines,
     this.errorBorder,
     this.focusedErrorBorder,
+    this.readOnly = false,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -154,6 +157,7 @@ class _ITextFieldState extends State<ITextField> {
       focusNode: widget.focusNode,
       cursorColor: widget.cursorColor ?? Theme.of(context).primaryColor,
       enableInteractiveSelection: true,
+      readOnly: widget.readOnly,
       decoration: InputDecoration(
         hintStyle: widget.hintStyle,
         isCollapsed: true,
