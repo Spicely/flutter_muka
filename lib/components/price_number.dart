@@ -32,6 +32,8 @@ class PriceNumber extends StatefulWidget {
   /// 整体颜色
   final Color color;
 
+  final FontWeight? fontWeight;
+
   /// 金额单位大小
   final double unitSize;
 
@@ -46,6 +48,7 @@ class PriceNumber extends StatefulWidget {
     this.unitColor,
     this.unitSize = 16,
     this.color = Colors.red,
+    this.fontWeight,
   }) : super(key: key);
 
   @override
@@ -58,6 +61,7 @@ class _PriceNumberState extends State<PriceNumber> {
     List<String?> data = widget.value.split('.');
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         widget.unit == null
             ? Container()
@@ -73,6 +77,7 @@ class _PriceNumberState extends State<PriceNumber> {
           style: TextStyle(
             fontSize: widget.intSize,
             color: widget.intColor ?? widget.color,
+            fontWeight: widget.fontWeight,
           ),
         ),
         Text(
@@ -80,6 +85,7 @@ class _PriceNumberState extends State<PriceNumber> {
           style: TextStyle(
             fontSize: widget.decimalSize,
             color: widget.decimalColor ?? widget.color,
+            fontWeight: widget.fontWeight,
           ),
         ),
       ],
