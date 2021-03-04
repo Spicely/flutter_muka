@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 class PageInit extends StatefulWidget {
   final Widget? child;

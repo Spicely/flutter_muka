@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muka/model/Response/index.dart';
+import 'package:flutter_muka/model/Response/index.dart';
 
 class HttpRes {
   static Future<dynamic> verify(BuildContext context, dynamic data) {

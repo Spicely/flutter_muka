@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 class ToastUtils {
   static error(BuildContext context, String msg) {

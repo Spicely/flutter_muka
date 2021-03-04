@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 class Utils {
   static String get platform {

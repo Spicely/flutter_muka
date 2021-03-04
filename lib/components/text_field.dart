@@ -4,7 +4,7 @@
 //// Summary: 组件样式ITextField
 //// Date: 2020年05月26日 15:19:53 Tuesday
 //////////////////////////////////////////////////////////////////////////
-part of muka;
+part of flutter_muka;
 
 ///自带删除的ITextField
 typedef void ITextFieldCallBack(String content);

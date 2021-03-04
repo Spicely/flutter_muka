@@ -1,4 +1,4 @@
-library muka;
+library flutter_muka;
 
 import 'dart:async';
 import 'dart:io';
@@ -14,7 +14,7 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:muka/src/http_res.dart';
+import 'package:flutter_muka/src/http_res.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:install_plugin/install_plugin.dart';
 import 'package:package_info/package_info.dart';

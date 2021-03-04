@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 typedef List<Interceptor> HttpUtilsInterceptors(Dio? dio);
 

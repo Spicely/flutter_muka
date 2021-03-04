@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 class VerifyUtils {
   /// 验证手机号

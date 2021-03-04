@@ -4,7 +4,7 @@
 //// Summary: 组件样式ListItem
 //// Date: 2020年05月26日 15:19:53 Tuesday
 //////////////////////////////////////////////////////////////////////////
-part of muka;
+part of flutter_muka;
 
 enum FieldType {
   /// 以title为flex 1

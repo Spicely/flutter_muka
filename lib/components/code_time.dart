@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 class CodeTime extends StatefulWidget {
   /// 倒计时的秒数，默认60秒

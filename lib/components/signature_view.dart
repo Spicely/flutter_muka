@@ -1,4 +1,4 @@
-part of muka;
+part of flutter_muka;
 
 class SignatureView extends StatefulWidget {
   /// 钢笔颜色
