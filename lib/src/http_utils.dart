@@ -78,14 +78,9 @@ class HttpUtils {
       }
     }
 
-    print(111);
     Dio? dio = await createInstance();
     var result;
 
-    // try {} on DioError catch (e) {
-    //   /// 打印请求失败相关信息
-    //   print('请求出错：' + e.toString());
-    // }
     Response response;
     response = await dio!.request(
       url,
@@ -98,8 +93,6 @@ class HttpUtils {
         contentType: contentType,
       ),
     );
-
-    print(response);
 
     result = response.data;
 
