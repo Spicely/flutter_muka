@@ -12,7 +12,7 @@ enum HttpUtilsMethod {
 
 class HttpUtils {
   /// global dio object
-  static Dio? _dio;
+  static late Dio _dio;
 
   /// 请求地址
   // ignore: non_constant_identifier_names
@@ -78,7 +78,8 @@ class HttpUtils {
       }
     }
 
-    Dio dio = await (createInstance() as FutureOr<Dio>);
+    print(111);
+    Dio? dio = await createInstance();
     var result;
 
     // try {} on DioError catch (e) {
@@ -86,7 +87,7 @@ class HttpUtils {
     //   print('请求出错：' + e.toString());
     // }
     Response response;
-    response = await dio.request(
+    response = await dio!.request(
       url,
       queryParameters: method == HttpUtilsMethod.GET ? data : null,
       data: method != HttpUtilsMethod.GET ? data : null,
@@ -97,6 +98,8 @@ class HttpUtils {
         contentType: contentType,
       ),
     );
+
+    print(response);
 
     result = response.data;
 
@@ -124,44 +127,38 @@ class HttpUtils {
 
   /// 创建 dio 实例对象
   static Future<Dio?> createInstance() async {
-    if (_dio == null) {
-      BaseOptions options = BaseOptions(
-        baseUrl: BASE_URL,
-        connectTimeout: CONNECT_TIMEOUT,
-        receiveTimeout: RECEIVE_TIMEOUT,
-      );
+    BaseOptions options = BaseOptions(
+      baseUrl: BASE_URL,
+      connectTimeout: CONNECT_TIMEOUT,
+      receiveTimeout: RECEIVE_TIMEOUT,
+    );
 
-      _dio = Dio(options);
-      interceptors!.call(_dio).forEach((i) {
-        _dio!.interceptors.add(i);
-      });
+    _dio = Dio(options);
 
-      if (kIsWeb) {
-        // var adapter = BrowserHttpClientAdapter();
-        // adapter.withCredentials = withCredentials!;
-        // _dio!.httpClientAdapter = adapter;
-      } else {
-        var appDocDir = await getApplicationDocumentsDirectory();
-        String appDocPath = appDocDir.path;
-        PersistCookieJar cookieJar = PersistCookieJar(storage: FileStorage(appDocPath + '/.cookies/'));
-        _dio!.interceptors.add(CookieManager(cookieJar));
-      }
+    interceptors?.call(_dio).forEach((i) {
+      _dio.interceptors.add(i);
+    });
 
-      /// 设置代理
-      if (PROXY_URL != null) {
-        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
-          client.findProxy = (uri) {
-            return "PROXY $uri";
-          };
+    if (kIsWeb) {
+      // var adapter = BrowserHttpClientAdapter();
+      // adapter.withCredentials = withCredentials!;
+      // _dio!.httpClientAdapter = adapter;
+    } else {
+      var appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      PersistCookieJar cookieJar = PersistCookieJar(storage: FileStorage(appDocPath + '/.cookies/'));
+      _dio.interceptors.add(CookieManager(cookieJar));
+    }
+
+    /// 设置代理
+    if (PROXY_URL != null) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+        client.findProxy = (uri) {
+          return "PROXY $uri";
         };
-      }
+      };
     }
 
     return _dio;
-  }
-
-  /// 清空 dio 对象
-  static clear() {
-    _dio = null;
   }
 }
