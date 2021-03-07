@@ -65,11 +65,14 @@ class AppUpdate {
           showClose: val.isIgnorable,
           willPop: val.isIgnorable,
           close: val.isIgnorable!
-              ? null
-              : Column(
+              ? Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(height: 40, width: 1, color: Colors.white),
+                    Container(
+                      height: 40,
+                      width: 1,
+                      color: Colors.white,
+                    ),
                     GestureDetector(
                       onTap: () {
                         hasState = false;
@@ -78,11 +81,12 @@ class AppUpdate {
                       child: Icon(Icons.highlight_off, color: Colors.white, size: 30),
                     ),
                   ],
-                ),
+                )
+              : null,
           content: (context, state) {
             return Column(
               children: <Widget>[
-                updateImage ?? Image.asset("packages/muka/assets/images/bg_update_top.png"),
+                updateImage ?? Image.asset('packages/flutter_muka/assets/images/bg_update_top.png'),
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(20),

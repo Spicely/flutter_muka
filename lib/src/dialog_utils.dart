@@ -177,18 +177,14 @@ class DialogUtils {
                 ),
                 showClose!
                     ? close ??
-                        Positioned(
-                          right: 10,
-                          top: 10,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              child: Icon(
-                                Icons.close,
-                                color: Colors.black26,
-                              ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.black26,
                             ),
                           ),
                         )
