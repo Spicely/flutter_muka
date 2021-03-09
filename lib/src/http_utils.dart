@@ -82,7 +82,7 @@ class HttpUtils {
     var result;
 
     Response response;
-    response = await dio!.request(
+    response = await dio.request(
       url,
       queryParameters: method == HttpUtilsMethod.GET ? data : null,
       data: method != HttpUtilsMethod.GET ? data : null,
@@ -119,7 +119,7 @@ class HttpUtils {
   }
 
   /// 创建 dio 实例对象
-  static Future<Dio?> createInstance() async {
+  static Future<Dio> createInstance() async {
     BaseOptions options = BaseOptions(
       baseUrl: BASE_URL,
       connectTimeout: CONNECT_TIMEOUT,
