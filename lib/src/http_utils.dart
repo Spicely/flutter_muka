@@ -133,9 +133,9 @@ class HttpUtils {
     });
 
     if (kIsWeb) {
-      // var adapter = BrowserHttpClientAdapter();
-      // adapter.withCredentials = withCredentials!;
-      // _dio!.httpClientAdapter = adapter;
+      var adapter = BrowserHttpClientAdapter();
+      adapter.withCredentials = withCredentials!;
+      _dio.httpClientAdapter = adapter;
     } else {
       var appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
