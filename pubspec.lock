@@ -98,7 +98,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.0"
+    version: "8.0.2"
   characters:
     dependency: transitive
     description:
@@ -238,7 +238,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0-beta6"
+    version: "4.0.0-beta7"
   dio_cookie_manager:
     dependency: "direct main"
     description:

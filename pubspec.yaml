@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   cookie_jar: ^3.0.0-beta2
   dio_cookie_manager: ^2.0.0-beta1
-  dio: ^4.0.0-beta6
+  dio: ^4.0.0-beta7
   path_provider: ^2.0.1
   permission_handler: ^6.0.0
   flutter_html: ^2.0.0-nullsafety.0
