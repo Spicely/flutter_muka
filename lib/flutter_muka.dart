@@ -45,3 +45,4 @@ part 'components/start_up.dart';
 part 'components/signature_view.dart';
 part 'components/divider_text.dart';
 part 'components/price_number.dart';
+part 'components/change_number.dart';
