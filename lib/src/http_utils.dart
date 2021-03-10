@@ -41,7 +41,7 @@ class HttpUtils {
   /// request method
   static Future<dynamic> request(
     String url, {
-    dynamic data,
+    dynamic? data,
     HttpUtilsMethod method = HttpUtilsMethod.POST,
     Map<String, dynamic>? headers,
     String? contentType,
@@ -55,7 +55,7 @@ class HttpUtils {
     /// /gysw/search/hist/:user_id        user_id=27
     /// 最终生成 url 为     /gysw/search/hist/27
     try {
-      data.forEach((key, value) {
+      data?.forEach((key, value) {
         if (url.indexOf(key) != -1) {
           url = url.replaceAll(':$key', value.toString());
         }
