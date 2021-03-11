@@ -30,11 +30,11 @@ class DialogUtils {
   }
 
   static List<DialogShareData> _shareData = [
-    DialogShareData.fromJson({"icon": "packages/muka/assets/images/wx.png", "title": "微信好友", "key": "wx"}),
-    DialogShareData.fromJson({"icon": "packages/muka/assets/images/wx_friend.png", "title": "朋友圈", "key": "wx_firend"}),
-    DialogShareData.fromJson({"icon": "packages/muka/assets/images/qq.png", "title": "QQ", "key": "qq"}),
-    DialogShareData.fromJson({"icon": "packages/muka/assets/images/qq_zone.png", "title": "QQ空间", "key": "qq_zone"}),
-    DialogShareData.fromJson({"icon": "packages/muka/assets/images/weibo.png", "title": "微博", "key": "weibo"}),
+    DialogShareData.fromJson({"icon": "packages/flutter_muka/assets/images/wx.png", "title": "微信好友", "key": "wx"}),
+    DialogShareData.fromJson({"icon": "packages/flutter_muka/assets/images/wx_friend.png", "title": "朋友圈", "key": "wx_firend"}),
+    DialogShareData.fromJson({"icon": "packages/flutter_muka/assets/images/qq.png", "title": "QQ", "key": "qq"}),
+    DialogShareData.fromJson({"icon": "packages/flutter_muka/assets/images/qq_zone.png", "title": "QQ空间", "key": "qq_zone"}),
+    DialogShareData.fromJson({"icon": "packages/flutter_muka/assets/images/weibo.png", "title": "微博", "key": "weibo"}),
   ];
 
   static List<DialogShareData> get shareData => _shareData;
