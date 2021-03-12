@@ -21,7 +21,7 @@ dependencies:
   package_info: ^2.0.0
   connectivity: ^3.0.2
   signature: ^4.0.0-nullsafety 
-  flutter_easyloading: ^2.2.2
+  flutter_easyloading: ^3.0.0
 
 dev_dependencies:
   flutter_test:
