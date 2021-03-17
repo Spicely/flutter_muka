@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -54,6 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _val1 = 1;
 
+  CodeTimeController _controller = CodeTimeController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         children: [
+          ListItem(
+            title: Text('ChangeNumber'),
+            color: Colors.white,
+          ),
           Center(
             child: ChangeNumber(
               width: 100,
@@ -89,6 +95,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Text('无限制 当前值$_val1'),
+          ListItem(
+            title: Text('CodeTime'),
+            color: Colors.white,
+          ),
+          ListItem(
+            title: CodeTime(
+              controller: _controller,
+              onTap: () async {},
+            ),
+          ),
         ],
       ),
     );

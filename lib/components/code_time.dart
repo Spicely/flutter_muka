@@ -5,29 +5,22 @@ class CodeTime extends StatefulWidget {
   final int countdown;
 
   /// 用户点击时的回调函数。
-  final Future<bool> Function() onTap;
+  final void Function() onTap;
 
-  /// 是否否可以获取验证码，默认为`false`。
+  final CodeTimeController controller;
+
+  /// 是否可以获取验证码，默认为`false`。
   final bool available;
 
-  /// 墨水瓶（`InkWell`）不可用时使用的样式。
-  final TextStyle unavailableStyle;
-
-  /// 当前墨水瓶（`InkWell`）的字体样式。
-  final TextStyle inkWellStyle;
+  /// 初始值显示文本
+  final String label;
 
   CodeTime({
+    required this.controller,
     required this.onTap,
     this.countdown = 60,
     this.available = false,
-    this.unavailableStyle = const TextStyle(
-      fontSize: 12.0,
-      color: const Color(0xFFCCCCCC),
-    ),
-    this.inkWellStyle = const TextStyle(
-      fontSize: 12.0,
-      color: const Color(0xFF00CACE),
-    ),
+    this.label = '获取验证码',
   });
 
   @override
@@ -44,14 +37,8 @@ class _CodeTimeState extends State<CodeTime> {
   // 当前是否可点击
   bool _available = true;
 
-  /// 当前墨水瓶（`InkWell`）的字体样式。
-  TextStyle inkWellStyle = TextStyle(
-    fontSize: 12.0,
-    color: const Color(0xFF00CACE),
-  );
-
-  /// 当前墨水瓶（`InkWell`）的文本。
-  String _verifyStr = '获取验证码';
+  /// 当前显示的文本。
+  late String _label;
 
   /// 启动倒计时的计时器。
   void _startTimer() {
@@ -60,15 +47,14 @@ class _CodeTimeState extends State<CodeTime> {
       if (_seconds == 0) {
         _cancelTimer();
         _seconds = widget.countdown;
-        inkWellStyle = widget.inkWellStyle;
         setState(() {});
         return;
       }
       _seconds--;
-      _verifyStr = '已发送$_seconds' + 's';
+      _label = '已发送$_seconds' + 's';
       setState(() {});
       if (_seconds == 0) {
-        _verifyStr = '重新发送';
+        _label = '重新发送';
         _available = true;
       }
     });
@@ -78,6 +64,11 @@ class _CodeTimeState extends State<CodeTime> {
   void _cancelTimer() {
     // 计时器（`Timer`）组件的取消（`cancel`）方法，取消计时器。
     _timer?.cancel();
+  }
+
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.controller._bindCodeTimeState(this);
   }
 
   @override
@@ -90,30 +81,38 @@ class _CodeTimeState extends State<CodeTime> {
   void initState() {
     super.initState();
     _seconds = widget.countdown;
+    // inkWellStyle =const TextStyle(fontSize: 12, color: Theme.of(context).primaryColor);
   }
 
   @override
   Widget build(BuildContext context) {
     // 墨水瓶（`InkWell`）组件，响应触摸的矩形区域。
-    return widget.available
-        ? InkWell(
-            child: Text(
-              '$_verifyStr',
-              style: inkWellStyle,
-            ),
-            onTap: _available
-                ? () async {
-                    bool status = await widget.onTap();
-                    if (status) {
-                      _available = false;
-                      _startTimer();
-                      inkWellStyle = widget.unavailableStyle;
-                      _verifyStr = '已发送$_seconds' + 's';
-                      setState(() {}); // 触发视图更新
-                    }
-                  }
-                : null,
-          )
-        : InkWell(child: Text('获取验证码', style: widget.unavailableStyle));
+    return InkWell(
+      child: Text('获取验证码', style: TextStyle(fontSize: 12, color: Theme.of(context).primaryColor)),
+    );
+  }
+}
+
+class CodeTimeController {
+  _CodeTimeState? _codeTimeState;
+
+  /// 绑定状态
+  void _bindCodeTimeState(_CodeTimeState state) {
+    this._codeTimeState = state;
+  }
+
+  /// 开始计时
+  void start() {
+    _codeTimeState!._startTimer();
+  }
+
+  /// 隐藏
+  void cancel() {
+    _codeTimeState!._cancelTimer();
+  }
+
+  /// 销毁
+  void dispose() {
+    this._codeTimeState = null;
   }
 }

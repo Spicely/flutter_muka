@@ -93,7 +93,7 @@ class ITextField extends StatefulWidget {
     this.focusNode,
     this.labelText,
     required this.controller,
-    this.contentPadding = const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+    this.contentPadding = const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
     this.validator,
     this.showDeleteIcon = true,
     this.labelStyle,
