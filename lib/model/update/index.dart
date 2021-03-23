@@ -1,9 +1,23 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'index.g.dart';
+
+@JsonSerializable()
 class Update {
   /// 是否更新
   bool? hasUpdate;
 
   /// 是否强制更新
   bool? isIgnorable;
+
+  /// 更新类型
+  ///
+  /// normal 全量升级
+  ///
+  /// hotUpgrade 热更新
+  ///
+  /// incrementUpgrade 增量升级
+  final String type;
 
   /// 是否跳转appStore
   bool? isAppStore;
@@ -15,12 +29,14 @@ class Update {
   String? apkSize;
 
   /// 下载地址
+  ///
+  /// 如果是IOS下载地址填写APPID
   String? downloadUrl;
 
   /// 更新内容
   String? updateContent;
 
-  Update(
+  Update({
     this.hasUpdate,
     this.apkSize,
     this.isAppStore,
@@ -28,37 +44,12 @@ class Update {
     this.updateContent,
     this.isIgnorable,
     this.versionCode,
-  );
+    this.type = 'normal',
+  });
 
-  Update.empty();
+  Update.empty(this.type);
 
   factory Update.fromJson(Map<String, dynamic> json) => _$UpdateFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateToJson(this);
 }
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-Update _$UpdateFromJson(Map<String, dynamic> json) {
-  return Update(
-    json['hasUpdate'] as bool?,
-    json['apkSize'] as String?,
-    json['isAppStore'] as bool?,
-    json['downloadUrl'] as String?,
-    json['updateContent'] as String?,
-    json['isIgnorable'] as bool?,
-    json['versionCode'] as String?,
-  );
-}
-
-Map<String, dynamic> _$UpdateToJson(Update instance) => <String, dynamic>{
-      'hasUpdate': instance.hasUpdate,
-      'isIgnorable': instance.isIgnorable,
-      'isAppStore': instance.isAppStore,
-      'versionCode': instance.versionCode,
-      'apkSize': instance.apkSize,
-      'downloadUrl': instance.downloadUrl,
-      'updateContent': instance.updateContent,
-    };

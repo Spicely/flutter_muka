@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'src/adapter_browser.dart' if (dart.library.js) 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';

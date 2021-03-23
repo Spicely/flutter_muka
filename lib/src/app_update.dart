@@ -144,47 +144,46 @@ class AppUpdate {
                                   )
                                 ],
                               )
-                            : RaisedButton(
-                                elevation: 0,
-                                color: Theme.of(context).primaryColor,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22.0))),
+                            : ElevatedButton(
+                                style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(0),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+                                  ),
+                                ),
                                 child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
                                 onPressed: () async {
                                   if (val.isAppStore!) {
-                                    await RUpgrade.upgradeFromUrl(val.downloadUrl!);
+                                    if (Platform.isIOS) {
+                                      await RUpgrade.upgradeFromAppStore(val.downloadUrl!);
+                                    } else {
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.BAIDU);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.COOLAPK);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOAPK);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOOGLE_PLAY);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.HIAPK);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.HUAWEI);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.QIHOO);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.TENCENT);
+                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.XIAOMI);
+                                    }
                                   } else {
-                                    // hasDown = true;
-                                    // Directory? storageDir = await getExternalStorageDirectory();
-                                    // String storagePath = storageDir!.path;
-                                    // File file = File(
-                                    //     '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
-                                    // if (!file.existsSync()) {
-                                    //   file.createSync();
-                                    // }
-                                    // state(() {});
-                                    // Response response = await Dio().get(
-                                    //   val.downloadUrl!,
-                                    //   onReceiveProgress: (int received, int total) {
-                                    //     if (total != -1 && hasState) {
-                                    //       progress = received / total;
-                                    //       state(() {});
-                                    //     }
-                                    //   },
-                                    //   options: Options(
-                                    //     responseType: ResponseType.bytes,
-                                    //     followRedirects: false,
-                                    //   ),
-                                    // );
-                                    // file.writeAsBytesSync(response.data);
-                                    // String apkFilePath = file.path;
-                                    // if (apkFilePath.isEmpty) {
-                                    //   print('make sure the apk file is set');
-                                    //   return;
-                                    // }
-                                    // bool granted = await Permission.storage.request().isGranted;
-                                    // if (granted) {
-                                    //   await InstallPlugin.installApk(apkFilePath, appId);
-                                    // }
+                                    hasDown = true;
+                                    String _filename = val.downloadUrl!.split('/').last;
+                                    int? id = await RUpgrade.upgrade(val.downloadUrl!, fileName: _filename);
+                                    RUpgrade.stream.listen((DownloadInfo info) async {
+                                      if (info.status != DownloadStatus.STATUS_SUCCESSFUL) {
+                                        bool granted = await Permission.storage.request().isGranted;
+                                        if (granted) {
+                                          await RUpgrade.install(info.id!);
+                                        }
+                                        return;
+                                      }
+                                      if (info.maxLength != -1 && hasState) {
+                                        progress = info.percent!;
+                                        state(() {});
+                                      }
+                                    });
                                   }
                                 },
                               ),
