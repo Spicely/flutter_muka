@@ -98,7 +98,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.3"
+    version: "8.0.4"
   characters:
     dependency: transitive
     description:
@@ -373,13 +373,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  install_plugin:
-    dependency: "direct main"
-    description:
-      name: install_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   io:
     dependency: transitive
     description:
@@ -583,6 +576,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  r_upgrade:
+    dependency: "direct main"
+    description:
+      name: r_upgrade
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
   shelf:
     dependency: transitive
     description:

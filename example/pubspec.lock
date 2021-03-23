@@ -233,13 +233,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  install_plugin:
-    dependency: transitive
-    description:
-      name: install_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   js:
     dependency: transitive
     description:
@@ -373,6 +366,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  r_upgrade:
+    dependency: transitive
+    description:
+      name: r_upgrade
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
   signature:
     dependency: transitive
     description:

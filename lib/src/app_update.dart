@@ -151,40 +151,40 @@ class AppUpdate {
                                 child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
                                 onPressed: () async {
                                   if (val.isAppStore!) {
-                                    InstallPlugin.gotoAppStore(val.downloadUrl!);
+                                    await RUpgrade.upgradeFromUrl(val.downloadUrl!);
                                   } else {
-                                    hasDown = true;
-                                    Directory? storageDir = await getExternalStorageDirectory();
-                                    String storagePath = storageDir!.path;
-                                    File file = File(
-                                        '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
-                                    if (!file.existsSync()) {
-                                      file.createSync();
-                                    }
-                                    state(() {});
-                                    Response response = await Dio().get(
-                                      val.downloadUrl!,
-                                      onReceiveProgress: (int received, int total) {
-                                        if (total != -1 && hasState) {
-                                          progress = received / total;
-                                          state(() {});
-                                        }
-                                      },
-                                      options: Options(
-                                        responseType: ResponseType.bytes,
-                                        followRedirects: false,
-                                      ),
-                                    );
-                                    file.writeAsBytesSync(response.data);
-                                    String apkFilePath = file.path;
-                                    if (apkFilePath.isEmpty) {
-                                      print('make sure the apk file is set');
-                                      return;
-                                    }
-                                    bool granted = await Permission.storage.request().isGranted;
-                                    if (granted) {
-                                      await InstallPlugin.installApk(apkFilePath, appId);
-                                    }
+                                    // hasDown = true;
+                                    // Directory? storageDir = await getExternalStorageDirectory();
+                                    // String storagePath = storageDir!.path;
+                                    // File file = File(
+                                    //     '$storagePath/${packageInfo.appName}v${val.versionCode}${Platform.isAndroid ? '.apk' : '.ipa'}');
+                                    // if (!file.existsSync()) {
+                                    //   file.createSync();
+                                    // }
+                                    // state(() {});
+                                    // Response response = await Dio().get(
+                                    //   val.downloadUrl!,
+                                    //   onReceiveProgress: (int received, int total) {
+                                    //     if (total != -1 && hasState) {
+                                    //       progress = received / total;
+                                    //       state(() {});
+                                    //     }
+                                    //   },
+                                    //   options: Options(
+                                    //     responseType: ResponseType.bytes,
+                                    //     followRedirects: false,
+                                    //   ),
+                                    // );
+                                    // file.writeAsBytesSync(response.data);
+                                    // String apkFilePath = file.path;
+                                    // if (apkFilePath.isEmpty) {
+                                    //   print('make sure the apk file is set');
+                                    //   return;
+                                    // }
+                                    // bool granted = await Permission.storage.request().isGranted;
+                                    // if (granted) {
+                                    //   await InstallPlugin.installApk(apkFilePath, appId);
+                                    // }
                                   }
                                 },
                               ),
