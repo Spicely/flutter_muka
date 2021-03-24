@@ -126,7 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
               hasBorder: true,
               controller: _controller1,
               onTap: () async {
-                _controller1.start();
+                _controller1.start((handle) {
+                  handle.reject();
+                });
               },
             ),
           ),
@@ -157,7 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   endLabel: 'Reload code',
                   render: (int time) => 'Reload code $time s',
                   onTap: () async {
-                    _controller2.start();
+                    _controller2.start((handle) {
+                      handle.resolve();
+                    });
                   },
                 ),
               ],

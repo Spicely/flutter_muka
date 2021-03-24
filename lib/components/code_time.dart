@@ -49,8 +49,6 @@ class CodeTime extends StatefulWidget {
 }
 
 class _CodeTimeState extends State<CodeTime> {
-  final _completer = Completer<dynamic>();
-
   /// 倒计时的计时器。
   Timer? _timer;
 
@@ -107,16 +105,17 @@ class _CodeTimeState extends State<CodeTime> {
   }
 
   /// 启动倒计时的计时器。
-  void _startTimer({Function(Completer next) func}) {
+  Future<void> _startTimer(Function(CodeTimeHander next) func) async {
     if (!_available) return;
     _available = false;
-
-    _completer.future.then((value) {
+    Completer _completer = Completer();
+    func(CodeTimeHander(_completer));
+    try {
+      await _completer.future;
       _start();
-    }).catchError(() {
+    } catch (e) {
       _reset();
-    });
-    func(_completer);
+    }
   }
 
   void _start() {
@@ -152,6 +151,20 @@ class _CodeTimeState extends State<CodeTime> {
   }
 }
 
+class CodeTimeHander {
+  final Completer _completer;
+
+  const CodeTimeHander(this._completer);
+
+  void resolve() {
+    _completer.complete('ok');
+  }
+
+  void reject() {
+    _completer.completeError('error');
+  }
+}
+
 class CodeTimeController {
   _CodeTimeState? _codeTimeState;
 
@@ -161,7 +174,7 @@ class CodeTimeController {
   }
 
   /// 开始计时
-  void start(Function(Completer next) func) {
+  void start(Function(CodeTimeHander next) func) {
     _codeTimeState!._startTimer(func);
   }
 
