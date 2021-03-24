@@ -20,7 +20,7 @@ import 'package:flutter_muka/src/http_res.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:package_info/package_info.dart';
 import 'package:signature/signature.dart';
-import 'model/update/index.dart';
+import 'model/upgrade_model/index.dart';
 import 'model/dialog_share_data/index.dart';
 
 export 'package:flutter_easyloading/flutter_easyloading.dart';

@@ -20,6 +20,10 @@ class AppUpdate {
     String method = 'POST',
     Map<dynamic, dynamic>? data,
   }) async {
+    if (kIsWeb) {
+      print('AppUpdate.checkUpdate -> 网页调用此函数无效');
+      return;
+    }
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     if (verify) {
@@ -52,8 +56,8 @@ class AppUpdate {
         queryParameters: method.toUpperCase() == 'GET' ? params : null,
       );
       dynamic body = await HttpRes.verify(context, res.data);
-      Update val = Update.fromJson(body);
-      if (val.hasUpdate!) {
+      UpgradeModel val = UpgradeModel.fromJson(body);
+      if (val.hasUpdate) {
         bool hasDown = false;
         double progress = 0;
         bool hasState = true;
@@ -62,9 +66,9 @@ class AppUpdate {
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width * 0.8,
           elevation: 0,
-          showClose: val.isIgnorable,
-          willPop: val.isIgnorable,
-          close: val.isIgnorable!
+          showClose: !val.isIgnorable,
+          willPop: !val.isIgnorable,
+          close: !val.isIgnorable
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -109,7 +113,7 @@ class AppUpdate {
                           padding: EdgeInsets.all(0),
                           children: <Widget>[
                             Html(
-                              data: val.updateContent!,
+                              data: val.updateContent,
                             )
                           ],
                         ),
@@ -137,7 +141,7 @@ class AppUpdate {
                                     child: Container(
                                       color: Colors.white,
                                       child: Text(
-                                        '${(progress * 100).toStringAsFixed(1)}%',
+                                        '${progress.toStringAsFixed(1)}%',
                                         style: TextStyle(color: progressValueColor as Color? ?? Theme.of(context).primaryColor),
                                       ),
                                     ),
@@ -153,9 +157,9 @@ class AppUpdate {
                                 ),
                                 child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
                                 onPressed: () async {
-                                  if (val.isAppStore!) {
+                                  if (val.isAppStore) {
                                     if (Platform.isIOS) {
-                                      await RUpgrade.upgradeFromAppStore(val.downloadUrl!);
+                                      await RUpgrade.upgradeFromAppStore(val.downloadUrl);
                                     } else {
                                       await RUpgrade.upgradeFromAndroidStore(AndroidStore.BAIDU);
                                       await RUpgrade.upgradeFromAndroidStore(AndroidStore.COOLAPK);
@@ -169,21 +173,24 @@ class AppUpdate {
                                     }
                                   } else {
                                     hasDown = true;
-                                    String _filename = val.downloadUrl!.split('/').last;
-                                    int? id = await RUpgrade.upgrade(val.downloadUrl!, fileName: _filename);
+                                    String _filename = val.downloadUrl.split('/').last;
                                     RUpgrade.stream.listen((DownloadInfo info) async {
-                                      if (info.status != DownloadStatus.STATUS_SUCCESSFUL) {
-                                        bool granted = await Permission.storage.request().isGranted;
-                                        if (granted) {
-                                          await RUpgrade.install(info.id!);
-                                        }
-                                        return;
-                                      }
                                       if (info.maxLength != -1 && hasState) {
                                         progress = info.percent!;
                                         state(() {});
                                       }
+                                      if (info.status == DownloadStatus.STATUS_SUCCESSFUL) {
+                                        progress = 100;
+                                        state(() {});
+                                        bool granted = await Permission.storage.request().isGranted;
+
+                                        if (granted) {
+                                          await RUpgrade.install(info.id!);
+                                        }
+                                      }
                                     });
+                                    print(_filename);
+                                    await RUpgrade.upgrade(val.downloadUrl, fileName: _filename);
                                   }
                                 },
                               ),

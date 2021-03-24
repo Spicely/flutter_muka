@@ -62,7 +62,7 @@ class ListItem extends StatefulWidget {
     this.onTap,
     this.onLongPress,
     this.value,
-    this.height = 50,
+    this.height = 50.0,
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 15),
     this.margin = const EdgeInsets.all(0),
     this.valueAlignment = Alignment.centerRight,
@@ -95,14 +95,6 @@ class _ListItemState extends State<ListItem> {
               color: widget.color ?? Colors.transparent,
               borderRadius: widget.borderRadius,
               boxShadow: widget.boxShadow,
-              // border: widget.showDivider
-              //      Border(
-              //         bottom: BorderSide(
-              //           color: Theme.of(context).disabledColor,
-              //           width: 0.1,
-              //         ),
-              //       )
-              //     : null,
             ),
             child: Row(
               children: <Widget>[
@@ -131,7 +123,7 @@ class _ListItemState extends State<ListItem> {
               ],
             ),
           ),
-          widget.showDivider ? Divider(height: 0.1, indent: widget.dividerIndex, endIndent: widget.dividerEndIndex) : Container(),
+          widget.showDivider ? Divider(height: 0.11, indent: widget.dividerIndex, endIndent: widget.dividerEndIndex) : Container(),
         ],
       ),
     );

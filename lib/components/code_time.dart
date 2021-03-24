@@ -1,5 +1,7 @@
 part of flutter_muka;
 
+String _render(int time) => '重新获取${time}s';
+
 class CodeTime extends StatefulWidget {
   /// 倒计时的秒数，默认60秒
   final int countdown;
@@ -9,18 +11,37 @@ class CodeTime extends StatefulWidget {
 
   final CodeTimeController controller;
 
-  /// 是否可以获取验证码，默认为`false`。
-  final bool available;
-
   /// 初始值显示文本
   final String label;
+
+  /// 计时结束后显示文本
+  final String endLabel;
+
+  /// 计时时显示的内容
+  final String Function(int time) render;
+
+  final double? width;
+
+  final double? height;
+
+  final bool hasBorder;
+
+  final double borderRadius;
+
+  final EdgeInsetsGeometry? padding;
 
   CodeTime({
     required this.controller,
     required this.onTap,
     this.countdown = 60,
-    this.available = false,
     this.label = '获取验证码',
+    this.endLabel = '重新获取',
+    this.height,
+    this.width,
+    this.hasBorder = false,
+    this.borderRadius = 0,
+    this.padding,
+    this.render = _render,
   });
 
   @override
@@ -28,43 +49,19 @@ class CodeTime extends StatefulWidget {
 }
 
 class _CodeTimeState extends State<CodeTime> {
+  final _completer = Completer<dynamic>();
+
   /// 倒计时的计时器。
   Timer? _timer;
 
   /// 当前倒计时的秒数。
   int _seconds = 0;
 
-  // 当前是否可点击
+  /// 当前是否可点击
   bool _available = true;
 
   /// 当前显示的文本。
   late String _label;
-
-  /// 启动倒计时的计时器。
-  void _startTimer() {
-    // 计时器（`Timer`）组件的定期（`periodic`）构造函数，创建一个新的重复计时器。
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (_seconds == 0) {
-        _cancelTimer();
-        _seconds = widget.countdown;
-        setState(() {});
-        return;
-      }
-      _seconds--;
-      _label = '已发送$_seconds' + 's';
-      setState(() {});
-      if (_seconds == 0) {
-        _label = '重新发送';
-        _available = true;
-      }
-    });
-  }
-
-  /// 取消倒计时的计时器。
-  void _cancelTimer() {
-    // 计时器（`Timer`）组件的取消（`cancel`）方法，取消计时器。
-    _timer?.cancel();
-  }
 
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -81,15 +78,77 @@ class _CodeTimeState extends State<CodeTime> {
   void initState() {
     super.initState();
     _seconds = widget.countdown;
-    // inkWellStyle =const TextStyle(fontSize: 12, color: Theme.of(context).primaryColor);
+    _label = widget.label;
   }
 
   @override
   Widget build(BuildContext context) {
-    // 墨水瓶（`InkWell`）组件，响应触摸的矩形区域。
     return InkWell(
-      child: Text('获取验证码', style: TextStyle(fontSize: 12, color: Theme.of(context).primaryColor)),
+      onTap: widget.onTap,
+      child: Container(
+        padding: widget.padding,
+        decoration: widget.hasBorder
+            ? BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: _available ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
+                ),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              )
+            : null,
+        width: widget.width,
+        height: widget.height,
+        child: Text(
+          _label,
+          style: TextStyle(fontSize: 12, color: _available ? Theme.of(context).primaryColor : Theme.of(context).disabledColor),
+        ),
+      ),
     );
+  }
+
+  /// 启动倒计时的计时器。
+  void _startTimer({Function(Completer next) func}) {
+    if (!_available) return;
+    _available = false;
+
+    _completer.future.then((value) {
+      _start();
+    }).catchError(() {
+      _reset();
+    });
+    func(_completer);
+  }
+
+  void _start() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_seconds == 0) {
+        _cancelTimer();
+        _seconds = widget.countdown;
+        setState(() {});
+        return;
+      }
+      _seconds--;
+      _label = widget.render.call(_seconds);
+      setState(() {});
+      if (_seconds == 0) {
+        _label = widget.endLabel;
+        _available = true;
+      }
+    });
+  }
+
+  /// 取消倒计时的计时器。
+  void _cancelTimer() {
+    _timer?.cancel();
+  }
+
+  /// 重置
+  void _reset() {
+    _timer?.cancel();
+    _available = true;
+    _seconds = widget.countdown;
+    _label = widget.label;
+    setState(() {});
   }
 }
 
@@ -102,13 +161,13 @@ class CodeTimeController {
   }
 
   /// 开始计时
-  void start() {
-    _codeTimeState!._startTimer();
+  void start(Function(Completer next) func) {
+    _codeTimeState!._startTimer(func);
   }
 
-  /// 隐藏
-  void cancel() {
-    _codeTimeState!._cancelTimer();
+  /// 重置
+  void reset() {
+    _codeTimeState!._reset();
   }
 
   /// 销毁

@@ -54,7 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _val1 = 1;
 
-  CodeTimeController _controller = CodeTimeController();
+  CodeTimeController _controller1 = CodeTimeController();
+
+  CodeTimeController _controller2 = CodeTimeController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ListItem(
             title: Text('ChangeNumber'),
             color: Colors.white,
-          ),
-          Center(
-            child: ChangeNumber(
-              width: 100,
+            showDivider: true,
+            dividerIndex: 15,
+            dividerEndIndex: 15,
+            value: ChangeNumber(
+              width: 80,
               value: _val,
               max: 10,
               min: 1,
@@ -82,9 +85,20 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
-          Text('最大10 最小1 每次进度2 当前值$_val'),
-          Center(
-            child: ChangeNumber(
+          ListItem(
+            showDivider: true,
+            dividerIndex: 15,
+            dividerEndIndex: 15,
+            color: Colors.white,
+            title: Text('最大10 最小1 每次进度2 当前值$_val'),
+          ),
+          ListItem(
+            title: Text('CodeTime'),
+            showDivider: true,
+            dividerIndex: 15,
+            dividerEndIndex: 15,
+            color: Colors.white,
+            value: ChangeNumber(
               width: 100,
               value: _val1,
               onChanged: (val) {
@@ -94,16 +108,68 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
-          Text('无限制 当前值$_val1'),
           ListItem(
-            title: Text('CodeTime'),
+            showDivider: true,
+            dividerIndex: 15,
+            dividerEndIndex: 15,
             color: Colors.white,
+            title: Text('无限制 当前值$_val1'),
           ),
           ListItem(
-            title: CodeTime(
-              controller: _controller,
-              onTap: () async {},
+            title: Text('CodeTime'),
+            showDivider: true,
+            dividerIndex: 15,
+            dividerEndIndex: 15,
+            color: Colors.white,
+            value: CodeTime(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              hasBorder: true,
+              controller: _controller1,
+              onTap: () async {
+                _controller1.start();
+              },
             ),
+          ),
+          ListItem(
+            title: Text('CodeTime'),
+            showDivider: true,
+            dividerIndex: 15,
+            dividerEndIndex: 15,
+            color: Colors.white,
+            fieldType: FieldType.TITLE,
+            value: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _controller2.reset();
+                    },
+                    child: Text('重置'),
+                  ),
+                ),
+                CodeTime(
+                  borderRadius: 20,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  hasBorder: true,
+                  controller: _controller2,
+                  label: 'Get verification code',
+                  endLabel: 'Reload code',
+                  render: (int time) => 'Reload code $time s',
+                  onTap: () async {
+                    _controller2.start();
+                  },
+                ),
+              ],
+            ),
+          ),
+          ListItem(
+            title: Text('检查更新'),
+            color: Colors.white,
+            showArrow: true,
+            onTap: () {
+              AppUpdate.checkUpdate(context, url: 'http://192.168.0.236:8081/app/upgrade', appId: 'com.example.example');
+            },
           ),
         ],
       ),
