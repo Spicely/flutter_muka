@@ -28,9 +28,9 @@ class CodeTime extends StatefulWidget {
 
   final double borderRadius;
 
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry padding;
 
-  CodeTime({
+  const CodeTime({
     required this.controller,
     required this.onTap,
     this.countdown = 60,
@@ -40,7 +40,7 @@ class CodeTime extends StatefulWidget {
     this.width,
     this.hasBorder = false,
     this.borderRadius = 0,
-    this.padding,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     this.render = _render,
   });
 
