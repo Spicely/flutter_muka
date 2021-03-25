@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             showArrow: true,
             onTap: () {
-              AppUpdate.checkUpdate(context, url: 'http://192.168.0.236:8081/app/upgrade', appId: 'com.example.example');
+              AppUpdate.checkUpdate(context, url: 'https://api.muka.site/app/upgrade', appId: 'com.example.example');
             },
           ),
         ],
