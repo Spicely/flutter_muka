@@ -156,10 +156,12 @@ class CodeTimeHander {
 
   const CodeTimeHander(this._completer);
 
+  /// 成功 [开始计时]
   void resolve() {
     _completer.complete('ok');
   }
 
+  /// 失败 [不计时]
   void reject() {
     _completer.completeError('error');
   }
