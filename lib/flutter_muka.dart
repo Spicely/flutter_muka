@@ -47,3 +47,4 @@ part 'components/divider_text.dart';
 part 'components/price_number.dart';
 part 'components/change_number.dart';
 part 'components/easy_popup.dart';
+part 'components/animated_button.dart';
