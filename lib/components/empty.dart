@@ -12,6 +12,7 @@ class Empty extends StatefulWidget {
     this.controller,
     this.child,
     this.empty,
+    this.extend,
     this.network,
   })  : assert(GLOBAL_EMPTY_DATA_URL.isNotEmpty || empty != null, '你需要至少保证全局空数据图片地址或无数据填充其中一个有值'),
         assert(GLOBAL_NOT_NETWORK_URL.isNotEmpty || network != null, '你需要至少保证全局无网络图片地址或无网络填充其中一个有值'),
@@ -37,6 +38,9 @@ class Empty extends StatefulWidget {
   final EmptyController? controller;
 
   final Widget? child;
+
+  /// 无网络填充
+  final Widget? extend;
 
   /// 无数据填充
   final Widget? empty;
@@ -75,23 +79,31 @@ class _EmptyState extends State<Empty> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.controller!._bindEmptyState(this);
+    widget.controller?._bindEmptyState(this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        widget.child ?? Container(),
         Offstage(
           offstage: !_status,
           child: Container(
             width: double.infinity,
             height: double.infinity,
             alignment: Alignment.center,
-            child: _getImage(),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _getImage(),
+                  widget.extend ?? Container(),
+                ],
+              ),
+            ),
           ),
         ),
+        widget.child ?? Container(),
       ],
     );
   }
