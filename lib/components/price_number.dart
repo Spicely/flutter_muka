@@ -70,6 +70,7 @@ class _PriceNumberState extends State<PriceNumber> {
                 style: TextStyle(
                   fontSize: widget.unitSize,
                   color: widget.unitColor ?? widget.color,
+                  fontWeight: widget.fontWeight,
                 ),
               ),
         Text(
