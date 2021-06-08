@@ -24,6 +24,16 @@ class ITextField extends StatefulWidget {
 
   final ITextFieldCallBack? onChanged;
 
+  final ITextFieldCallBack? onSubmitted;
+
+  final GestureTapCallback? onEditingComplete;
+
+  final GestureTapCallback? onTap;
+
+  final ToolbarOptions? toolbarOptions;
+
+  final AppPrivateCommandCallback? onAppPrivateCommand;
+
   final Icon? deleteIcon;
 
   final InputBorder? inputBorder;
@@ -102,6 +112,11 @@ class ITextField extends StatefulWidget {
     this.errorBorder,
     this.focusedErrorBorder,
     this.readOnly = false,
+    this.onAppPrivateCommand,
+    this.onEditingComplete,
+    this.onSubmitted,
+    this.onTap,
+    this.toolbarOptions,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -158,6 +173,11 @@ class _ITextFieldState extends State<ITextField> {
       cursorColor: widget.cursorColor ?? Theme.of(context).primaryColor,
       enableInteractiveSelection: true,
       readOnly: widget.readOnly,
+      onSubmitted: widget.onSubmitted,
+      onTap: widget.onTap,
+      onAppPrivateCommand: widget.onAppPrivateCommand,
+      onEditingComplete: widget.onEditingComplete,
+      toolbarOptions: widget.toolbarOptions,
       decoration: InputDecoration(
         hintStyle: widget.hintStyle,
         isCollapsed: true,
