@@ -38,11 +38,18 @@ class Utils {
   }
 
   /// 打开扫码界面
-  static void openBarcode(BuildContext context) {
-    Navigator.push(
+  static Future<String?> openBarcode(
+    BuildContext context, {
+    bool? isAlbum,
+    Color? scanLineColor,
+  }) async {
+    return await Navigator.push(
       context,
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) => Barcode(),
+      CupertinoPageRoute<String>(
+        builder: (BuildContext context) => ScanPage(
+          isAlbum: isAlbum,
+          scanLineColor: scanLineColor,
+        ),
       ),
     );
   }

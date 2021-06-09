@@ -17,7 +17,19 @@ Flutter样式组件
 ```
 #### Android `AndroidManifest.xml`
 ```
+    /// 扫描二维码需要
     <uses-permission android:name="android.permission.CAMERA"/>
+
+    /// 保护规则
+    -ignorewarnings
+    -keepattributes *Annotation*
+    -keepattributes Exceptions
+    -keepattributes InnerClasses
+    -keepattributes Signature
+    -keepattributes SourceFile,LineNumberTable
+    -keep class com.huawei.hianalytics.**{*;}
+    -keep class com.huawei.updatesdk.**{*;}
+    -keep class com.huawei.hms.**{*;}
 ```
 #### Ios `Info.plist`
 
