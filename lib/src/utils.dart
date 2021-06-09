@@ -36,4 +36,14 @@ class Utils {
     const product = bool.fromEnvironment('dart.vm.product');
     return product;
   }
+
+  /// 打开扫码界面
+  static void openBarcode(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => Barcode(),
+      ),
+    );
+  }
 }

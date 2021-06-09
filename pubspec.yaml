@@ -15,13 +15,14 @@ dependencies:
   dio_cookie_manager: ^2.0.0
   dio: ^4.0.0
   path_provider: ^2.0.1
-  permission_handler: ^7.1.0
+  permission_handler:
   flutter_html: ^2.0.0
   r_upgrade: ^0.3.3
   package_info: ^2.0.0
   connectivity: ^3.0.3
   signature: ^4.1.1
   flutter_easyloading: ^3.0.0
+  ai_barcode: ^3.0.1
 
 dev_dependencies:
   flutter_test:

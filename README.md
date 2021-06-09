@@ -15,12 +15,17 @@ Flutter样式组件
         sdk: flutter
   +   json_serializable:
 ```
-
+#### Android `AndroidManifest.xml`
+```
+    <uses-permission android:name="android.permission.CAMERA"/>
+```
 #### Ios `Info.plist`
 
 ```
     <key>NSFaceIDUsageDescription</key>
     <string>Why is my app authenticating using face id?</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Can we access your camera in order to scan barcodes?</string>
 ```
 
 #### GridBox、GridItem 网格组件

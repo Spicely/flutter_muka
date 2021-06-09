@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_muka/flutter_muka.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MyApp());
@@ -166,6 +167,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+          ),
+          ListItem(
+            title: Text('扫描二维码'),
+            color: Colors.white,
+            showArrow: true,
+            showDivider: true,
+            onTap: () async {
+              await [Permission.camera].request();
+              if (await Permission.camera.isGranted) {
+                Utils.openBarcode(context);
+              } else {
+                // OpenSettings.openLocationSourceSetting();
+                return;
+              }
+            },
           ),
           ListItem(
             title: Text('检查更新'),
