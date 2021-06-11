@@ -156,7 +156,7 @@ class _ITextFieldState extends State<ITextField> {
     }
   }
 
-  ///输入范围
+  /// 输入范围
   List<TextInputFormatter>? _getTextInputFormatter() {
     return _isNumber && (widget.digitsOnly == true)
         ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(widget.maxLength ?? -1)]

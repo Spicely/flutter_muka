@@ -57,109 +57,129 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
         widget.child,
         if (_status)
           Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: 224,
-              color: Color.fromRGBO(247, 247, 247, 1),
-              padding: EdgeInsets.only(left: 5, bottom: 5),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _getKeybordView(_getKeybordText('1'), val: '1'),
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: 0,
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        child: Container(color: Colors.transparent),
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          _hideKeybord();
+                        },
                       ),
-                      Expanded(
-                        child: _getKeybordView(_getKeybordText('2'), val: '2'),
-                      ),
-                      Expanded(
-                        child: _getKeybordView(_getKeybordText('3'), val: '3'),
-                      ),
-                      Expanded(
-                        child: _getKeybordView(Image.asset('assets/images/remove.png', package: 'flutter_muka', width: 18.5), val: 'del'),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Column(
+                    ),
+                    Container(
+                      height: 224,
+                      color: Color.fromRGBO(247, 247, 247, 1),
+                      padding: EdgeInsets.only(left: 5, bottom: 5),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('4'), val: '4'),
-                                  ),
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('5'), val: '5'),
-                                  ),
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('6'), val: '6'),
-                                  ),
-                                ],
+                              Expanded(
+                                child: _getKeybordView(_getKeybordText('1'), val: '1'),
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('7'), val: '7'),
-                                  ),
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('8'), val: '8'),
-                                  ),
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('9'), val: '9'),
-                                  ),
-                                ],
+                              Expanded(
+                                child: _getKeybordView(_getKeybordText('2'), val: '2'),
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: _getKeybordView(_getKeybordText('0'), val: '0'),
-                                  ),
-                                  Expanded(
-                                    child: _getKeybordView(_getKeybordText('.'), val: '.'),
-                                  ),
-                                ],
+                              Expanded(
+                                child: _getKeybordView(_getKeybordText('3'), val: '3'),
+                              ),
+                              Expanded(
+                                child: _getKeybordView(Image.asset('assets/images/remove.png', package: 'flutter_muka', width: 18.5),
+                                    val: 'del'),
                               ),
                             ],
                           ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                              child: Container(
-                                height: double.infinity,
-                                alignment: Alignment.center,
-                                margin: EdgeInsets.only(top: 5, right: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: double.parse(_price.isEmpty ? '0' : _price) == 0
-                                      ? Color.fromRGBO(7, 193, 96, 0.6)
-                                      : Color.fromRGBO(7, 193, 96, 1),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('4'), val: '4'),
+                                          ),
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('5'), val: '5'),
+                                          ),
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('6'), val: '6'),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('7'), val: '7'),
+                                          ),
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('8'), val: '8'),
+                                          ),
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('9'), val: '9'),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: _getKeybordView(_getKeybordText('0'), val: '0'),
+                                          ),
+                                          Expanded(
+                                            child: _getKeybordView(_getKeybordText('.'), val: '.'),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                child: Text(widget.completeText,
-                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
-                              ),
-                              onTap: () {
-                                if (double.parse(_price.isEmpty ? '0' : _price) != 0) {
-                                  _hideKeybord();
-                                  widget.onComplete?.call(_price);
-                                }
-                              }),
-                        ),
-                      ],
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                      child: Container(
+                                        height: double.infinity,
+                                        alignment: Alignment.center,
+                                        margin: EdgeInsets.only(top: 5, right: 5),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                          color: double.parse(_price.isEmpty ? '0' : _price) == 0
+                                              ? Color.fromRGBO(7, 193, 96, 0.6)
+                                              : Color.fromRGBO(7, 193, 96, 1),
+                                        ),
+                                        child: Text(widget.completeText,
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
+                                      ),
+                                      onTap: () {
+                                        if (double.parse(_price.isEmpty ? '0' : _price) != 0) {
+                                          _hideKeybord();
+                                          FocusScope.of(context).requestFocus(FocusNode());
+                                          widget.onComplete?.call(_price);
+                                        }
+                                      }),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                  ],
+                ),
+              )),
       ],
     );
   }
