@@ -192,10 +192,10 @@ class _ITextFieldState extends State<ITextField> {
         border: widget.inputBorder != null ? widget.inputBorder : UnderlineInputBorder(),
         focusedBorder: widget.focusedBorder,
         enabledBorder: widget.enabledBorder,
-        fillColor: Colors.transparent,
+        // fillColor: Colors.transparent,
         labelText: widget.labelText,
         labelStyle: widget.labelStyle,
-        // filled: true,
+        filled: true,
         prefixIcon: widget.prefixIcon,
         suffixIcon: Container(
           alignment: Alignment.centerRight,
