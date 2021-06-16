@@ -47,6 +47,7 @@ part 'components/start_up.dart';
 part 'components/signature_view.dart';
 part 'components/divider_text.dart';
 part 'components/price_number.dart';
+part 'components/round_check_box.dart';
 part 'components/change_number.dart';
 part 'components/easy_popup.dart';
 part 'components/animated_button.dart';
