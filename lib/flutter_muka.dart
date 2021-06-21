@@ -36,6 +36,7 @@ part 'src/verify_utils.dart';
 part 'src/toast_utils.dart';
 part 'src/extend_class.dart';
 part 'components/list_item.dart';
+part 'components/multi_image.dart';
 part 'components/text_field.dart';
 part 'components/code_time.dart';
 part 'components/empty.dart';

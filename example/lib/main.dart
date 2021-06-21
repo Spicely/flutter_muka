@@ -213,6 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('检查更新'),
                 color: Colors.white,
                 showArrow: true,
+                showDivider: true,
                 onTap: () {
                   AppUpdate.checkUpdate(context, url: 'https://api.muka.site/app/upgrade', appId: 'com.example.example');
                 },
@@ -225,7 +226,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   focusNode: _focusNode,
                   controller: _textEditingController,
                 ),
+                showDivider: true,
               ),
+              ListItem(
+                title: Text('MultiImage'),
+                color: Colors.white,
+              ),
+              MultiImage(
+                data: [],
+              )
             ],
           ),
         ),
