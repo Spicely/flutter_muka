@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_muka/flutter_muka.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
@@ -54,6 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _val = 1;
 
   int _val1 = 1;
+
+  MultiImageController _multiImageController = MultiImageController();
+
+  ImagePicker _picker = ImagePicker();
 
   CodeTimeController _controller1 = CodeTimeController();
 
@@ -233,7 +240,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.white,
               ),
               MultiImage(
-                data: [],
+                controller: _multiImageController,
+                // edit: false,
+                maxLength: 1,
+                onAdd: () async {
+                  // PickedFile? pickedFile = await _picker.getImage(source: ImageSource.gallery);
+                  // if (pickedFile != null) {
+                  //   _multiImageController.add(MultiImagePorps(file: File(pickedFile.path)));
+                  // }
+                  _multiImageController.add(MultiImagePorps(url: 'https://img.muka.site/other/bg.jpg'));
+                },
               )
             ],
           ),
