@@ -1,6 +1,11 @@
 part of flutter_muka;
 
-typedef void ChangeNumberCallBack(int value);
+typedef void ChangeNumberCallBack(double value);
+
+enum ChangeNumberType {
+  btn,
+  outline,
+}
 
 /// 按钮参数
 class ChangeNumberButtonConfig {
@@ -30,13 +35,13 @@ class ChangeNumberButtonConfig {
 
 class ChangeNumber extends StatefulWidget {
   /// 最小值
-  final int? min;
+  final double? min;
 
   /// 最大值
-  final int? max;
+  final double? max;
 
   /// 每次减多少/加多少
-  final int step;
+  final double step;
 
   /// 减按钮配置 [reduce]存在时无效
   final ChangeNumberButtonConfig reduceConfig;
@@ -51,11 +56,16 @@ class ChangeNumber extends StatefulWidget {
   final Widget? plus;
 
   /// 显示值
-  final int value;
+  final double value;
 
   final ChangeNumberCallBack onChanged;
 
+  final ChangeNumberType type;
+
   final double? width;
+
+  /// 边框颜色
+  final Color? outlineBorderColor;
 
   const ChangeNumber({
     Key? key,
@@ -69,6 +79,8 @@ class ChangeNumber extends StatefulWidget {
     this.width,
     required this.value,
     required this.onChanged,
+    this.outlineBorderColor,
+    this.type = ChangeNumberType.btn,
   }) : super(key: key);
 
   @override
@@ -88,6 +100,14 @@ class _ChangeNumberState extends State<ChangeNumber> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
+      height: 35,
+      padding: EdgeInsets.symmetric(horizontal: widget.type == ChangeNumberType.outline ? 8 : 0),
+      decoration: widget.type == ChangeNumberType.outline
+          ? BoxDecoration(
+              border: Border.all(color: widget.outlineBorderColor ?? Theme.of(context).dividerColor),
+              borderRadius: BorderRadius.circular(40),
+            )
+          : null,
       child: Row(
         children: [
           GestureDetector(
@@ -95,7 +115,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
               if (widget.min != null && widget.value == widget.min) {
                 return;
               }
-              int _v = widget.value - widget.step;
+              double _v = widget.value - widget.step;
               if (widget.min != null) {
                 if (_v < widget.min!) {
                   _v = widget.min!;
@@ -109,11 +129,13 @@ class _ChangeNumberState extends State<ChangeNumber> {
                   height: 25,
                   width: 25,
                   decoration: BoxDecoration(
-                    color: widget.min != null
-                        ? widget.min == widget.value
-                            ? widget.reduceConfig.disabledBackgroundColor
-                            : widget.reduceConfig.backgroundColor
-                        : widget.reduceConfig.backgroundColor,
+                    color: widget.type == ChangeNumberType.outline
+                        ? null
+                        : widget.min != null
+                            ? widget.min == widget.value
+                                ? widget.reduceConfig.disabledBackgroundColor
+                                : widget.reduceConfig.backgroundColor
+                            : widget.reduceConfig.backgroundColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Icon(
@@ -129,7 +151,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
+              margin: EdgeInsets.only(bottom: 3.5),
               child: TextField(
                 controller: _controller,
                 textAlign: TextAlign.center,
@@ -139,7 +161,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
                 ),
                 onChanged: (val) {
                   try {
-                    int _v = int.parse(val);
+                    double _v = double.parse(val);
                     if (widget.max != null) {
                       if (_v > widget.max!) {
                         _v = widget.max!;
@@ -164,7 +186,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
               if (widget.min != null && widget.value == widget.max) {
                 return;
               }
-              int _v = widget.value + widget.step;
+              double _v = widget.value + widget.step;
               if (widget.max != null) {
                 if (_v > widget.max!) {
                   _v = widget.max!;
@@ -178,11 +200,13 @@ class _ChangeNumberState extends State<ChangeNumber> {
                   height: 25,
                   width: 25,
                   decoration: BoxDecoration(
-                    color: widget.max != null
-                        ? widget.max == widget.value
-                            ? widget.plusConfig.disabledBackgroundColor
-                            : widget.plusConfig.backgroundColor
-                        : widget.plusConfig.backgroundColor,
+                    color: widget.type == ChangeNumberType.outline
+                        ? null
+                        : widget.max != null
+                            ? widget.max == widget.value
+                                ? widget.plusConfig.disabledBackgroundColor
+                                : widget.plusConfig.backgroundColor
+                            : widget.plusConfig.backgroundColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Icon(

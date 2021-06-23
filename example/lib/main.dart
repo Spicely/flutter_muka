@@ -54,9 +54,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _val = 1;
+  double _val = 1;
 
-  int _val1 = 1;
+  double _val1 = 1;
 
   MultiImageController _multiImageController = MultiImageController();
 
@@ -126,13 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('最大10 最小1 每次进度2 当前值$_val'),
               ),
               ListItem(
-                title: Text('CodeTime'),
+                title: Text('ChangeNumber'),
                 showDivider: true,
                 dividerIndex: 15,
                 dividerEndIndex: 15,
                 color: Colors.white,
                 value: ChangeNumber(
-                  width: 100,
+                  type: ChangeNumberType.outline,
+                  width: 120,
                   value: _val1,
                   onChanged: (val) {
                     setState(() {
