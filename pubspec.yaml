@@ -46,6 +46,8 @@ flutter:
    - assets/images/weibo.png
    - assets/images/bg_update_top.png
    - assets/images/remove.png
+   - assets/images/light_open.png
+   - assets/images/light_off.png
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () async {
                   await [Permission.camera].request();
                   if (await Permission.camera.isGranted) {
-                    String? data = await Utils.openBarcode(context);
+                    String? data = await Utils.openBarcode(context, title: '');
                     print(data);
                   } else {
                     // OpenSettings.openLocationSourceSetting();

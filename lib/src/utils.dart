@@ -42,6 +42,7 @@ class Utils {
     BuildContext context, {
     bool? isAlbum,
     Color? scanLineColor,
+    String? title,
   }) async {
     return await Navigator.push(
       context,
@@ -49,6 +50,7 @@ class Utils {
         builder: (BuildContext context) => ScanPage(
           isAlbum: isAlbum,
           scanLineColor: scanLineColor,
+          title: title,
         ),
       ),
     );
