@@ -59,30 +59,37 @@ class _ScanPageState extends State<ScanPage> {
             top: 0,
             left: 0,
             right: 0,
-            child: AppBar(
-              elevation: 0,
-              title: Text(widget.title ?? '扫一扫'),
-              centerTitle: true,
-              backgroundColor: Colors.transparent,
-              actions: widget.isAlbum ?? true
-                  ? [
-                      IconButton(
-                        icon: Text('相册', style: TextStyle(color: Colors.white)),
-                        onPressed: () async {
-                          try {
-                            _controller.pause();
-                            PickedFile? pickedFile = await _picker.getImage(source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              String? data = await Scan.parse(pickedFile.path);
-                              Navigator.pop(context, data);
+            child: Theme(
+              data: ThemeData(
+                appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+              child: AppBar(
+                elevation: 0,
+                title: Text(widget.title ?? '扫一扫'),
+                centerTitle: true,
+                backgroundColor: Colors.transparent,
+                actions: widget.isAlbum ?? true
+                    ? [
+                        IconButton(
+                          icon: Text('相册', style: TextStyle(color: Colors.white)),
+                          onPressed: () async {
+                            try {
+                              _controller.pause();
+                              PickedFile? pickedFile = await _picker.getImage(source: ImageSource.gallery);
+                              if (pickedFile != null) {
+                                String? data = await Scan.parse(pickedFile.path);
+                                Navigator.pop(context, data);
+                              }
+                            } catch (e) {
+                              _controller.resume();
                             }
-                          } catch (e) {
-                            _controller.resume();
-                          }
-                        },
-                      ),
-                    ]
-                  : null,
+                          },
+                        ),
+                      ]
+                    : null,
+              ),
             ),
           ),
           Positioned(
