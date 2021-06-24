@@ -55,4 +55,27 @@ class Utils {
       ),
     );
   }
+
+  static Future<String?> showDateTimePicker(
+    BuildContext context, {
+    required DateTime initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+    required TimeOfDay initialTime,
+  }) async {
+    DateTime? ymd = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+    if (ymd == null) return null;
+
+    TimeOfDay? hm = await showTimePicker(context: context, initialTime: initialTime);
+    if (hm == null) return null;
+
+    DateTime now = DateTime.now();
+    String _hm = DateFormat('HH:mm:ss').format(DateTime(now.year, now.month, now.day, hm.hour, hm.minute));
+    return DateFormat('yyyy-MM-dd ').format(ymd) + _hm;
+  }
 }

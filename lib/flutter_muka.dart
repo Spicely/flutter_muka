@@ -7,6 +7,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_muka/views/scan_page.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'src/adapter_browser.dart' if (dart.library.js) 'package:dio/adapter_browser.dart';
@@ -27,6 +28,7 @@ import 'model/dialog_share_data/index.dart';
 
 export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:dio/dio.dart';
+export 'package:intl/intl.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
