@@ -157,7 +157,7 @@ class _MultiImageState extends State<MultiImage> {
     if (data.file != null) {
       return kIsWeb
           ? Image.network(
-              data.baseUrl ?? '' + data.file!,
+              data.file!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             )
@@ -168,7 +168,7 @@ class _MultiImageState extends State<MultiImage> {
             );
     }
     return Image.network(
-      data.url!,
+      (data.baseUrl ?? '') + data.url!,
       width: double.maxFinite,
       fit: BoxFit.cover,
     );
