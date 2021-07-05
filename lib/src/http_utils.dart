@@ -70,7 +70,7 @@ class HttpUtils {
       if (data is FormData) {
         Map params = {};
         data.fields.forEach((i) {
-          params[i.key] = i.value;
+          params[i.key] = i.value.toString();
         });
         print('请求参数：【' + params.toString() + '】');
       } else {

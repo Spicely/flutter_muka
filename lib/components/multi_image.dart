@@ -157,7 +157,7 @@ class _MultiImageState extends State<MultiImage> {
     if (data.file != null) {
       return kIsWeb
           ? Image.network(
-              data.file!,
+              data.baseUrl ?? '' + data.file!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             )
@@ -190,8 +190,12 @@ class MultiImagePorps {
 
   final String? file;
 
+  /// 用于需要拼接网络地址使用
+  final String? baseUrl;
+
   MultiImagePorps({
     this.url,
     this.file,
+    this.baseUrl,
   });
 }
