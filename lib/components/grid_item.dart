@@ -7,7 +7,7 @@ part of flutter_muka;
 //// Date: 2020年08月25日 21:16:56 Tuesday
 //////////////////////////////////////////////////////////////////////////
 
-class GridItem extends StatefulWidget {
+class GridItem extends StatelessWidget {
   final double? width;
 
   /// 网格图片
@@ -34,22 +34,17 @@ class GridItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _GridItemState createState() => _GridItemState();
-}
-
-class _GridItemState extends State<GridItem> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: this.onTap,
       child: Container(
-        width: widget.width ?? double.infinity,
+        width: this.width ?? double.infinity,
         child: Column(
           children: [
-            widget.image ?? Container(),
+            this.image ?? Container(),
             Container(
-              margin: widget.textMargin,
-              child: widget.label ?? Container(),
+              margin: this.textMargin,
+              child: this.label ?? Container(),
             ),
           ],
         ),

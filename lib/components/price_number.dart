@@ -60,8 +60,9 @@ class _PriceNumberState extends State<PriceNumber> {
   Widget build(BuildContext context) {
     List<String?> data = widget.value.split('.');
     return Row(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.baseline,
-      textBaseline: TextBaseline.alphabetic,
+      textBaseline: TextBaseline.ideographic,
       children: [
         widget.unit == null
             ? Container()

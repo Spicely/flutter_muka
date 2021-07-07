@@ -7,7 +7,7 @@ part of flutter_muka;
 //// Date: 2020年08月25日 22:49:26 Tuesday
 //////////////////////////////////////////////////////////////////////////
 
-class GridBox extends StatefulWidget {
+class GridBox extends StatelessWidget {
   final List<Widget> children;
 
   final int crossAxisCount;
@@ -41,34 +41,30 @@ class GridBox extends StatefulWidget {
     this.color = Colors.white,
     this.height,
   }) : super(key: key);
-  @override
-  _GridBoxState createState() => _GridBoxState();
-}
 
-class _GridBoxState extends State<GridBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height,
-      margin: widget.margin,
-      padding: widget.padding,
+      height: this.height,
+      margin: this.margin,
+      padding: this.padding,
       decoration: BoxDecoration(
-        borderRadius: widget.borderRadius,
-        color: widget.color,
+        borderRadius: this.borderRadius,
+        color: this.color,
       ),
       child: GridView.builder(
         padding: EdgeInsets.all(0),
-        itemCount: widget.children.length,
+        itemCount: this.children.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: widget.crossAxisCount,
-          mainAxisSpacing: widget.mainAxisSpacing,
-          crossAxisSpacing: widget.crossAxisSpacing,
-          childAspectRatio: widget.childAspectRatio,
+          crossAxisCount: this.crossAxisCount,
+          mainAxisSpacing: this.mainAxisSpacing,
+          crossAxisSpacing: this.crossAxisSpacing,
+          childAspectRatio: this.childAspectRatio,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return widget.children[index];
+          return this.children[index];
         },
       ),
     );

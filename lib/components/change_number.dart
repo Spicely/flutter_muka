@@ -100,7 +100,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      height: 35,
+      // height: 35,
       padding: EdgeInsets.symmetric(horizontal: widget.type == ChangeNumberType.outline ? 8 : 0),
       decoration: widget.type == ChangeNumberType.outline
           ? BoxDecoration(
@@ -109,6 +109,8 @@ class _ChangeNumberState extends State<ChangeNumber> {
             )
           : null,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {
@@ -126,8 +128,8 @@ class _ChangeNumberState extends State<ChangeNumber> {
             },
             child: widget.reduce ??
                 Container(
-                  height: 25,
-                  width: 25,
+                  height: widget.reduceConfig.size,
+                  width: widget.reduceConfig.size,
                   decoration: BoxDecoration(
                     color: widget.type == ChangeNumberType.outline
                         ? null
@@ -140,7 +142,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
                   ),
                   child: Icon(
                     Icons.remove,
-                    size: widget.reduceConfig.size,
+                    size: widget.reduceConfig.size * 0.6,
                     color: widget.min != null
                         ? widget.min == widget.value
                             ? widget.reduceConfig.disabledColor
@@ -150,14 +152,14 @@ class _ChangeNumberState extends State<ChangeNumber> {
                 ),
           ),
           Expanded(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 3.5),
+            child: Center(
               child: TextField(
                 controller: _controller,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: InputBorder.none,
+                  isCollapsed: true,
                 ),
                 onChanged: (val) {
                   try {
@@ -197,8 +199,8 @@ class _ChangeNumberState extends State<ChangeNumber> {
             },
             child: widget.plus ??
                 Container(
-                  height: 25,
-                  width: 25,
+                  height: widget.plusConfig.size,
+                  width: widget.plusConfig.size,
                   decoration: BoxDecoration(
                     color: widget.type == ChangeNumberType.outline
                         ? null
@@ -211,7 +213,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
                   ),
                   child: Icon(
                     Icons.add,
-                    size: widget.plusConfig.size,
+                    size: widget.plusConfig.size * 0.6,
                     color: widget.max != null
                         ? widget.max == widget.value
                             ? widget.plusConfig.disabledColor
