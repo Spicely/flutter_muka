@@ -150,6 +150,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('无限制 当前值$_val1'),
               ),
               ListItem(
+                title: Text('扫描二维码'),
+                color: Colors.white,
+                showArrow: true,
+                showDivider: true,
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  Future.delayed(Duration(seconds: 1), () async {
+                    await [Permission.camera].request();
+                    if (await Permission.camera.isGranted) {
+                      String? data = await Utils.openBarcode(context, title: '');
+                      print(data);
+                    } else {
+                      // OpenSettings.openLocationSourceSetting();
+                      return;
+                    }
+                  });
+                },
+              ),
+              ListItem(
                 title: Text('CodeTime'),
                 showDivider: true,
                 dividerIndex: 15,
@@ -201,22 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              ListItem(
-                title: Text('扫描二维码'),
-                color: Colors.white,
-                showArrow: true,
-                showDivider: true,
-                onTap: () async {
-                  await [Permission.camera].request();
-                  if (await Permission.camera.isGranted) {
-                    String? data = await Utils.openBarcode(context, title: '');
-                    print(data);
-                  } else {
-                    // OpenSettings.openLocationSourceSetting();
-                    return;
-                  }
-                },
-              ),
+              // TextField(),
               ListItem(
                 title: Text('检查更新'),
                 color: Colors.white,
