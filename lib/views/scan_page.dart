@@ -32,13 +32,13 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
-
     super.initState();
   }
 
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    _controller.pause();
     super.dispose();
   }
 
