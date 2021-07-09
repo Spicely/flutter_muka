@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:scan/scan.dart';
+part of flutter_muka;
 
 class ScanPage extends StatefulWidget {
   /// 允许读取相册
