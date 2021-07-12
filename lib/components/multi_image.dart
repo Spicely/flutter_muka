@@ -156,18 +156,18 @@ class _MultiImageState extends State<MultiImage> {
   Widget _getImageView(MultiImagePorps data) {
     if (data.file != null) {
       return kIsWeb
-          ? Image.network(
+          ? ExtendedImage.network(
               data.file!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             )
-          : Image.file(
+          : ExtendedImage.file(
               File(data.file!),
               width: double.maxFinite,
               fit: BoxFit.cover,
             );
     }
-    return Image.network(
+    return ExtendedImage.network(
       (data.baseUrl ?? '') + data.url!,
       width: double.maxFinite,
       fit: BoxFit.cover,

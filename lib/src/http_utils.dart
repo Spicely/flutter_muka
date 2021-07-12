@@ -46,6 +46,8 @@ class HttpUtils {
     Map<String, dynamic>? headers,
     String? contentType,
     CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};
@@ -87,6 +89,8 @@ class HttpUtils {
       queryParameters: method == HttpUtilsMethod.GET ? data : null,
       data: method != HttpUtilsMethod.GET ? data : null,
       cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+      onSendProgress: onSendProgress,
       options: Options(
         method: _getMethod(method),
         headers: headers,

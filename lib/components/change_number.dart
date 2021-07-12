@@ -1,6 +1,6 @@
 part of flutter_muka;
 
-typedef void ChangeNumberCallBack(double value);
+typedef void ChangeNumberCallBack(int value);
 
 enum ChangeNumberType {
   btn,
@@ -35,13 +35,13 @@ class ChangeNumberButtonConfig {
 
 class ChangeNumber extends StatefulWidget {
   /// 最小值
-  final double? min;
+  final int? min;
 
   /// 最大值
-  final double? max;
+  final int? max;
 
   /// 每次减多少/加多少
-  final double step;
+  final int step;
 
   /// 减按钮配置 [reduce]存在时无效
   final ChangeNumberButtonConfig reduceConfig;
@@ -56,7 +56,7 @@ class ChangeNumber extends StatefulWidget {
   final Widget? plus;
 
   /// 显示值
-  final double value;
+  final int value;
 
   final ChangeNumberCallBack onChanged;
 
@@ -117,7 +117,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
               if (widget.min != null && widget.value == widget.min) {
                 return;
               }
-              double _v = widget.value - widget.step;
+              int _v = widget.value - widget.step;
               if (widget.min != null) {
                 if (_v < widget.min!) {
                   _v = widget.min!;
@@ -163,7 +163,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
                 ),
                 onChanged: (val) {
                   try {
-                    double _v = double.parse(val);
+                    int _v = int.parse(val);
                     if (widget.max != null) {
                       if (_v > widget.max!) {
                         _v = widget.max!;
@@ -188,7 +188,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
               if (widget.min != null && widget.value == widget.max) {
                 return;
               }
-              double _v = widget.value + widget.step;
+              int _v = widget.value + widget.step;
               if (widget.max != null) {
                 if (_v > widget.max!) {
                   _v = widget.max!;

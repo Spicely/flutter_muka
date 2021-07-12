@@ -70,13 +70,9 @@ class _CropImageState extends State<CropImage> {
                 icon: widget.doneWidget ?? Icon(Icons.done),
                 onPressed: () async {
                   EasyLoading.show(maskType: EasyLoadingMaskType.clear);
-                  Uint8List fileData = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;
-                  Directory tempDir = await getTemporaryDirectory();
-                  Uuid uuid = Uuid();
-                  File file = await File('${tempDir.path}/${uuid.v5(Uuid.NAMESPACE_URL, DateTime.now().toString())}.png').create();
-                  file.writeAsBytesSync(fileData);
+                  Uint8List data = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;
                   EasyLoading.dismiss();
-                  Navigator.pop(context, file.path);
+                  Navigator.pop(context, data);
                 },
               )
             ],
