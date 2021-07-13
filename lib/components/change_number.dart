@@ -64,6 +64,8 @@ class ChangeNumber extends StatefulWidget {
 
   final double? width;
 
+  final double? height;
+
   /// 边框颜色
   final Color? outlineBorderColor;
 
@@ -77,6 +79,7 @@ class ChangeNumber extends StatefulWidget {
     this.plus,
     this.reduce,
     this.width,
+    this.height,
     required this.value,
     required this.onChanged,
     this.outlineBorderColor,
@@ -100,7 +103,7 @@ class _ChangeNumberState extends State<ChangeNumber> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      // height: 35,
+      height: widget.height,
       padding: EdgeInsets.symmetric(horizontal: widget.type == ChangeNumberType.outline ? 8 : 0),
       decoration: widget.type == ChangeNumberType.outline
           ? BoxDecoration(
