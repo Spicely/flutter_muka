@@ -46,6 +46,10 @@ class MultiImage extends StatefulWidget {
 
   final GestureTapCallback? onAdd;
 
+  final Widget? addView;
+
+  final BorderRadiusGeometry? borderRadius;
+
   const MultiImage({
     Key? key,
     required this.controller,
@@ -56,6 +60,8 @@ class MultiImage extends StatefulWidget {
     this.border,
     this.onAdd,
     this.edit = true,
+    this.addView,
+    this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -97,6 +103,7 @@ class _MultiImageState extends State<MultiImage> {
           return Container(
             decoration: BoxDecoration(
               border: widget.border ?? Border.all(style: BorderStyle.solid, color: Theme.of(context).dividerColor),
+              borderRadius: widget.borderRadius,
             ),
             child: Stack(
               children: [
@@ -131,8 +138,9 @@ class _MultiImageState extends State<MultiImage> {
           child: Container(
             decoration: BoxDecoration(
               border: widget.border ?? Border.all(style: BorderStyle.solid, color: Theme.of(context).dividerColor),
+              borderRadius: widget.borderRadius,
             ),
-            child: Icon(Icons.add, color: Theme.of(context).dividerColor),
+            child: widget.addView ?? Icon(Icons.add, color: Theme.of(context).dividerColor),
           ),
           onTap: () {
             widget.onAdd?.call();
