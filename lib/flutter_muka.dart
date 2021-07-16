@@ -1,7 +1,6 @@
 library flutter_muka;
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
@@ -13,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:scan/scan.dart';
+import 'package:universal_io/io.dart';
 import 'src/adapter_browser.dart' if (dart.library.js) 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +33,7 @@ export 'package:dio/dio.dart';
 export 'package:intl/intl.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:extended_image/extended_image.dart' hide MultipartFile;
+export 'package:universal_io/io.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
