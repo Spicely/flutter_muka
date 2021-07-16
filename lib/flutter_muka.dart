@@ -1,10 +1,12 @@
 library flutter_muka;
 
 import 'dart:async';
+import 'dart:io' show HttpClient, Platform, exit;
 import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:extended_image/extended_image.dart' hide File;
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -12,8 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:scan/scan.dart';
-import 'package:universal_io/io.dart';
-import 'src/adapter_browser.dart' if (dart.library.js) 'package:dio/adapter_browser.dart';
+import 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -32,8 +33,7 @@ export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:dio/dio.dart';
 export 'package:intl/intl.dart';
 export 'package:path_provider/path_provider.dart';
-export 'package:extended_image/extended_image.dart' hide MultipartFile;
-export 'package:universal_io/io.dart';
+export 'package:extended_image/extended_image.dart' show ExtendedImage;
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
