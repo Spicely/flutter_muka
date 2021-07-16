@@ -33,7 +33,7 @@ export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:dio/dio.dart';
 export 'package:intl/intl.dart';
 export 'package:path_provider/path_provider.dart';
-export 'package:extended_image/extended_image.dart' show ExtendedImage;
+export 'package:extended_image/extended_image.dart' show ExtendedImage, File;
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
