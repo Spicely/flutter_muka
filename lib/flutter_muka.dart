@@ -7,7 +7,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:extended_image/extended_image.dart' hide File;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_muka/views/crop_editor_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -61,5 +60,5 @@ part 'components/easy_popup.dart';
 part 'components/animated_button.dart';
 part 'components/virtual_keyboard.dart';
 
-part 'views/crop_image.dart';
+// part 'views/crop_image.dart';
 part 'views/scan_page.dart';

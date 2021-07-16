@@ -54,9 +54,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double _val = 1;
+  int _val = 1;
 
-  double _val1 = 1;
+  int _val1 = 1;
 
   MultiImageController _multiImageController = MultiImageController();
 

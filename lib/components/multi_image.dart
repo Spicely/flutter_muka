@@ -163,17 +163,18 @@ class _MultiImageState extends State<MultiImage> {
 
   Widget _getImageView(MultiImagePorps data) {
     if (data.file != null) {
-      return kIsWeb
-          ? ExtendedImage.network(
-              data.file!,
-              width: double.maxFinite,
-              fit: BoxFit.cover,
-            )
-          : ExtendedImage.file(
-              File(data.file!),
-              width: double.maxFinite,
-              fit: BoxFit.cover,
-            );
+      return ExtendedImage.file(
+        data.file!,
+        width: double.maxFinite,
+        fit: BoxFit.cover,
+      );
+    }
+    if (data.fileData != null) {
+      return ExtendedImage.memory(
+        data.fileData!,
+        width: double.maxFinite,
+        fit: BoxFit.cover,
+      );
     }
     return ExtendedImage.network(
       (data.baseUrl ?? '') + data.url!,
@@ -196,7 +197,9 @@ class _MultiImageState extends State<MultiImage> {
 class MultiImagePorps {
   final String? url;
 
-  final String? file;
+  final File? file;
+
+  final Uint8List? fileData;
 
   /// 用于需要拼接网络地址使用
   final String? baseUrl;
@@ -205,5 +208,6 @@ class MultiImagePorps {
     this.url,
     this.file,
     this.baseUrl,
+    this.fileData,
   });
 }
