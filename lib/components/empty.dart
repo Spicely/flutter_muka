@@ -20,11 +20,15 @@ enum EmptyType {
 
   /// 没有订单
   order,
+
+  /// 没有购物车
+  cart,
 }
 
 enum EmptyBtnType {
   outlined,
   elevated,
+  none,
 }
 
 class Empty extends StatefulWidget {
@@ -36,10 +40,10 @@ class Empty extends StatefulWidget {
     this.extend,
     this.network,
     this.type = EmptyType.content,
-    this.notContent = const EmptyNotContent(),
     this.onReload,
     this.onTap,
     this.btnText = '返回',
+    this.btnNotWorkText = '重试',
     this.btnType = EmptyBtnType.outlined,
     this.btnStyle,
     this.btnTextStyle,
@@ -77,9 +81,18 @@ class Empty extends StatefulWidget {
   // ignore: non_constant_identifier_names
   static String GLOBAL_NOT_SEARCH_URL = '';
 
+  /// 没有购物图片地址
+  ///
+  /// 本地图片地址
+  // ignore: non_constant_identifier_names
+  static String GLOBAL_NOT_CART_URL = '';
+
   /// 全局图片宽度
   // ignore: non_constant_identifier_names
   static double IMG_WIDTH = 120.0;
+
+  // ignore: non_constant_identifier_names
+  static EmptyNotContent NOT_CONTENT = EmptyNotContent();
 
   /// 控制器
   final EmptyController? controller;
@@ -104,9 +117,9 @@ class Empty extends StatefulWidget {
   /// 点击处理
   final GestureTapCallback? onTap;
 
-  final EmptyNotContent notContent;
-
   final String btnText;
+
+  final String btnNotWorkText;
 
   final EmptyBtnType btnType;
 
@@ -170,34 +183,14 @@ class _EmptyState extends State<Empty> {
                           Container(
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(top: 10),
-                            child: Text(_getTypeText()),
+                            child: Text(_getTypeText(), style: TextStyle(color: Theme.of(context).disabledColor)),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 10),
                             child: widget.btnType == EmptyBtnType.outlined
                                 ? OutlinedButton(
                                     child: Text(
-                                      _network ? '重试' : widget.btnText,
-                                      style: widget.btnTextStyle ?? TextStyle(color: Colors.white),
-                                    ),
-                                    style: widget.btnStyle ??
-                                        ButtonStyle(
-                                          elevation: MaterialStateProperty.all(0),
-                                          shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                                          ),
-                                        ),
-                                    onPressed: () {
-                                      if (_network) {
-                                        widget.onReload?.call();
-                                      } else {
-                                        widget.onTap?.call();
-                                      }
-                                    },
-                                  )
-                                : ElevatedButton(
-                                    child: Text(
-                                      _network ? '重试' : widget.btnText,
+                                      !_network ? widget.btnNotWorkText : widget.btnText,
                                       style: widget.btnTextStyle ?? TextStyle(color: Colors.black38),
                                     ),
                                     style: widget.btnStyle ??
@@ -209,13 +202,39 @@ class _EmptyState extends State<Empty> {
                                           side: MaterialStateProperty.all(BorderSide(color: Colors.black38)),
                                         ),
                                     onPressed: () {
-                                      if (_network) {
+                                      if (!_network) {
                                         widget.onReload?.call();
                                       } else {
-                                        widget.onTap?.call();
+                                        if (widget.onTap != null) {
+                                          widget.onTap!.call();
+                                        } else {
+                                          Navigator.pop(context);
+                                        }
                                       }
                                     },
-                                  ),
+                                  )
+                                : widget.btnType == EmptyBtnType.elevated
+                                    ? ElevatedButton(
+                                        child: Text(
+                                          !_network ? widget.btnNotWorkText : widget.btnText,
+                                          style: widget.btnTextStyle ?? TextStyle(color: Colors.white),
+                                        ),
+                                        style: widget.btnStyle ??
+                                            ButtonStyle(
+                                              elevation: MaterialStateProperty.all(0),
+                                              shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                              ),
+                                            ),
+                                        onPressed: () {
+                                          if (!_network) {
+                                            widget.onReload?.call();
+                                          } else {
+                                            widget.onTap?.call();
+                                          }
+                                        },
+                                      )
+                                    : null,
                           ),
                         ],
                       )
@@ -224,7 +243,7 @@ class _EmptyState extends State<Empty> {
             ),
           ),
         ),
-        widget.child ?? Container(),
+        if (widget.child != null && !_status) widget.child!
       ],
     );
   }
@@ -241,15 +260,18 @@ class _EmptyState extends State<Empty> {
   }
 
   String _getTypeText() {
+    if (!_network) return Empty.NOT_CONTENT.content;
     switch (widget.type) {
       case EmptyType.search:
-        return widget.notContent.search;
+        return Empty.NOT_CONTENT.search;
       case EmptyType.order:
-        return widget.notContent.order;
+        return Empty.NOT_CONTENT.order;
       case EmptyType.msg:
-        return widget.notContent.msg;
+        return Empty.NOT_CONTENT.msg;
+      case EmptyType.cart:
+        return Empty.NOT_CONTENT.cart;
       default:
-        return widget.notContent.content;
+        return Empty.NOT_CONTENT.content;
     }
   }
 
@@ -261,6 +283,8 @@ class _EmptyState extends State<Empty> {
         return Empty.GLOBAL_NOT_ORDER_URL;
       case EmptyType.msg:
         return Empty.GLOBAL_NOT_MSG_URL;
+      case EmptyType.cart:
+        return Empty.GLOBAL_NOT_CART_URL;
       default:
         return Empty.GLOBAL_EMPTY_DATA_URL;
     }
@@ -321,11 +345,19 @@ class EmptyNotContent {
   /// 显示无订单时文本
   final String order;
 
+  /// 显示无网络时文本
+  final String network;
+
+  /// 显示无购物时文本
+  final String cart;
+
   const EmptyNotContent({
     this.content = '暂无内容',
     this.search = '暂无搜索结果',
     this.msg = '暂无消息',
     this.order = '暂无订单',
+    this.network = '暂无网络',
+    this.cart = '购物车还是空的哦~',
   });
 
   EmptyNotContent copyWith({
