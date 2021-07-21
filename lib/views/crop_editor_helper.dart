@@ -51,12 +51,8 @@ void _isolateEncodeImage(SendPort port) {
 }
 
 Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorState state}) async {
-  print('dart library start cropping');
-
   ///crop rect base on raw image
   final Rect? cropRect = state.getCropRect();
-
-  print('getCropRect : $cropRect');
 
   // in web, we can't get rawImageData due to .
   // using following code to get imageCodec without download it.
@@ -115,7 +111,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
         image = copyRotate(image, editAction.rotateAngle);
       }
       final DateTime time3 = DateTime.now();
-      print('${time3.difference(time2)} : crop/flip/rotate');
       return image;
     }).toList();
   }
@@ -129,7 +124,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
   //var fileData = await compute(encodeJpg, src);
   //var fileData = await isolateEncodeImage(src);
   List<int>? fileData;
-  print('start encode');
   final DateTime time4 = DateTime.now();
   if (src != null) {
     final bool onlyOneFrame = src.numFrames == 1;
@@ -142,8 +136,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
     }
   }
   final DateTime time5 = DateTime.now();
-  print('${time5.difference(time4)} : encode');
-  print('${time5.difference(time1)} : total time');
   return Uint8List.fromList(fileData!);
 }
 
@@ -154,19 +146,8 @@ Future<Uint8List> _loadNetwork(ExtendedNetworkImageProvider key) async {
         headers: key.headers, timeLimit: key.timeLimit, timeRetry: key.timeRetry, retries: key.retries, cancelToken: key.cancelToken);
     return response!.bodyBytes;
   } on OperationCanceledError catch (_) {
-    print('User cancel request ${key.url}.');
     return Future<Uint8List>.error(StateError('User cancel request ${key.url}.'));
   } catch (e) {
     return Future<Uint8List>.error(StateError('failed load ${key.url}. \n $e'));
-  }
-}
-
-class ImageSaver {
-  static Future<String?> save(String name, Uint8List fileData) async {
-    // final AssetEntity? imageEntity =
-    //     await PhotoManager.editor.saveImage(fileData);
-    // final File? file = await imageEntity?.file;
-    // return file?.path;
-    return '';
   }
 }
