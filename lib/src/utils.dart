@@ -31,10 +31,9 @@ class Utils {
     return mobile.replaceRange(3, 7, '****');
   }
 
-  /// 判断是否为打包环境
+  /// 判断是否为线上环境
   static bool get isProd {
-    const product = bool.fromEnvironment('dart.vm.product');
-    return product;
+    return kReleaseMode;
   }
 
   /// 打开扫码界面
