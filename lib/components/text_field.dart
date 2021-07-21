@@ -220,7 +220,9 @@ class _ITextFieldState extends State<ITextField> {
                                     ),
                               onPressed: () {
                                 widget.controller.clear();
-                                setState(() {});
+                                setState(() {
+                                  widget.onChanged?.call(widget.controller.text);
+                                });
                               },
                             )
                           : null,
