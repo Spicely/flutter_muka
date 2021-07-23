@@ -47,7 +47,7 @@ class Empty extends StatefulWidget {
     this.btnType = EmptyBtnType.outlined,
     this.btnStyle,
     this.btnTextStyle,
-  })  : assert(Empty.GLOBAL_EMPTY_DATA_URL.isNotEmpty, '你需要至少保证全局空数据图片地址或无数据填充其中一个有值'),
+  })  : assert(Empty.GLOBAL_EMPTY_DATA_URL.isNotEmpty || extend == null, '你需要至少保证全局空数据图片地址或无数据填充其中一个有值'),
         assert(Empty.GLOBAL_NOT_NETWORK_URL.isNotEmpty || network != null, '你需要至少保证全局无网络图片地址或无网络填充其中一个有值'),
         super(key: key);
 
