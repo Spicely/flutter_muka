@@ -3,7 +3,7 @@ library flutter_muka;
 import 'dart:async';
 import 'dart:io' show HttpClient, Platform, exit;
 import 'dart:typed_data';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:extended_image/extended_image.dart' hide File;
 import 'package:extended_image/extended_image.dart';

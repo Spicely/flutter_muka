@@ -19,7 +19,7 @@ dependencies:
   flutter_html: ^2.1.0
   r_upgrade: ^0.3.3
   package_info: ^2.0.2
-  connectivity: ^3.0.6
+  connectivity_plus: ^1.0.6
   signature: ^4.1.1
   flutter_easyloading: ^3.0.0
   scan: ^1.4.3
