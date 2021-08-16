@@ -37,6 +37,8 @@ class MultiImage extends StatefulWidget {
   /// 垂直间距
   final double mainAxisSpacing;
 
+  final double childAspectRatio;
+
   /// 每列数量
   final int crossAxisCount;
 
