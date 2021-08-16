@@ -50,6 +50,8 @@ class MultiImage extends StatefulWidget {
 
   final BorderRadiusGeometry? borderRadius;
 
+  final double childAspectRatio;
+
   const MultiImage({
     Key? key,
     required this.controller,
@@ -57,6 +59,7 @@ class MultiImage extends StatefulWidget {
     this.crossAxisSpacing = 5,
     this.mainAxisSpacing = 5,
     this.crossAxisCount = 3,
+    this.childAspectRatio = 1.0,
     this.border,
     this.onAdd,
     this.edit = true,
@@ -93,7 +96,7 @@ class _MultiImageState extends State<MultiImage> {
         crossAxisCount: widget.crossAxisCount,
         crossAxisSpacing: widget.crossAxisSpacing,
         mainAxisSpacing: widget.mainAxisSpacing,
-        childAspectRatio: 1.0,
+        childAspectRatio: widget.childAspectRatio,
       ),
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.all(5),
