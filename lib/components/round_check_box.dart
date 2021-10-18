@@ -9,7 +9,7 @@ class RoundCheckBox extends StatefulWidget {
     this.checkedColor,
     this.uncheckedColor,
     this.borderColor,
-    this.size,
+    this.size = 30,
     this.animationDuration,
     required this.onTap,
   }) : super(key: key);
@@ -33,7 +33,7 @@ class RoundCheckBox extends StatefulWidget {
   final Color? borderColor;
 
   ///Define the size of the checkbox
-  final double? size;
+  final double size;
 
   ///Define Function that os executed when user tap on checkbox
   final Function(bool)? onTap;
@@ -47,20 +47,18 @@ class RoundCheckBox extends StatefulWidget {
 
 class _RoundCheckBoxState extends State<RoundCheckBox> {
   late Duration animationDuration;
-  double? size;
+  late double size;
   Widget? checkedWidget;
   Widget? uncheckedWidget;
-  Color? checkedColor;
   Color? uncheckedColor;
   late Color borderColor;
 
   @override
   void initState() {
     animationDuration = widget.animationDuration ?? Duration(milliseconds: 500);
-    size = widget.size ?? 40.0;
-    checkedColor = widget.checkedColor ?? Colors.green;
+    size = widget.size;
     borderColor = widget.borderColor ?? Colors.grey;
-    checkedWidget = widget.checkedWidget ?? Icon(Icons.check, color: Colors.white);
+    checkedWidget = widget.checkedWidget ?? Icon(Icons.check, color: Colors.white, size: size / 1.2);
     uncheckedWidget = widget.uncheckedWidget ?? const SizedBox.shrink();
     super.initState();
   }
@@ -78,17 +76,17 @@ class _RoundCheckBoxState extends State<RoundCheckBox> {
         widget.onTap?.call(!widget.isChecked);
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(size! / 2),
+        borderRadius: BorderRadius.circular(size / 2),
         child: AnimatedContainer(
           duration: animationDuration,
           height: size,
           width: size,
           decoration: BoxDecoration(
-            color: widget.isChecked ? checkedColor : uncheckedColor,
+            color: widget.isChecked ? widget.checkedColor ?? Theme.of(context).primaryColor : uncheckedColor,
             border: Border.all(
               color: borderColor,
             ),
-            borderRadius: BorderRadius.circular(size! / 2),
+            borderRadius: BorderRadius.circular(size / 2),
           ),
           child: widget.isChecked ? checkedWidget : uncheckedWidget,
         ),
