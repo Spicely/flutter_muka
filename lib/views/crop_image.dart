@@ -144,13 +144,13 @@ class _CropImageMemoryState extends State<CropImageMemory> {
             leading: Container(),
             actions: [
               IconButton(
-                icon: widget.doneWidget ?? Icon(Icons.close),
+                icon: widget.doneWidget ?? Icon(Icons.close, color: Theme.of(context).primaryColor),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
               IconButton(
-                icon: widget.doneWidget ?? Icon(Icons.done),
+                icon: widget.doneWidget ?? Icon(Icons.done, color: Colors.black54),
                 onPressed: () async {
                   EasyLoading.show(maskType: EasyLoadingMaskType.clear);
                   Uint8List data = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;

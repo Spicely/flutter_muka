@@ -204,29 +204,31 @@ class _ITextFieldState extends State<ITextField> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               widget.showDeleteIcon
-                  ? Container(
-                      width: 20.0,
-                      height: 20.0,
-                      child: widget.controller.text.length > 0
-                          ? IconButton(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(0.0),
-                              iconSize: 18.0,
-                              icon: widget.deleteIcon != null
-                                  ? widget.deleteIcon!
-                                  : Icon(
-                                      Icons.cancel,
-                                      color: Color.fromRGBO(0, 0, 0, 0.3),
-                                    ),
-                              onPressed: () {
-                                widget.controller.clear();
-                                setState(() {
-                                  widget.onChanged?.call(widget.controller.text);
-                                });
-                              },
-                            )
-                          : null,
-                    )
+                  ? !widget.readOnly
+                      ? Container(
+                          width: 20.0,
+                          height: 20.0,
+                          child: widget.controller.text.length > 0
+                              ? IconButton(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(0.0),
+                                  iconSize: 18.0,
+                                  icon: widget.deleteIcon != null
+                                      ? widget.deleteIcon!
+                                      : Icon(
+                                          Icons.cancel,
+                                          color: Color.fromRGBO(0, 0, 0, 0.3),
+                                        ),
+                                  onPressed: () {
+                                    widget.controller.clear();
+                                    setState(() {
+                                      widget.onChanged?.call(widget.controller.text);
+                                    });
+                                  },
+                                )
+                              : null,
+                        )
+                      : Container()
                   : Container(),
               widget.suffixIcon ?? Container(),
             ],
