@@ -166,6 +166,7 @@ class _EmptyState extends State<Empty> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        if (widget.child != null) widget.child!,
         Offstage(
           offstage: !_status,
           child: Container(
@@ -243,7 +244,6 @@ class _EmptyState extends State<Empty> {
             ),
           ),
         ),
-        if (widget.child != null && !_status) widget.child!
       ],
     );
   }

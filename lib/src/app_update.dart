@@ -19,6 +19,7 @@ class AppUpdate {
     bool verify = false,
     String method = 'POST',
     Map<dynamic, dynamic>? data,
+    GestureTapCallback? onNotUpdate,
   }) async {
     if (kIsWeb) {
       print('AppUpdate.checkUpdate -> 网页调用此函数无效');
@@ -202,6 +203,8 @@ class AppUpdate {
             );
           },
         );
+      } else {
+        onNotUpdate?.call();
       }
     } catch (e) {
       print(e);

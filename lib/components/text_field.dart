@@ -81,6 +81,8 @@ class ITextField extends StatefulWidget {
 
   final bool readOnly;
 
+  final TextAlign textAlign;
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -116,6 +118,7 @@ class ITextField extends StatefulWidget {
     this.onEditingComplete,
     this.onSubmitted,
     this.onTap,
+    this.textAlign = TextAlign.start,
     this.toolbarOptions,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
@@ -178,6 +181,7 @@ class _ITextFieldState extends State<ITextField> {
       onAppPrivateCommand: widget.onAppPrivateCommand,
       onEditingComplete: widget.onEditingComplete,
       toolbarOptions: widget.toolbarOptions,
+      textAlign: widget.textAlign,
       decoration: InputDecoration(
         hintStyle: widget.hintStyle,
         isCollapsed: true,
@@ -197,43 +201,45 @@ class _ITextFieldState extends State<ITextField> {
         labelStyle: widget.labelStyle,
         filled: true,
         prefixIcon: widget.prefixIcon,
-        suffixIcon: Container(
-          alignment: Alignment.centerRight,
-          width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              widget.showDeleteIcon
-                  ? !widget.readOnly
-                      ? Container(
-                          width: 20.0,
-                          height: 20.0,
-                          child: widget.controller.text.length > 0
-                              ? IconButton(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.all(0.0),
-                                  iconSize: 18.0,
-                                  icon: widget.deleteIcon != null
-                                      ? widget.deleteIcon!
-                                      : Icon(
-                                          Icons.cancel,
-                                          color: Color.fromRGBO(0, 0, 0, 0.3),
-                                        ),
-                                  onPressed: () {
-                                    widget.controller.clear();
-                                    setState(() {
-                                      widget.onChanged?.call(widget.controller.text);
-                                    });
-                                  },
-                                )
-                              : null,
-                        )
-                      : Container()
-                  : Container(),
-              widget.suffixIcon ?? Container(),
-            ],
-          ),
-        ),
+        suffixIcon: !widget.showDeleteIcon
+            ? null
+            : Container(
+                alignment: Alignment.centerRight,
+                width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    widget.showDeleteIcon
+                        ? !widget.readOnly
+                            ? Container(
+                                width: 20.0,
+                                height: 20.0,
+                                child: widget.controller.text.length > 0
+                                    ? IconButton(
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.all(0.0),
+                                        iconSize: 18.0,
+                                        icon: widget.deleteIcon != null
+                                            ? widget.deleteIcon!
+                                            : Icon(
+                                                Icons.cancel,
+                                                color: Color.fromRGBO(0, 0, 0, 0.3),
+                                              ),
+                                        onPressed: () {
+                                          widget.controller.clear();
+                                          setState(() {
+                                            widget.onChanged?.call(widget.controller.text);
+                                          });
+                                        },
+                                      )
+                                    : null,
+                              )
+                            : Container()
+                        : Container(),
+                    widget.suffixIcon ?? Container(),
+                  ],
+                ),
+              ),
       ),
       onChanged: (val) {
         setState(() {
