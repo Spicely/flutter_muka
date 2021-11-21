@@ -83,6 +83,8 @@ class ITextField extends StatefulWidget {
 
   final TextAlign textAlign;
 
+  final BoxConstraints? prefixIconConstraints;
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -98,6 +100,7 @@ class ITextField extends StatefulWidget {
     this.inputBorder,
     this.textStyle,
     this.prefixIcon,
+    this.prefixIconConstraints,
     this.suffixIcon,
     this.obscureText,
     this.enabledBorder,
@@ -201,6 +204,7 @@ class _ITextFieldState extends State<ITextField> {
         labelStyle: widget.labelStyle,
         filled: true,
         prefixIcon: widget.prefixIcon,
+        prefixIconConstraints: widget.prefixIconConstraints,
         suffixIcon: !widget.showDeleteIcon
             ? null
             : Container(
