@@ -23,6 +23,8 @@ class GridItem extends StatelessWidget {
 
   final void Function()? onTap;
 
+  final CrossAxisAlignment crossAxisAlignment;
+
   const GridItem({
     Key? key,
     this.width,
@@ -31,6 +33,7 @@ class GridItem extends StatelessWidget {
     this.textMargin = const EdgeInsets.only(top: 5),
     this.padding = const EdgeInsets.all(0),
     this.onTap,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   @override
@@ -40,6 +43,7 @@ class GridItem extends StatelessWidget {
       child: Container(
         width: this.width ?? double.infinity,
         child: Column(
+          crossAxisAlignment: this.crossAxisAlignment,
           children: [
             this.image ?? Container(),
             Container(

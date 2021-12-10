@@ -378,9 +378,6 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
   }
 
   Widget _buildVerticalControls() {
-    if (widget.controlsBuilder != null)
-      return widget.controlsBuilder!(context, onStepContinue: widget.onStepContinue, onStepCancel: widget.onStepCancel);
-
     Color? cancelColor;
 
     switch (Theme.of(context).brightness) {
