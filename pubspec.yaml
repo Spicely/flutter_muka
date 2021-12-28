@@ -11,20 +11,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cookie_jar: 
-  dio_cookie_manager: 
-  dio:
-  path_provider: 
+  cookie_jar: ^3.0.1
+  dio_cookie_manager: ^2.0.0
+  dio: ^4.0.4
+  path_provider: ^2.0.8
   permission_handler: 
-  flutter_html: 
-  r_upgrade: 
-  package_info:
-  connectivity_plus: 
-  signature:
-  flutter_easyloading: 
-  scan: 
-  image_picker: 
-  intl: 
+  flutter_html: ^2.2.1 
+  r_upgrade: ^0.3.7+1
+  package_info: ^2.0.2
+  connectivity_plus: ^2.1.0
+  signature: ^5.0.0
+  flutter_easyloading: ^3.0.3
+  scan: ^1.6.0 
+  image_picker: ^0.8.4+4 
+  intl: ^0.17.0
   extended_image: ^6.0.1
   flutter_spinkit: ^5.1.0
 
