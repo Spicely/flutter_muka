@@ -31,7 +31,7 @@ class _PageInitState extends State<PageInit> {
       Future.delayed(const Duration(milliseconds: 1500), () {
         _lastClickTime = 0;
       });
-      EasyLoading.showToast(widget.exitLabel!);
+      BrnToast.show(widget.exitLabel!, context);
       return Future.value(false);
     }
   }

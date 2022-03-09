@@ -14,19 +14,22 @@ dependencies:
   cookie_jar: ^3.0.1
   dio_cookie_manager: ^2.0.0
   dio: ^4.0.4
-  path_provider: ^2.0.8
+  path_provider:
   permission_handler: 
-  flutter_html: ^2.2.1 
-  r_upgrade: ^0.3.7+1
-  package_info: ^2.0.2
+  flutter_html: 
+  r_upgrade: 
+  package_info:
   connectivity_plus:
-  signature: ^5.0.0
-  flutter_easyloading: ^3.0.3
-  scan: ^1.6.0 
-  image_picker: ^0.8.4+4 
-  intl: ^0.17.0
-  extended_image: ^6.0.1
-  flutter_spinkit: ^5.1.0
+  signature:  
+  scan: 
+  image_picker: 
+  intl: 
+  extended_image: 
+  flutter_spinkit:
+  bruno:
+   git:
+    url: https://github.com/LianjiaTech/bruno.git
+    ref: null-safe
 
 dev_dependencies:
   flutter_test:

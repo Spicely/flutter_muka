@@ -69,9 +69,9 @@ class _CropImageState extends State<CropImageFile> {
               IconButton(
                 icon: widget.doneWidget ?? Icon(Icons.done),
                 onPressed: () async {
-                  EasyLoading.show(maskType: EasyLoadingMaskType.clear);
+                  BrnLoadingDialog.show(context);
                   Uint8List data = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;
-                  EasyLoading.dismiss();
+                  BrnLoadingDialog.dismiss(context);
                   Navigator.pop(context, data);
                 },
               )
@@ -152,9 +152,9 @@ class _CropImageMemoryState extends State<CropImageMemory> {
               IconButton(
                 icon: widget.doneWidget ?? Icon(Icons.done, color: Theme.of(context).primaryColor),
                 onPressed: () async {
-                  EasyLoading.show(maskType: EasyLoadingMaskType.clear);
+                  BrnLoadingDialog.show(context);
                   Uint8List data = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;
-                  EasyLoading.dismiss();
+                  BrnLoadingDialog.dismiss(context);
                   Navigator.pop(context, data);
                 },
               )
