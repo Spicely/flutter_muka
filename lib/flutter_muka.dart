@@ -36,6 +36,7 @@ export 'package:path_provider/path_provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:extended_image/extended_image.dart' show ExtendedImage, File;
 export 'package:extended_image/src/utils.dart';
+export 'package:bruno/bruno.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
