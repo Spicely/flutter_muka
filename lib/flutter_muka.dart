@@ -1,7 +1,7 @@
 library flutter_muka;
 
 import 'dart:async';
-import 'dart:io' show HttpClient, Platform, exit;
+import 'dart:io' show File, HttpClient, Platform, exit;
 import 'dart:typed_data';
 import 'package:bruno/bruno.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -34,7 +34,7 @@ export 'package:dio/dio.dart';
 export 'package:intl/intl.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
-export 'package:extended_image/extended_image.dart' show ExtendedImage, File;
+export 'package:extended_image/extended_image.dart' show ExtendedImage;
 export 'package:extended_image/src/utils.dart';
 export 'package:bruno/bruno.dart';
 
