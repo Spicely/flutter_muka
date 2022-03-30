@@ -41,6 +41,7 @@ class GridItem extends StatelessWidget {
     return GestureDetector(
       onTap: this.onTap,
       child: Container(
+        color: Colors.transparent,
         width: this.width ?? double.infinity,
         child: Column(
           crossAxisAlignment: this.crossAxisAlignment,
