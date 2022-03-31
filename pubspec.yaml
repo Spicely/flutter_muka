@@ -26,10 +26,11 @@ dependencies:
   intl: 
   extended_image: 
   flutter_spinkit:
+  fluro:
   bruno:
    git:
     url: https://github.com/LianjiaTech/bruno.git
-    ref: null-safe
+    ref: 2.2.x
 
 dev_dependencies:
   flutter_test:

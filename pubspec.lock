@@ -54,11 +54,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: null-safe
-      resolved-ref: "00aff4c29f2f309c49d8967640954a760978b86a"
+      ref: "2.2.x"
+      resolved-ref: f9bee7c8038fdd5cf2c74172cf25b5cb83c505b2
       url: "https://github.com/LianjiaTech/bruno.git"
     source: git
-    version: "2.0.0"
+    version: "2.1.0-nullsafety.0"
   build:
     dependency: transitive
     description:
@@ -304,6 +304,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  fluro:
+    dependency: "direct main"
+    description:
+      name: fluro
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   flutter:
     dependency: "direct main"
     description: flutter

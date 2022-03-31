@@ -20,6 +20,7 @@ class AppUpdate {
     String method = 'POST',
     Map<dynamic, dynamic>? data,
     GestureTapCallback? onNotUpdate,
+    ThemeData? themeData,
   }) async {
     if (kIsWeb) {
       print('AppUpdate.checkUpdate -> 网页调用此函数无效');
@@ -89,117 +90,120 @@ class AppUpdate {
                 )
               : null,
           content: (context, state) {
-            return Column(
-              children: <Widget>[
-                updateImage ?? Image.asset('packages/flutter_muka/assets/images/bg_update_top.png'),
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('是否更新到${val.versionCode}版本?'),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                          '新版本大小：${val.apkSize}',
-                          style: TextStyle(color: Colors.black54),
+            return Theme(
+              data: themeData ?? Theme.of(context),
+              child: Column(
+                children: <Widget>[
+                  updateImage ?? Image.asset('packages/flutter_muka/assets/images/bg_update_top.png'),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('是否更新到${val.versionCode}版本?'),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            '新版本大小：${val.apkSize}',
+                            style: TextStyle(color: Colors.black54),
+                          ),
                         ),
-                      ),
-                      Container(
-                        height: 110,
-                        padding: EdgeInsets.only(top: 20),
-                        child: ListView(
-                          padding: EdgeInsets.all(0),
-                          children: <Widget>[
-                            Html(
-                              data: val.updateContent,
-                            )
-                          ],
+                        Container(
+                          height: 110,
+                          padding: EdgeInsets.only(top: 20),
+                          child: ListView(
+                            padding: EdgeInsets.all(0),
+                            children: <Widget>[
+                              Html(
+                                data: val.updateContent,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.only(top: 10),
-                        height: 45,
-                        child: hasDown
-                            ? Stack(
-                                children: <Widget>[
-                                  Container(
-                                    constraints: BoxConstraints(
-                                      maxHeight: progressHeight,
-                                    ),
-                                    child: LinearProgressIndicator(
-                                      value: progress,
-                                      backgroundColor: progressColor,
-                                      valueColor: progressValueColor,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 20,
-                                    right: 0,
-                                    child: Container(
-                                      color: Colors.white,
-                                      child: Text(
-                                        '${progress.toStringAsFixed(1)}%',
-                                        style: TextStyle(color: progressValueColor as Color? ?? Theme.of(context).primaryColor),
+                        Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.only(top: 10),
+                          height: 45,
+                          child: hasDown
+                              ? Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      constraints: BoxConstraints(
+                                        maxHeight: progressHeight,
+                                      ),
+                                      child: LinearProgressIndicator(
+                                        value: progress,
+                                        backgroundColor: progressColor,
+                                        valueColor: progressValueColor,
                                       ),
                                     ),
-                                  )
-                                ],
-                              )
-                            : ElevatedButton(
-                                style: ButtonStyle(
-                                  elevation: MaterialStateProperty.all(0),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+                                    Positioned(
+                                      top: 20,
+                                      right: 0,
+                                      child: Container(
+                                        color: Colors.white,
+                                        child: Text(
+                                          '${progress.toStringAsFixed(1)}%',
+                                          style: TextStyle(color: progressValueColor as Color? ?? Theme.of(context).primaryColor),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : ElevatedButton(
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(0),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+                                    ),
                                   ),
-                                ),
-                                child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
-                                onPressed: () async {
-                                  if (val.isAppStore) {
-                                    if (Platform.isIOS) {
-                                      await RUpgrade.upgradeFromAppStore(val.downloadUrl);
+                                  child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
+                                  onPressed: () async {
+                                    if (val.isAppStore) {
+                                      if (Platform.isIOS) {
+                                        await RUpgrade.upgradeFromAppStore(val.downloadUrl);
+                                      } else {
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.BAIDU);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.COOLAPK);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOAPK);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOOGLE_PLAY);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.HIAPK);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.HUAWEI);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.QIHOO);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.TENCENT);
+                                        await RUpgrade.upgradeFromAndroidStore(AndroidStore.XIAOMI);
+                                      }
                                     } else {
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.BAIDU);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.COOLAPK);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOAPK);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOOGLE_PLAY);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.HIAPK);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.HUAWEI);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.QIHOO);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.TENCENT);
-                                      await RUpgrade.upgradeFromAndroidStore(AndroidStore.XIAOMI);
-                                    }
-                                  } else {
-                                    hasDown = true;
-                                    String _filename = val.downloadUrl.split('/').last;
-                                    RUpgrade.stream.listen((DownloadInfo info) async {
-                                      if (info.maxLength != -1 && hasState) {
-                                        progress = info.percent!;
-                                        state(() {});
-                                      }
-                                      if (info.status == DownloadStatus.STATUS_SUCCESSFUL) {
-                                        progress = 100;
-                                        state(() {});
-                                        bool granted = await Permission.storage.request().isGranted;
-
-                                        if (granted) {
-                                          await RUpgrade.install(info.id!);
+                                      hasDown = true;
+                                      String _filename = val.downloadUrl.split('/').last;
+                                      RUpgrade.stream.listen((DownloadInfo info) async {
+                                        if (info.maxLength != -1 && hasState) {
+                                          progress = info.percent!;
+                                          state(() {});
                                         }
-                                      }
-                                    });
-                                    print(_filename);
-                                    await RUpgrade.upgrade(val.downloadUrl, fileName: _filename);
-                                  }
-                                },
-                              ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                                        if (info.status == DownloadStatus.STATUS_SUCCESSFUL) {
+                                          progress = 100;
+                                          state(() {});
+                                          bool granted = await Permission.storage.request().isGranted;
+
+                                          if (granted) {
+                                            await RUpgrade.install(info.id!);
+                                          }
+                                        }
+                                      });
+                                      print(_filename);
+                                      await RUpgrade.upgrade(val.downloadUrl, fileName: _filename);
+                                    }
+                                  },
+                                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             );
           },
         );
