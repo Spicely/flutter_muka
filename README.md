@@ -149,6 +149,14 @@ Flutter样式组件
 
         /// 更新内容
         String updateContent;
+
+        /// 更新类型
+        /// normal 全量升级
+        ///
+        /// hotUpgrade 热更新
+        ///
+        /// incrementUpgrade 增量升级
+        String type;
       },
       'code': 200,
       'msg': '请求成功'

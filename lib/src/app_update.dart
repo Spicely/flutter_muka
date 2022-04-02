@@ -193,7 +193,6 @@ class AppUpdate {
                                           }
                                         }
                                       });
-                                      print(_filename);
                                       await RUpgrade.upgrade(val.downloadUrl, fileName: _filename);
                                     }
                                   },
