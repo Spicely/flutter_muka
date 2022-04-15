@@ -46,6 +46,9 @@ class MultiImage extends StatefulWidget {
 
   final GestureTapCallback? onAdd;
 
+  /// 删除图片时处罚
+  final GestureTapCallback? onRemove;
+
   final Widget? addView;
 
   final BorderRadiusGeometry? borderRadius;
@@ -65,6 +68,7 @@ class MultiImage extends StatefulWidget {
     this.edit = true,
     this.addView,
     this.borderRadius,
+    this.onRemove,
   }) : super(key: key);
 
   @override
@@ -129,6 +133,7 @@ class _MultiImageState extends State<MultiImage> {
                       ),
                       onTap: () {
                         _data.removeAt(index);
+                        widget.onRemove?.call();
                         setState(() {});
                       },
                     ),
