@@ -27,6 +27,7 @@ dependencies:
   extended_image: 
   flutter_spinkit:
   fluro:
+  common_utils:
   bruno:
    git:
     url: https://github.com/LianjiaTech/bruno.git

@@ -53,33 +53,6 @@ class HttpUtils {
     headers = headers ?? {};
     contentType = contentType ?? Headers.jsonContentType;
 
-    /// restful 请求处理
-    /// /gysw/search/hist/:user_id        user_id=27
-    /// 最终生成 url 为     /gysw/search/hist/27
-    try {
-      data?.forEach((key, value) {
-        if (url.indexOf(key) != -1) {
-          url = url.replaceAll(':$key', value.toString());
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
-
-    // /// 打印请求相关信息：请求地址、请求方式、请求参数
-    if (DEBUG) {
-      print('请求地址：【' + _getMethod(method) + '  ' + url + '】');
-      if (data is FormData) {
-        Map params = {};
-        data.fields.forEach((i) {
-          params[i.key] = i.value.toString();
-        });
-        print('请求参数：【' + params.toString() + '】');
-      } else {
-        print('请求参数：【' + data.toString() + '】');
-      }
-    }
-
     Dio? dio = await createInstance();
     var result;
 
@@ -99,11 +72,6 @@ class HttpUtils {
     );
 
     result = response.data;
-
-    /// 打印响应相关信息
-    if (DEBUG) {
-      print('响应数据：【' + response.toString() + '】');
-    }
     return result;
   }
 
@@ -161,6 +129,13 @@ class HttpUtils {
             return "PROXY $uri";
           };
         };
+      }
+      if (DEBUG) {
+        LogUtil.init(isDebug: DEBUG);
+
+        _dio!.interceptors.add(
+          LogInterceptor(responseBody: true, requestBody: true, logPrint: LogUtil.v),
+        );
       }
     }
 

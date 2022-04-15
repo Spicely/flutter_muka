@@ -39,7 +39,7 @@ abstract class BasicRoute {
       }
     }
     if (debug) {
-      print('navigateTo传递的参数：${query.isEmpty ? routeSettings?.arguments : query}');
+      LogUtil.v('navigateTo传递的参数：${query.isEmpty ? routeSettings?.arguments : query}');
     }
 
     path = path + query;
