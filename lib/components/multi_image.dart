@@ -1,11 +1,18 @@
 part of flutter_muka;
 
 class MultiImageController {
+  final List<MultiImagePorps>? initData;
+
   _MultiImageState? _multiImageState;
+
+  MultiImageController({
+    this.initData,
+  });
 
   /// 绑定状态
   void _bindMultiImageState(_MultiImageState state) {
     this._multiImageState = state;
+    state._data = initData ?? [];
   }
 
   /// 添加图片
@@ -81,14 +88,9 @@ class _MultiImageState extends State<MultiImage> {
   late bool _edit;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    widget.controller._bindMultiImageState(this);
-  }
-
-  @override
   initState() {
     super.initState();
+    widget.controller._bindMultiImageState(this);
     _edit = widget.edit;
   }
 
