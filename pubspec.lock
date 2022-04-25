@@ -157,13 +157,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.15.0"
-  common_utils:
-    dependency: "direct main"
-    description:
-      name: common_utils
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.0"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -255,13 +248,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.3"
-  decimal:
-    dependency: transitive
-    description:
-      name: decimal
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.0"
   dio:
     dependency: "direct main"
     description:
@@ -501,6 +487,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.6"
+  logger:
+    dependency: "direct main"
+    description:
+      name: logger
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   logging:
     dependency: transitive
     description:
@@ -753,13 +746,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.8+1"
-  rational:
-    dependency: transitive
-    description:
-      name: rational
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.0"
   scan:
     dependency: "direct main"
     description:

@@ -23,7 +23,7 @@ class AppUpdate {
     ThemeData? themeData,
   }) async {
     if (kIsWeb) {
-      LogUtil.v('AppUpdate.checkUpdate -> 网页调用此函数无效');
+      logger.v('AppUpdate.checkUpdate -> 网页调用此函数无效');
       return;
     }
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -38,7 +38,7 @@ class AppUpdate {
           exit(0);
         }
       } catch (e) {
-        LogUtil.v('服务器异常-----获取失败');
+        logger.v('服务器异常-----获取失败');
       }
     }
     try {
@@ -210,7 +210,7 @@ class AppUpdate {
         onNotUpdate?.call();
       }
     } catch (e) {
-      LogUtil.v(e);
+      logger.v(e);
     }
   }
 }

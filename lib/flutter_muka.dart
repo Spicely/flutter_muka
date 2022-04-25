@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:io' show File, HttpClient, Platform, exit;
 import 'dart:typed_data';
 import 'package:bruno/bruno.dart';
-import 'package:common_utils/common_utils.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:extended_image/extended_image.dart';
@@ -14,6 +13,7 @@ import 'package:flutter_muka/views/crop_editor_helper.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:r_upgrade/r_upgrade.dart';
@@ -40,7 +40,6 @@ export 'package:extended_image/extended_image.dart' show ExtendedImage;
 export 'package:extended_image/src/utils.dart';
 export 'package:bruno/bruno.dart';
 export 'package:fluro/fluro.dart';
-export 'package:common_utils/common_utils.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
@@ -72,3 +71,14 @@ part 'components/progress_loading_button.dart';
 
 part 'views/crop_image.dart';
 part 'views/scan_page.dart';
+
+Logger logger = Logger(
+  printer: PrettyPrinter(
+    methodCount: 2, // number of method calls to be displayed
+    errorMethodCount: 8, // number of method calls if stacktrace is provided
+    lineLength: 120, // width of the output
+    colors: true, // Colorful log messages
+    printEmojis: true, // Print an emoji for each log message
+    printTime: false, // Should each log print contain a timestamp
+  ),
+);

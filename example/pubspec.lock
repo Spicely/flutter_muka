@@ -73,13 +73,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.15.0"
-  common_utils:
-    dependency: transitive
-    description:
-      name: common_utils
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.0"
   connectivity_plus:
     dependency: transitive
     description:
@@ -122,13 +115,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
-  convert:
-    dependency: transitive
-    description:
-      name: convert
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.1"
   cookie_jar:
     dependency: transitive
     description:
@@ -171,13 +157,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.3"
-  decimal:
-    dependency: transitive
-    description:
-      name: decimal
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.0"
   dio:
     dependency: transitive
     description:
@@ -368,6 +347,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.3"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   lpinyin:
     dependency: transitive
     description:
@@ -578,13 +564,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.8+1"
-  rational:
-    dependency: transitive
-    description:
-      name: rational
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.0"
   scan:
     dependency: transitive
     description:

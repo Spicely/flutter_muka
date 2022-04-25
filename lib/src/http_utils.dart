@@ -131,10 +131,8 @@ class HttpUtils {
         };
       }
       if (DEBUG) {
-        LogUtil.init(isDebug: DEBUG);
-
         _dio!.interceptors.add(
-          LogInterceptor(responseBody: true, requestBody: true, logPrint: LogUtil.v),
+          LogInterceptor(responseBody: true, requestBody: true, logPrint: logger.v),
         );
       }
     }
