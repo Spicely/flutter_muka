@@ -54,8 +54,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "2.2.x"
-      resolved-ref: "2d022e5e32912484490f5672744faaf3211f36a9"
+      ref: "2.10.x"
+      resolved-ref: fb2dc9e9ac8c5add7094f8f7b8a0525f7a7cc957
       url: "https://github.com/LianjiaTech/bruno.git"
     source: git
     version: "2.1.1"
@@ -240,7 +240,7 @@ packages:
       name: csslib
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.16.2"
+    version: "0.17.1"
   dart_style:
     dependency: transitive
     description:
@@ -261,7 +261,7 @@ packages:
       name: decimal
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   dio:
     dependency: "direct main"
     description:
@@ -343,7 +343,7 @@ packages:
       name: flutter_html
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.11.1"
+    version: "3.0.0-alpha.3"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -395,7 +395,7 @@ packages:
       name: html
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.14.0+4"
+    version: "0.15.0"
   http:
     dependency: transitive
     description:
@@ -458,7 +458,7 @@ packages:
       name: image_picker_ios
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.4+11"
+    version: "0.8.5"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -557,6 +557,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.5.0"
+  numerus:
+    dependency: transitive
+    description:
+      name: numerus
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.1"
   package_config:
     dependency: transitive
     description:
@@ -913,5 +920,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.16.0 <3.0.0"
-  flutter: ">=2.8.0"
+  dart: ">=2.16.1 <3.0.0"
+  flutter: ">=2.10.0"
