@@ -39,7 +39,8 @@ abstract class BasicRoute {
       }
     }
     if (debug) {
-      logger.v('navigateTo传递的参数：${query.isEmpty ? routeSettings?.arguments : query}');
+      logger.d(
+          '当前跳转页面：$path \n${query.isEmpty ? 'routeSettings.arguments' : 'params'}：${query.isEmpty ? _argumentsToString(routeSettings?.arguments) : query}');
     }
 
     path = path + query;
@@ -55,4 +56,25 @@ abstract class BasicRoute {
   }
 
   static void pop<T>(BuildContext context, [T? result]) => router.pop(context, result);
+}
+
+String _argumentsToString(Object? args) {
+  switch (args) {
+    case null:
+      return 'null';
+    case bool:
+      return args.toString();
+    case int:
+      return args.toString();
+    case double:
+      return args.toString();
+    case String:
+      return args.toString();
+    case List:
+      return args.toString();
+    case Map:
+      return args.toString();
+    default:
+      return args.toString();
+  }
 }

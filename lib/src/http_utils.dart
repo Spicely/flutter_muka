@@ -132,7 +132,7 @@ class HttpUtils {
       }
       if (DEBUG) {
         _dio!.interceptors.add(
-          LogInterceptor(responseBody: true, requestBody: true, logPrint: logger.v),
+          LogInterceptor(responseBody: true, requestBody: true, logPrint: logger.d),
         );
       }
     }
