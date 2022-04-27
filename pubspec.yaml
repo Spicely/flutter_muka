@@ -28,10 +28,7 @@ dependencies:
   flutter_spinkit:
   fluro:
   logger: ^1.1.0
-  bruno:
-   git:
-    url: https://github.com/LianjiaTech/bruno.git
-    ref: 2.10.x
+  bruno: ^2.1.1
 
 dev_dependencies:
   flutter_test:

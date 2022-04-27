@@ -53,11 +53,9 @@ packages:
   bruno:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "2.10.x"
-      resolved-ref: fb2dc9e9ac8c5add7094f8f7b8a0525f7a7cc957
-      url: "https://github.com/LianjiaTech/bruno.git"
-    source: git
+      name: bruno
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "2.1.1"
   build:
     dependency: transitive
