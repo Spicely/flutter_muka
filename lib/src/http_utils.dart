@@ -131,12 +131,43 @@ class HttpUtils {
         };
       }
       if (DEBUG) {
-        _dio!.interceptors.add(
-          LogInterceptor(responseBody: true, requestBody: true, logPrint: logger.d),
-        );
+        _dio!.interceptors.add(_MukaLogInterceptor());
       }
     }
 
     return _dio;
+  }
+}
+
+class _MukaLogInterceptor extends Interceptor {
+  String _request = '';
+
+  void _printKV(String key, Object? v) {
+    _request += '$key: $v\n';
+  }
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    _request = '';
+    _printKV('uri', options.uri);
+    _printKV('method', options.method);
+    _printKV('responseType', options.responseType.toString());
+    _printKV('followRedirects', options.followRedirects);
+    _printKV('connectTimeout', options.connectTimeout);
+    _printKV('sendTimeout', options.sendTimeout);
+    _printKV('receiveTimeout', options.receiveTimeout);
+    _printKV('receiveDataWhenStatusError', options.receiveDataWhenStatusError);
+    _printKV('extra', options.extra);
+    _printKV('data', options.data);
+    _printKV('queryParameters', options.queryParameters);
+    logger.d(_request);
+
+    handler.next(options);
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) async {
+    logger.d(response.data);
+    handler.next(response);
   }
 }

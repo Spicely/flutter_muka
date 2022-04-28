@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
+  HttpUtils.DEBUG = true;
   runApp(MyApp());
 }
 
@@ -228,6 +229,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDivider: true,
                 onTap: () {
                   AppUpdate.checkUpdate(context, url: 'https://api.muka.site/app/upgrade', appId: 'com.example.example');
+                },
+              ),
+              ListItem(
+                title: Text('HTTP请求'),
+                color: Colors.white,
+                showArrow: true,
+                showDivider: true,
+                onTap: () {
+                  try {
+                    HttpUtils.request('https://test.uhomeing.com/app/cityRegion/region/成都市',
+                        data: {'aa': 'bb'}, method: HttpUtilsMethod.GET);
+                  } on DioError catch (e) {
+                    // logger.error
+                  } catch (e) {
+                    // logger.error
+                  }
                 },
               ),
               ListItem(
