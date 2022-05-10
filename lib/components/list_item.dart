@@ -14,7 +14,7 @@ enum FieldType {
   VALUE,
 }
 
-class ListItem extends StatefulWidget {
+class ListItem extends StatelessWidget {
   /// 是否显示箭头
   final bool showArrow;
 
@@ -24,6 +24,8 @@ class ListItem extends StatefulWidget {
   final EdgeInsetsGeometry contentPadding;
 
   final Widget? title;
+
+  final Widget? leading;
 
   final Widget? value;
 
@@ -55,6 +57,8 @@ class ListItem extends StatefulWidget {
   /// 分割线dk边距离
   final double dividerEndIndex;
 
+  final EdgeInsets leadingEdgeInsets;
+
   ListItem({
     Key? key,
     this.showArrow = false,
@@ -74,43 +78,53 @@ class ListItem extends StatefulWidget {
     this.showDivider = false,
     this.dividerIndex = 0,
     this.dividerEndIndex = 0,
+    this.leading,
+    this.leadingEdgeInsets: const EdgeInsets.only(right: 10),
   }) : super(key: key);
-  @override
-  State<StatefulWidget> createState() => _ListItemState();
-}
 
-class _ListItemState extends State<ListItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: widget.onLongPress,
-      onTap: widget.onTap,
+      onLongPress: onLongPress,
+      onTap: onTap,
       child: Column(
         children: [
           Container(
-            height: widget.showDivider ? widget.height + 0.1 : widget.height,
-            margin: widget.margin,
-            padding: widget.contentPadding,
+            height: showDivider ? height + 0.1 : height,
+            margin: margin,
+            padding: contentPadding,
             decoration: BoxDecoration(
-              color: widget.color ?? Colors.transparent,
-              borderRadius: widget.borderRadius,
-              boxShadow: widget.boxShadow,
+              color: color ?? Colors.transparent,
+              borderRadius: borderRadius,
+              boxShadow: boxShadow,
             ),
             child: Row(
               children: <Widget>[
-                widget.fieldType.index == 0 ? Expanded(child: Container(child: widget.title)) : Container(child: widget.title),
-                widget.fieldType.index == 0
+                fieldType.index == 0
+                    ? Expanded(
+                        child: Container(
+                          child: Row(
+                            children: [if (leading != null) Padding(padding: leadingEdgeInsets, child: leading), title ?? Container()],
+                          ),
+                        ),
+                      )
+                    : Container(
+                        child: Row(
+                          children: [if (leading != null) Padding(padding: leadingEdgeInsets, child: leading), title ?? Container()],
+                        ),
+                      ),
+                fieldType.index == 0
                     ? Container(
-                        alignment: widget.valueAlignment,
-                        child: widget.value ?? Container(),
+                        alignment: valueAlignment,
+                        child: value ?? Container(),
                       )
                     : Expanded(
                         child: Container(
-                          alignment: widget.valueAlignment,
-                          child: widget.value ?? Container(),
+                          alignment: valueAlignment,
+                          child: value ?? Container(),
                         ),
                       ),
-                widget.showArrow
+                showArrow
                     ? Padding(
                         padding: EdgeInsets.only(left: 10, top: 3),
                         child: Icon(
@@ -119,11 +133,11 @@ class _ListItemState extends State<ListItem> {
                           color: Colors.black38,
                         ),
                       )
-                    : widget.icon ?? Container()
+                    : icon ?? Container()
               ],
             ),
           ),
-          widget.showDivider ? Divider(height: 0.11, indent: widget.dividerIndex, endIndent: widget.dividerEndIndex) : Container(),
+          showDivider ? Divider(height: 0.11, indent: dividerIndex, endIndent: dividerEndIndex) : Container(),
         ],
       ),
     );
