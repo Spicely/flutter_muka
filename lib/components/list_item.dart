@@ -100,19 +100,8 @@ class ListItem extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                fieldType.index == 0
-                    ? Expanded(
-                        child: Container(
-                          child: Row(
-                            children: [if (leading != null) Padding(padding: leadingEdgeInsets, child: leading), title ?? Container()],
-                          ),
-                        ),
-                      )
-                    : Container(
-                        child: Row(
-                          children: [if (leading != null) Padding(padding: leadingEdgeInsets, child: leading), title ?? Container()],
-                        ),
-                      ),
+                if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
+                fieldType.index == 0 ? Expanded(child: Container(child: title)) : Container(child: title),
                 fieldType.index == 0
                     ? Container(
                         alignment: valueAlignment,

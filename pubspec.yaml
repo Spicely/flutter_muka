@@ -28,7 +28,7 @@ dependencies:
   flutter_spinkit:
   fluro:
   logger: ^1.1.0
-  bruno: ^2.1.1
+  bruno: ^2.2.0
 
 dev_dependencies:
   flutter_test:
