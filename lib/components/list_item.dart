@@ -38,6 +38,8 @@ class ListItem extends StatelessWidget {
   /// 当showArrow == true时 无效
   final Widget? icon;
 
+  final Color? iconColor;
+
   final void Function()? onTap;
 
   final void Function()? onLongPress;
@@ -58,6 +60,8 @@ class ListItem extends StatelessWidget {
   final double dividerEndIndex;
 
   final EdgeInsets leadingEdgeInsets;
+
+  final DecorationImage? image;
 
   ListItem({
     Key? key,
@@ -80,6 +84,8 @@ class ListItem extends StatelessWidget {
     this.dividerEndIndex = 0,
     this.leading,
     this.leadingEdgeInsets: const EdgeInsets.only(right: 10),
+    this.image,
+    this.iconColor,
   }) : super(key: key);
 
   @override
@@ -97,6 +103,7 @@ class ListItem extends StatelessWidget {
               color: color ?? Colors.transparent,
               borderRadius: borderRadius,
               boxShadow: boxShadow,
+              image: image,
             ),
             child: Row(
               children: <Widget>[
@@ -115,11 +122,13 @@ class ListItem extends StatelessWidget {
                       ),
                 showArrow
                     ? Padding(
-                        padding: EdgeInsets.only(left: 10, top: 3),
-                        child: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 13,
-                          color: Colors.black38,
+                        padding: EdgeInsets.only(left: 10, top: 1.5),
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 13,
+                            color: iconColor ?? Theme.of(context).hintColor.withOpacity(0.2),
+                          ),
                         ),
                       )
                     : icon ?? Container()

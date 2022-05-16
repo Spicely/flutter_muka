@@ -1,14 +1,11 @@
 library flutter_muka;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' show File, HttpClient, Platform, exit;
 import 'dart:typed_data';
-import 'package:bruno/bruno.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_muka/views/crop_editor_helper.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -39,14 +36,11 @@ export 'package:path_provider/path_provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:extended_image/extended_image.dart' show ExtendedImage;
 export 'package:extended_image/src/utils.dart';
-export 'package:bruno/bruno.dart';
-export 'package:fluro/fluro.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
 part 'src/app_update.dart';
 part 'src/utils.dart';
-part 'src/fluro_base.dart';
 part 'src/verify_utils.dart';
 part 'src/extend_class.dart';
 part 'components/list_item.dart';
