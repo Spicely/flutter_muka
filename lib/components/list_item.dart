@@ -40,9 +40,12 @@ class ListItem extends StatelessWidget {
 
   final Color? iconColor;
 
+  /// value 点击事件
   final void Function()? onTap;
 
   final void Function()? onLongPress;
+
+  final void Function()? onTapValue;
 
   final FieldType fieldType;
 
@@ -86,6 +89,7 @@ class ListItem extends StatelessWidget {
     this.leadingEdgeInsets: const EdgeInsets.only(right: 10),
     this.image,
     this.iconColor,
+    this.onTapValue,
   }) : super(key: key);
 
   @override
@@ -115,9 +119,12 @@ class ListItem extends StatelessWidget {
                         child: value ?? Container(),
                       )
                     : Expanded(
-                        child: Container(
-                          alignment: valueAlignment,
-                          child: value ?? Container(),
+                        child: GestureDetector(
+                          onTap: onTapValue,
+                          child: Container(
+                            alignment: valueAlignment,
+                            child: value ?? Container(),
+                          ),
                         ),
                       ),
                 showArrow
