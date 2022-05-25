@@ -51,15 +51,12 @@ part 'components/empty.dart';
 part 'components/page_init.dart';
 part 'components/grid_box.dart';
 part 'components/grid_item.dart';
-part 'components/custom_stepper.dart';
 part 'components/start_up.dart';
 part 'components/signature_view.dart';
 part 'components/divider_text.dart';
 part 'components/price_number.dart';
-part 'components/round_check_box.dart';
 part 'components/change_number.dart';
 part 'components/easy_popup.dart';
-part 'components/animated_button.dart';
 part 'components/virtual_keyboard.dart';
 part 'components/progress_loading_button.dart';
 
