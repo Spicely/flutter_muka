@@ -62,6 +62,8 @@ class MultiImage extends StatefulWidget {
 
   final double childAspectRatio;
 
+  final EdgeInsetsGeometry imagePadding;
+
   const MultiImage({
     Key? key,
     required this.controller,
@@ -76,6 +78,7 @@ class MultiImage extends StatefulWidget {
     this.addView,
     this.borderRadius,
     this.onRemove,
+    this.imagePadding = const EdgeInsets.all(5),
   }) : super(key: key);
 
   @override
@@ -117,7 +120,7 @@ class _MultiImageState extends State<MultiImage> {
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: widget.imagePadding,
                   child: _getImageView(_data[index]),
                 ),
                 if (_edit)
