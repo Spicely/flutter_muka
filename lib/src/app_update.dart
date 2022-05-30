@@ -7,6 +7,8 @@ part of flutter_muka;
 //// Date: 2020年05月27日 17:13:28 Wednesday
 //////////////////////////////////////////////////////////////////////////
 
+bool _status = true;
+
 class AppUpdate {
   static checkUpdate(
     BuildContext context, {
@@ -22,6 +24,8 @@ class AppUpdate {
     GestureTapCallback? onNotUpdate,
     ThemeData? themeData,
   }) async {
+    if (!_status) return;
+    _status = false;
     if (kIsWeb) {
       logger.e('AppUpdate.checkUpdate -> 网页调用此函数无效');
       return;
@@ -82,6 +86,7 @@ class AppUpdate {
                     GestureDetector(
                       onTap: () {
                         hasState = false;
+                        _status = true;
                         Navigator.pop(context);
                       },
                       child: Icon(Icons.highlight_off, color: Colors.white, size: 30),

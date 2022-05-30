@@ -119,6 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              Container(
+                color: Colors.red,
+                child: DashboardProgress(
+                  height: 200,
+                  value: 60.0,
+                  child: Center(
+                    child: Text('111'),
+                  ),
+                ),
+              ),
               ListItem(
                 showDivider: true,
                 dividerIndex: 15,
@@ -272,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // }
                   _multiImageController.add(MultiImagePorps(url: 'https://img.muka.site/other/bg.jpg'));
                 },
-              )
+              ),
             ],
           ),
         ),

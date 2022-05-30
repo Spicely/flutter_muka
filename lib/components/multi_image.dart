@@ -60,6 +60,8 @@ class MultiImage extends StatefulWidget {
 
   final BorderRadiusGeometry? borderRadius;
 
+  final BorderRadius imageRadius;
+
   final double childAspectRatio;
 
   final EdgeInsetsGeometry imagePadding;
@@ -79,6 +81,7 @@ class MultiImage extends StatefulWidget {
     this.borderRadius,
     this.onRemove,
     this.imagePadding = const EdgeInsets.all(5),
+    this.imageRadius = const BorderRadius.all(Radius.circular(5)),
   }) : super(key: key);
 
   @override
@@ -121,7 +124,10 @@ class _MultiImageState extends State<MultiImage> {
               children: [
                 Padding(
                   padding: widget.imagePadding,
-                  child: _getImageView(_data[index]),
+                  child: ClipRRect(
+                    borderRadius: widget.imageRadius,
+                    child: _getImageView(_data[index]),
+                  ),
                 ),
                 if (_edit)
                   Positioned(
