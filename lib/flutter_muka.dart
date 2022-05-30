@@ -3,6 +3,7 @@ library flutter_muka;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' show File, HttpClient, Platform, exit;
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:bruno/bruno.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -68,6 +69,7 @@ part 'components/easy_popup.dart';
 part 'components/animated_button.dart';
 part 'components/virtual_keyboard.dart';
 part 'components/progress_loading_button.dart';
+part 'components/dashboard_progress.dart';
 
 part 'views/crop_image.dart';
 part 'views/scan_page.dart';
