@@ -3,7 +3,7 @@
  * Created Date: 2022-05-30 21:09:40
  * Author: Spicely
  * -----
- * Last Modified: 2022-05-30 22:32:23
+ * Last Modified: 2022-05-30 23:01:31
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -19,16 +19,22 @@ class DashboardProgress extends StatelessWidget {
   /// 半径
   final double height;
 
-  final Color color;
+  final Color? strokeColor;
+
+  final Color valueColor;
 
   final double strokeWidth;
 
   final Widget? child;
 
+  final double value;
+
   const DashboardProgress({
     Key? key,
+    required this.value,
     required this.height,
-    this.color = Colors.white,
+    this.valueColor = Colors.white,
+    this.strokeColor,
     this.strokeWidth = 4,
     this.child,
   }) : super(key: key);
@@ -40,7 +46,9 @@ class DashboardProgress extends StatelessWidget {
         CustomPaint(
           size: Size(MediaQuery.of(context).size.width, height),
           painter: DashBoardPainter(
-            strokeColor: color,
+            value: this.value,
+            valueColor: valueColor,
+            strokeColor: strokeColor,
             strokeWidth: strokeWidth,
           ),
         ),
@@ -59,7 +67,10 @@ class DashboardProgress extends StatelessWidget {
 
 class DashBoardPainter extends CustomPainter {
   /// 画笔颜色
-  final Color strokeColor;
+  final Color? strokeColor;
+
+  /// 画笔颜色
+  final Color valueColor;
 
   final double strokeWidth;
 
@@ -67,30 +78,31 @@ class DashBoardPainter extends CustomPainter {
 
   final double rad = pi / 180.0;
 
+  final double value;
+
   DashBoardPainter({
-    required this.strokeColor,
+    this.strokeColor,
     required this.strokeWidth,
+    required this.value,
+    required this.valueColor,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final double radius = size.height * 0.5 - strokeWidth;
-    final scale = radius / 75;
     Offset center = Offset(size.width * 0.5, size.height * 0.5);
-    canvas.drawColor(Colors.orange, BlendMode.srcIn);
     Paint paint = Paint()
-      ..color = Colors.white
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
     List.generate(31, (index) {
-      // if (index < 10) {
-      //   paint.color = Colors.red;
-      // } else {
-      //   paint.color = Colors.white;
-      // }
+      if (value > index * 3.3) {
+        paint.color = valueColor;
+      } else {
+        paint.color = strokeColor ?? valueColor.withOpacity(0.3);
+      }
       canvas.save();
-      canvas.translate(center.dx, center.dy - 20);
-      canvas.rotate(index * -6.12 - 0.81);
+      canvas.translate(center.dx, center.dy + 10);
+      canvas.rotate(index * -6.12 - 0.85);
       canvas.drawLine(
         Offset(-radius, 0),
         Offset(-radius + 5, 0),
@@ -101,5 +113,5 @@ class DashBoardPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+  bool shouldRepaint(DashBoardPainter oldDelegate) => value != oldDelegate.value ? true : false;
 }

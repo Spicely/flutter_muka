@@ -119,9 +119,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              Center(
+              Container(
+                color: Colors.red,
                 child: DashboardProgress(
                   height: 200,
+                  value: 60.0,
                   child: Center(
                     child: Text('111'),
                   ),
