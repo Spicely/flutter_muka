@@ -138,6 +138,7 @@ class DialogUtils {
     VoidCallback? onOk,
     double? width,
     double? height,
+    Function? onWillPop,
     BorderRadiusGeometry borderRadius = const BorderRadius.all(Radius.circular(10)),
     DecorationImage? background,
     Color? color,
@@ -152,6 +153,7 @@ class DialogUtils {
       builder: (_) => StatefulBuilder(
         builder: (context, state) => WillPopScope(
           onWillPop: () {
+            onWillPop?.call();
             return Future.value(willPop);
           },
           child: AlertDialog(
