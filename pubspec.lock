@@ -42,7 +42,7 @@ packages:
       name: badges
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -53,9 +53,9 @@ packages:
   bruno:
     dependency: "direct main"
     description:
-      name: bruno
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "plugs/bruno-2.2.0"
+      relative: true
+    source: path
     version: "2.2.0"
   build:
     dependency: transitive
