@@ -128,31 +128,35 @@ class _BrnScrollAnchorTabWidgetState extends State<BrnAnchorTab> with SingleTick
             children: [
               TabShowBar(
                 scrollController: _scrollController,
-                child: BrnTabBar(
-                  indicatorColor: widget.tabBarStyle.indicatorColor,
-                  indicatorWeight: widget.tabBarStyle.indicatorWeight,
-                  indicatorPadding: widget.tabBarStyle.indicatorPadding,
-                  labelColor: widget.tabBarStyle.labelColor,
-                  labelStyle: widget.tabBarStyle.labelStyle,
-                  labelPadding: widget.tabBarStyle.labelPadding ?? EdgeInsets.zero,
-                  unselectedLabelColor: widget.tabBarStyle.unselectedLabelColor,
-                  unselectedLabelStyle: widget.tabBarStyle.unselectedLabelStyle,
-                  dragStartBehavior: widget.tabBarStyle.dragStartBehavior,
-                  controller: _tabController,
-                  tabs: _fillTab(),
-                  onTap: (state, index) {
-                    state.refreshBadgeState(index);
-                    currentIndex = index;
-                    tab = true;
-                    _scrollController
-                        .animateTo(_cardOffsetList[index], duration: Duration(milliseconds: 100), curve: Curves.linear)
-                        .whenComplete(() {
-                      tab = false;
-                    });
-                  },
+                child: Column(
+                  children: [
+                    BrnTabBar(
+                      indicatorColor: widget.tabBarStyle.indicatorColor,
+                      indicatorWeight: widget.tabBarStyle.indicatorWeight,
+                      indicatorPadding: widget.tabBarStyle.indicatorPadding,
+                      labelColor: widget.tabBarStyle.labelColor,
+                      labelStyle: widget.tabBarStyle.labelStyle,
+                      labelPadding: widget.tabBarStyle.labelPadding ?? EdgeInsets.zero,
+                      unselectedLabelColor: widget.tabBarStyle.unselectedLabelColor,
+                      unselectedLabelStyle: widget.tabBarStyle.unselectedLabelStyle,
+                      dragStartBehavior: widget.tabBarStyle.dragStartBehavior,
+                      controller: _tabController,
+                      tabs: _fillTab(),
+                      onTap: (state, index) {
+                        state.refreshBadgeState(index);
+                        currentIndex = index;
+                        tab = true;
+                        _scrollController
+                            .animateTo(_cardOffsetList[index], duration: Duration(milliseconds: 100), curve: Curves.linear)
+                            .whenComplete(() {
+                          tab = false;
+                        });
+                      },
+                    ),
+                    widget.tabDivider ?? SizedBox.shrink(),
+                  ],
                 ),
               ),
-              widget.tabDivider ?? SizedBox.shrink(),
             ],
           ),
         ),
