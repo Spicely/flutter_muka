@@ -85,6 +85,21 @@ class ITextField extends StatefulWidget {
 
   final BoxConstraints? prefixIconConstraints;
 
+  /// countWidget 分隔符
+  final String separator;
+
+  /// countWidget 样式
+  final TextStyle? countWidgetStyle;
+
+  /// countWidget 样式
+  final TextStyle? countWidgetCountStyle;
+
+  /// countWidget 样式
+  final TextStyle? countWidgetLengthStyle;
+
+  /// countWidget 样式
+  final TextStyle? countWidgetSeparatorStyle;
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -123,6 +138,11 @@ class ITextField extends StatefulWidget {
     this.onTap,
     this.textAlign = TextAlign.start,
     this.toolbarOptions,
+    this.separator = '/',
+    this.countWidgetStyle,
+    this.countWidgetCountStyle,
+    this.countWidgetLengthStyle,
+    this.countWidgetSeparatorStyle,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -205,45 +225,59 @@ class _ITextFieldState extends State<ITextField> {
         filled: true,
         prefixIcon: widget.prefixIcon,
         prefixIconConstraints: widget.prefixIconConstraints,
-        suffixIcon: !widget.showDeleteIcon
-            ? null
-            : Container(
+        suffixIcon: widget.maxLength != null
+            ? Container(
+                width: 85,
                 alignment: Alignment.centerRight,
-                width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    widget.showDeleteIcon
-                        ? !widget.readOnly
-                            ? Container(
-                                width: 20.0,
-                                height: 20.0,
-                                child: widget.controller.text.length > 0
-                                    ? IconButton(
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.all(0.0),
-                                        iconSize: 18.0,
-                                        icon: widget.deleteIcon != null
-                                            ? widget.deleteIcon!
-                                            : Icon(
-                                                Icons.cancel,
-                                                color: Color.fromRGBO(0, 0, 0, 0.3),
-                                              ),
-                                        onPressed: () {
-                                          widget.controller.clear();
-                                          setState(() {
-                                            widget.onChanged?.call(widget.controller.text);
-                                          });
-                                        },
-                                      )
-                                    : null,
-                              )
-                            : Container()
-                        : Container(),
-                    widget.suffixIcon ?? Container(),
-                  ],
+                child: _ICountText(
+                  count: widget.controller.text.length,
+                  maxLength: widget.maxLength!,
+                  style: widget.countWidgetStyle ?? TextStyle(color: Theme.of(context).hintColor),
+                  countStyle: widget.countWidgetCountStyle,
+                  lengthStyle: widget.countWidgetLengthStyle,
+                  separatorStyle: widget.countWidgetSeparatorStyle,
+                  separator: widget.separator,
                 ),
-              ),
+              )
+            : !widget.showDeleteIcon
+                ? null
+                : Container(
+                    alignment: Alignment.centerRight,
+                    width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        widget.showDeleteIcon
+                            ? !widget.readOnly
+                                ? Container(
+                                    width: 20.0,
+                                    height: 20.0,
+                                    child: widget.controller.text.length > 0
+                                        ? IconButton(
+                                            alignment: Alignment.center,
+                                            padding: EdgeInsets.all(0.0),
+                                            iconSize: 18.0,
+                                            icon: widget.deleteIcon != null
+                                                ? widget.deleteIcon!
+                                                : Icon(
+                                                    Icons.cancel,
+                                                    color: Color.fromRGBO(0, 0, 0, 0.3),
+                                                  ),
+                                            onPressed: () {
+                                              widget.controller.clear();
+                                              setState(() {
+                                                widget.onChanged?.call(widget.controller.text);
+                                              });
+                                            },
+                                          )
+                                        : null,
+                                  )
+                                : Container()
+                            : Container(),
+                        widget.suffixIcon ?? Container(),
+                      ],
+                    ),
+                  ),
       ),
       onChanged: (val) {
         setState(() {
@@ -296,5 +330,48 @@ class ITextEditingController extends TextEditingController {
   /// 删除错误信息
   void clearError() {
     _state!._clearError();
+  }
+}
+
+/// 计数器
+class _ICountText extends StatelessWidget {
+  final int count;
+
+  final int maxLength;
+
+  /// 分隔符
+  final String separator;
+
+  final TextStyle? style;
+
+  final TextStyle? countStyle;
+
+  final TextStyle? lengthStyle;
+
+  final TextStyle? separatorStyle;
+
+  const _ICountText({
+    Key? key,
+    required this.count,
+    required this.maxLength,
+    this.separator = '/',
+    this.style,
+    this.countStyle,
+    this.lengthStyle,
+    this.separatorStyle,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: '$count', style: countStyle),
+          TextSpan(text: separator, style: separatorStyle),
+          TextSpan(text: '$maxLength', style: lengthStyle),
+        ],
+        style: style,
+      ),
+    );
   }
 }
