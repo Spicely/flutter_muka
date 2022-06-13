@@ -59,6 +59,10 @@ class ListItem extends StatelessWidget {
 
   final EdgeInsets leadingEdgeInsets;
 
+  final CrossAxisAlignment crossAxisAlignment;
+
+  final MainAxisAlignment mainAxisAlignment;
+
   ListItem({
     Key? key,
     this.showArrow = false,
@@ -80,6 +84,8 @@ class ListItem extends StatelessWidget {
     this.dividerEndIndex = 0,
     this.leading,
     this.leadingEdgeInsets: const EdgeInsets.only(right: 10),
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisAlignment = MainAxisAlignment.start,
   }) : super(key: key);
 
   @override
@@ -99,6 +105,8 @@ class ListItem extends StatelessWidget {
               boxShadow: boxShadow,
             ),
             child: Row(
+              crossAxisAlignment: crossAxisAlignment,
+              mainAxisAlignment: mainAxisAlignment,
               children: <Widget>[
                 if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
                 fieldType.index == 0 ? Expanded(child: Container(child: title)) : Container(child: title),
