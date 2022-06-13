@@ -85,6 +85,9 @@ class ITextField extends StatefulWidget {
 
   final BoxConstraints? prefixIconConstraints;
 
+  /// 显示最大长度
+  final bool isCount;
+
   /// countWidget 分隔符
   final String separator;
 
@@ -143,6 +146,7 @@ class ITextField extends StatefulWidget {
     this.countWidgetCountStyle,
     this.countWidgetLengthStyle,
     this.countWidgetSeparatorStyle,
+    this.isCount = false,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -225,7 +229,7 @@ class _ITextFieldState extends State<ITextField> {
         filled: true,
         prefixIcon: widget.prefixIcon,
         prefixIconConstraints: widget.prefixIconConstraints,
-        suffixIcon: widget.maxLength != null
+        suffixIcon: widget.maxLength != null && widget.isCount
             ? Container(
                 width: 85,
                 alignment: Alignment.centerRight,
