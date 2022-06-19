@@ -4,12 +4,12 @@ class PageInit extends StatefulWidget {
   final Widget? child;
 
   /// 退出App提示
-  final String? exitLabel;
+  final Function? onExitBefore;
 
   const PageInit({
     Key? key,
     this.child,
-    this.exitLabel,
+    this.onExitBefore,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class _PageInitState extends State<PageInit> {
 
   Future<bool> _doubleExit() {
     int nowTime = DateTime.now().microsecondsSinceEpoch;
-    if (widget.exitLabel == null) {
+    if (widget.onExitBefore == null) {
       return Future.value(true);
     }
     if (_lastClickTime != 0 && nowTime - _lastClickTime > 1500) {
@@ -31,7 +31,7 @@ class _PageInitState extends State<PageInit> {
       Future.delayed(const Duration(milliseconds: 1500), () {
         _lastClickTime = 0;
       });
-      // BrnToast.show(widget.exitLabel!, context);
+      widget.onExitBefore?.call();
       return Future.value(false);
     }
   }
