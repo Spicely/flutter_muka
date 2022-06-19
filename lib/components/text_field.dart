@@ -14,7 +14,7 @@ enum ITextInputType { text, multiline, number, phone, datetime, emailAddress, ur
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
 
-  final int maxLines;
+  final int? maxLines;
 
   final int? maxLength;
 
@@ -60,7 +60,7 @@ class ITextField extends StatefulWidget {
 
   final bool? obscureText;
 
-  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentPadding;
 
   final FormFieldValidator<String>? validator;
 
@@ -88,7 +88,7 @@ class ITextField extends StatefulWidget {
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
-    this.maxLines = 1,
+    this.maxLines,
     this.maxLength,
     this.hintText,
     this.digitsOnly,
@@ -108,7 +108,7 @@ class ITextField extends StatefulWidget {
     this.focusNode,
     this.labelText,
     required this.controller,
-    this.contentPadding = const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+    this.contentPadding,
     this.validator,
     this.showDeleteIcon = true,
     this.labelStyle,
@@ -173,10 +173,10 @@ class _ITextFieldState extends State<ITextField> {
 
   @override
   Widget build(BuildContext context) {
-    TextField textField = TextField(
+    return TextField(
       controller: widget.controller,
       focusNode: widget.focusNode,
-      cursorColor: widget.cursorColor ?? Theme.of(context).primaryColor,
+      cursorColor: widget.cursorColor,
       enableInteractiveSelection: true,
       readOnly: widget.readOnly,
       onSubmitted: widget.onSubmitted,
@@ -187,7 +187,6 @@ class _ITextFieldState extends State<ITextField> {
       textAlign: widget.textAlign,
       decoration: InputDecoration(
         hintStyle: widget.hintStyle,
-        isCollapsed: true,
         contentPadding: widget.contentPadding,
         counterStyle: TextStyle(color: Colors.white),
         hintText: widget.hintText,
@@ -199,7 +198,7 @@ class _ITextFieldState extends State<ITextField> {
         border: widget.inputBorder != null ? widget.inputBorder : UnderlineInputBorder(),
         focusedBorder: widget.focusedBorder,
         enabledBorder: widget.enabledBorder,
-        // fillColor: Colors.transparent,
+        fillColor: Colors.transparent,
         labelText: widget.labelText,
         labelStyle: widget.labelStyle,
         filled: true,
@@ -256,7 +255,6 @@ class _ITextFieldState extends State<ITextField> {
       style: widget.textStyle,
       obscureText: widget.obscureText ?? false,
     );
-    return textField;
   }
 
   @override
