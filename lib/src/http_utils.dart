@@ -126,8 +126,9 @@ class HttpUtils {
       if (PROXY_URL != null) {
         (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
           client.findProxy = (uri) {
-            return "PROXY $uri";
+            return "PROXY $PROXY_URL";
           };
+          client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
         };
       }
       if (DEBUG) {
