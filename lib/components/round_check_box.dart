@@ -8,7 +8,7 @@ class RoundCheckBox extends StatefulWidget {
     this.uncheckedWidget,
     this.checkedColor,
     this.uncheckedColor,
-    this.borderColor,
+    this.borderColor = Colors.grey,
     this.size = 30,
     this.animationDuration,
     required this.onTap,
@@ -30,7 +30,7 @@ class RoundCheckBox extends StatefulWidget {
   final Color? uncheckedColor;
 
   ///Define the border of the widget
-  final Color? borderColor;
+  final Color borderColor;
 
   ///Define the size of the checkbox
   final double size;
@@ -51,13 +51,11 @@ class _RoundCheckBoxState extends State<RoundCheckBox> {
   Widget? checkedWidget;
   Widget? uncheckedWidget;
   Color? uncheckedColor;
-  late Color borderColor;
 
   @override
   void initState() {
     animationDuration = widget.animationDuration ?? Duration(milliseconds: 500);
     size = widget.size;
-    borderColor = widget.borderColor ?? Colors.grey;
     checkedWidget = widget.checkedWidget ?? Icon(Icons.check, color: Colors.white, size: size / 1.2);
     uncheckedWidget = widget.uncheckedWidget ?? const SizedBox.shrink();
     super.initState();
@@ -84,7 +82,7 @@ class _RoundCheckBoxState extends State<RoundCheckBox> {
           decoration: BoxDecoration(
             color: widget.isChecked ? widget.checkedColor ?? Theme.of(context).primaryColor : uncheckedColor,
             border: Border.all(
-              color: borderColor,
+              color: widget.borderColor,
             ),
             borderRadius: BorderRadius.circular(size / 2),
           ),

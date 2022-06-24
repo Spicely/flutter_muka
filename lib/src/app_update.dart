@@ -215,6 +215,7 @@ class AppUpdate {
           },
         );
       } else {
+        _status = true;
         onNotUpdate?.call();
       }
     } catch (e) {
