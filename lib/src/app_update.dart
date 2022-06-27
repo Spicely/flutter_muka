@@ -219,6 +219,7 @@ class AppUpdate {
         onNotUpdate?.call();
       }
     } catch (e) {
+      _status = false;
       logger.e(e);
     }
   }
