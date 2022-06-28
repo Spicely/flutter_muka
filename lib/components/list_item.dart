@@ -66,6 +66,10 @@ class ListItem extends StatelessWidget {
 
   final DecorationImage? image;
 
+  final CrossAxisAlignment crossAxisAlignment;
+
+  final MainAxisAlignment mainAxisAlignment;
+
   ListItem({
     Key? key,
     this.showArrow = false,
@@ -90,6 +94,8 @@ class ListItem extends StatelessWidget {
     this.image,
     this.iconColor,
     this.onTapValue,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisAlignment = MainAxisAlignment.start,
   }) : super(key: key);
 
   @override
@@ -110,6 +116,8 @@ class ListItem extends StatelessWidget {
               image: image,
             ),
             child: Row(
+              crossAxisAlignment: crossAxisAlignment,
+              mainAxisAlignment: mainAxisAlignment,
               children: <Widget>[
                 if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
                 fieldType.index == 0 ? Expanded(child: Container(child: title)) : Container(child: title),

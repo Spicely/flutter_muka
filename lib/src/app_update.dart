@@ -70,6 +70,9 @@ class AppUpdate {
         DialogUtils.showInfo(
           context,
           color: Colors.transparent,
+          onWillPop: () {
+            _status = true;
+          },
           width: MediaQuery.of(context).size.width * 0.8,
           elevation: 0,
           showClose: !val.isIgnorable,
@@ -212,9 +215,11 @@ class AppUpdate {
           },
         );
       } else {
+        _status = true;
         onNotUpdate?.call();
       }
     } catch (e) {
+      _status = false;
       logger.e(e);
     }
   }
