@@ -16,7 +16,7 @@ dependencies:
   dio: 
   path_provider:
   permission_handler: 
-  flutter_html: ^3.0.0-alpha.3
+  flutter_html: 3.0.0-alpha.5
   r_upgrade: 
   package_info:
   connectivity_plus:

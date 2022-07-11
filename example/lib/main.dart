@@ -238,7 +238,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 showArrow: true,
                 showDivider: true,
                 onTap: () {
-                  AppUpdate.checkUpdate(context, url: 'https://api.muka.site/app/upgrade', appId: 'com.example.example');
+                  AppManage.upgrade(context, url: 'https://api.muka.site/app/upgrade', appId: 'com.example.example');
+                  // AppUpdate.checkUpdate(context, url: 'https://api.muka.site/app/upgrade', appId: 'com.example.example');
                 },
               ),
               ListItem(

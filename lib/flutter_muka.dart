@@ -1,7 +1,6 @@
 library flutter_muka;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' show File, HttpClient, Platform, exit;
 import 'dart:math';
 import 'dart:typed_data';
@@ -70,6 +69,7 @@ part 'components/animated_button.dart';
 part 'components/virtual_keyboard.dart';
 part 'components/progress_loading_button.dart';
 part 'components/dashboard_progress.dart';
+part 'components/app_upgrade.dart';
 
 part 'views/crop_image.dart';
 part 'views/scan_page.dart';
