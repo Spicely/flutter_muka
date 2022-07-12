@@ -293,6 +293,16 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
+=======
+  flutter_easyrefresh:
+    dependency: transitive
+    description:
+      name: flutter_easyrefresh
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.2"
+>>>>>>> dev2
   flutter_html:
     dependency: "direct main"
     description:
@@ -632,6 +642,16 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+<<<<<<< HEAD
+=======
+  photo_view:
+    dependency: transitive
+    description:
+      name: photo_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.0"
+>>>>>>> dev2
   platform:
     dependency: transitive
     description:
@@ -874,7 +894,11 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.7.0"
+=======
+    version: "2.6.1"
+>>>>>>> dev2
   xdg_directories:
     dependency: transitive
     description:
