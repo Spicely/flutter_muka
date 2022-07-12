@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-07-12 15:06:15
+ * Last Modified: 2022-07-12 15:53:30
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -244,16 +244,31 @@ class __UpgradeViewState extends State<_UpgradeView> {
                                   }
                                 } else {
                                   int? id = await RUpgrade.getLastUpgradedId();
-                                  String? ver = prefs.getString('flutter_muka_upgrade_code_${id}_version');
-                                  if (ver != null && ver == widget.data.versionCode) {
-                                    await RUpgrade.install(id!);
-                                  } else {
-                                    _hasDown = true;
-                                    _progress = 0;
-                                    setState(() {});
-                                    String _filename = widget.data.downloadUrl.split('/').last;
-                                    await RUpgrade.upgrade(widget.data.downloadUrl, fileName: _filename);
+                                  if (id != null) {
+                                    String? ver = prefs.getString('flutter_muka_upgrade_code_${id}_version');
+                                    DownloadStatus? status = await RUpgrade.getDownloadStatus(id);
+                                    if (status == null) {
+                                      downApk();
+                                      return;
+                                    }
+                                    if (status == DownloadStatus.STATUS_SUCCESSFUL) {
+                                      /// 判断存储版本和服务器版本是否一致
+                                      if (ver != null && ver == widget.data.versionCode) {
+                                        await RUpgrade.install(id);
+                                        _hasDown = false;
+                                        setState(() {});
+                                      } else {
+                                        /// 不一致，重新下载
+                                        downApk();
+                                      }
+                                    } else {
+                                      /// 下载未完成，重新下载
+                                      downApk();
+                                      return;
+                                    }
+                                    return;
                                   }
+                                  downApk();
                                 }
                               },
                             ),
@@ -288,5 +303,13 @@ class __UpgradeViewState extends State<_UpgradeView> {
         return Future.value(!widget.data.isIgnorable);
       },
     );
+  }
+
+  Future<void> downApk() async {
+    _hasDown = true;
+    _progress = 0;
+    setState(() {});
+    String _filename = widget.data.downloadUrl.split('/').last;
+    await RUpgrade.upgrade(widget.data.downloadUrl, fileName: _filename);
   }
 }
