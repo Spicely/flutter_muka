@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-07-11 18:28:13
+ * Last Modified: 2022-07-12 15:06:15
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -52,41 +52,45 @@ class AppManage {
     }
 
     /// 开始检测更新
-    // try {
-    Map<String, dynamic> params = {
-      'version': version,
-      'platform': Utils.platform,
-      'buildNumber': packageInfo.buildNumber,
-      'packageName': packageInfo.packageName,
-      'appName': packageInfo.appName,
-    };
-    if (data != null) {
-      params.addAll(data);
-    }
-    Response<dynamic> res = await Dio().request(
-      url,
-      options: Options(method: method),
-      data: method.toUpperCase() != 'GET' ? params : null,
-      queryParameters: method.toUpperCase() == 'GET' ? params : null,
-    );
-    UpgradeModel val = UpgradeModel.fromJson(res.data['data']);
-    _open = false;
-    if (val.hasUpdate) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          backgroundColor: Colors.transparent,
-          contentPadding: EdgeInsets.zero,
-          content: _UpgradeView(data: val),
-        ),
+    try {
+      Map<String, dynamic> params = {
+        'version': version,
+        'platform': Utils.platform,
+        'buildNumber': packageInfo.buildNumber,
+        'packageName': packageInfo.packageName,
+        'appName': packageInfo.appName,
+      };
+      if (data != null) {
+        params.addAll(data);
+      }
+      Response<dynamic> res = await Dio().request(
+        url,
+        options: Options(method: method),
+        data: method.toUpperCase() != 'GET' ? params : null,
+        queryParameters: method.toUpperCase() == 'GET' ? params : null,
       );
-    } else {
-      onNotUpdate?.call();
+      res.data['data']['downloadUrl'] = 'https://img.muka.site/app/football.apk';
+      res.data['data']['isIgnorable'] = false;
+      UpgradeModel val = UpgradeModel.fromJson(res.data['data']);
+      _open = false;
+      if (val.hasUpdate) {
+        showDialog(
+          context: context,
+          barrierDismissible: !val.isIgnorable,
+          builder: (context) => AlertDialog(
+            backgroundColor: Colors.transparent,
+            contentPadding: EdgeInsets.zero,
+            elevation: 0,
+            content: _UpgradeView(data: val),
+          ),
+        );
+      } else {
+        onNotUpdate?.call();
+      }
+    } catch (e) {
+      _open = false;
+      logger.e(e);
     }
-    // } catch (e) {
-    //   _open = false;
-    //   logger.e(e);
-    // }
   }
 }
 
@@ -109,49 +113,180 @@ class _UpgradeView extends StatefulWidget {
 }
 
 class __UpgradeViewState extends State<_UpgradeView> {
+  bool _hasDown = false;
+
+  double _progress = 0.0;
+
+  late SharedPreferences prefs;
+
+  late StreamSubscription<DownloadInfo> subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      prefs = await SharedPreferences.getInstance();
+    });
+    subscription = RUpgrade.stream.listen((DownloadInfo info) async {
+      if (info.maxLength != -1) {
+        _progress = info.percent!;
+        setState(() {});
+      }
+      if (info.status == DownloadStatus.STATUS_SUCCESSFUL) {
+        _progress = 100;
+        setState(() {});
+        bool granted = await Permission.storage.request().isGranted;
+        if (granted) {
+          prefs.setString('flutter_muka_upgrade_code_${info.id!}_version', widget.data.versionCode);
+          await RUpgrade.install(info.id!);
+          _hasDown = false;
+          setState(() {});
+        }
+      }
+    });
+  }
+
+  dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: widget.themeData ?? Theme.of(context),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            widget.updateImage ?? Image.asset('packages/flutter_muka/assets/images/bg_update_top.png'),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('是否更新到${widget.data.versionCode}版本?'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Text(
-                      '新版本大小：${widget.data.apkSize}',
-                      style: TextStyle(color: Colors.black54),
+    return WillPopScope(
+      child: Theme(
+        data: widget.themeData ?? Theme.of(context),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              widget.updateImage ?? Image.asset('packages/flutter_muka/assets/images/bg_update_top.png'),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('是否更新到${widget.data.versionCode}版本?'),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                        '新版本大小：${widget.data.apkSize}',
+                        style: TextStyle(color: Colors.black54),
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 110,
-                    padding: EdgeInsets.only(top: 20),
-                    child: ListView(
-                      padding: EdgeInsets.all(0),
-                      children: <Widget>[
-                        Html(
-                          data: widget.data.updateContent,
-                        )
-                      ],
+                    Container(
+                      height: 110,
+                      padding: EdgeInsets.only(top: 20),
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.all(0),
+                        children: <Widget>[
+                          Html(
+                            data: widget.data.updateContent,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.only(top: 10),
+                      height: 45,
+                      child: _hasDown
+                          ? Stack(
+                              children: <Widget>[
+                                Container(
+                                  constraints: BoxConstraints(
+                                    maxHeight: 10,
+                                  ),
+                                  child: LinearPercentIndicator(
+                                    percent: _progress / 100,
+                                    animation: true,
+                                    animationDuration: 200,
+                                    animateFromLastPercent: true,
+                                    barRadius: Radius.circular(5),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 20,
+                                  right: 0,
+                                  child: Container(
+                                    color: Colors.white,
+                                    child: Text('${_progress.toStringAsFixed(1)}%'),
+                                  ),
+                                )
+                              ],
+                            )
+                          : ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+                                ),
+                              ),
+                              child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
+                              onPressed: () async {
+                                if (!widget.data.isAppStore) {
+                                  if (Platform.isIOS) {
+                                    await RUpgrade.upgradeFromAppStore(widget.data.downloadUrl);
+                                  } else {
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.BAIDU);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.COOLAPK);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOAPK);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.GOOGLE_PLAY);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.HIAPK);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.HUAWEI);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.QIHOO);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.TENCENT);
+                                    await RUpgrade.upgradeFromAndroidStore(AndroidStore.XIAOMI);
+                                  }
+                                } else {
+                                  int? id = await RUpgrade.getLastUpgradedId();
+                                  String? ver = prefs.getString('flutter_muka_upgrade_code_${id}_version');
+                                  if (ver != null && ver == widget.data.versionCode) {
+                                    await RUpgrade.install(id!);
+                                  } else {
+                                    _hasDown = true;
+                                    _progress = 0;
+                                    setState(() {});
+                                    String _filename = widget.data.downloadUrl.split('/').last;
+                                    await RUpgrade.upgrade(widget.data.downloadUrl, fileName: _filename);
+                                  }
+                                }
+                              },
+                            ),
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
+              if (!widget.data.isIgnorable)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 40,
+                      width: 1,
+                      color: Colors.white,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // hasState = false;
+                        _status = true;
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.highlight_off, color: Colors.white, size: 30),
+                    ),
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
+      onWillPop: () {
+        return Future.value(!widget.data.isIgnorable);
+      },
     );
   }
 }

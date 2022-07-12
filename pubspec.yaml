@@ -27,7 +27,9 @@ dependencies:
   extended_image: 
   flutter_spinkit:
   fluro:
-  logger: ^1.1.0
+  logger:
+  percent_indicator:
+  shared_preferences: 
   bruno: 
     path: ./plugs/bruno-2.2.0
 
