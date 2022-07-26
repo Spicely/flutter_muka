@@ -1,7 +1,7 @@
 library flutter_muka;
 
 import 'dart:async';
-import 'dart:io' show File, HttpClient, Platform, X509Certificate, exit;
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:connectivity_plus/connectivity_plus.dart';
