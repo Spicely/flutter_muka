@@ -11,6 +11,19 @@ typedef void ITextFieldCallBack(String content);
 
 enum ITextInputType { text, multiline, number, phone, datetime, emailAddress, url, password }
 
+class ITextCalculate {
+  final int length;
+
+  final String text;
+
+  ITextCalculate({
+    required this.length,
+    required this.text,
+  });
+}
+
+ITextCalculate _calculate(String v, int length) => ITextCalculate(length: v.length, text: v);
+
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
 
@@ -105,6 +118,9 @@ class ITextField extends StatefulWidget {
 
   final Alignment countWidgetAlignment;
 
+  /// count长度计算方法
+  final ITextCalculate Function(String, int length) countCalculate;
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -150,6 +166,7 @@ class ITextField extends StatefulWidget {
     this.countWidgetSeparatorStyle,
     this.isCount = false,
     this.countWidgetAlignment = Alignment.centerRight,
+    this.countCalculate = _calculate,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -200,54 +217,42 @@ class _ITextFieldState extends State<ITextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: widget.contentPadding,
-      child: TextField(
-        controller: widget.controller,
-        focusNode: widget.focusNode,
-        cursorColor: widget.cursorColor,
-        enableInteractiveSelection: true,
-        readOnly: widget.readOnly,
-        onSubmitted: widget.onSubmitted,
-        onTap: widget.onTap,
-        onAppPrivateCommand: widget.onAppPrivateCommand,
-        onEditingComplete: widget.onEditingComplete,
-        toolbarOptions: widget.toolbarOptions,
-        textAlign: widget.textAlign,
-        decoration: InputDecoration(
-          hintStyle: widget.hintStyle,
-          counterStyle: TextStyle(color: Colors.white),
-          hintText: widget.hintText,
-          errorText: _errorText,
-          errorStyle: widget.errorStyle,
-          errorMaxLines: widget.errorMaxLines,
-          errorBorder: widget.errorBorder,
-          focusedErrorBorder: widget.focusedErrorBorder,
-          border: widget.inputBorder != null ? widget.inputBorder : UnderlineInputBorder(),
-          focusedBorder: widget.focusedBorder,
-          enabledBorder: widget.enabledBorder,
-          fillColor: Colors.transparent,
-          labelText: widget.labelText,
-          labelStyle: widget.labelStyle,
-          filled: true,
-          contentPadding: const EdgeInsets.all(0),
-          prefixIcon: widget.prefixIcon,
-          prefixIconConstraints: widget.prefixIconConstraints,
-          suffixIcon: widget.maxLength != null && widget.isCount
-              ? Container(
-                  width: 85,
-                  alignment: widget.countWidgetAlignment,
-                  child: _ICountText(
-                    count: widget.controller.text.length,
-                    maxLength: widget.maxLength!,
-                    style: widget.countWidgetStyle ?? TextStyle(color: Theme.of(context).hintColor),
-                    countStyle: widget.countWidgetCountStyle,
-                    lengthStyle: widget.countWidgetLengthStyle,
-                    separatorStyle: widget.countWidgetSeparatorStyle,
-                    separator: widget.separator,
-                  ),
-                )
-              : !widget.showDeleteIcon
+    return Stack(
+      children: [
+        Padding(
+          padding: widget.contentPadding,
+          child: TextField(
+            controller: widget.controller,
+            focusNode: widget.focusNode,
+            cursorColor: widget.cursorColor,
+            enableInteractiveSelection: true,
+            readOnly: widget.readOnly,
+            onSubmitted: widget.onSubmitted,
+            onTap: widget.onTap,
+            onAppPrivateCommand: widget.onAppPrivateCommand,
+            onEditingComplete: widget.onEditingComplete,
+            toolbarOptions: widget.toolbarOptions,
+            textAlign: widget.textAlign,
+            decoration: InputDecoration(
+              hintStyle: widget.hintStyle,
+              counterStyle: TextStyle(color: Colors.white),
+              hintText: widget.hintText,
+              errorText: _errorText,
+              errorStyle: widget.errorStyle,
+              errorMaxLines: widget.errorMaxLines,
+              errorBorder: widget.errorBorder,
+              focusedErrorBorder: widget.focusedErrorBorder,
+              border: widget.inputBorder != null ? widget.inputBorder : UnderlineInputBorder(),
+              focusedBorder: widget.focusedBorder,
+              enabledBorder: widget.enabledBorder,
+              fillColor: Colors.transparent,
+              labelText: widget.labelText,
+              labelStyle: widget.labelStyle,
+              filled: true,
+              contentPadding: const EdgeInsets.all(0),
+              prefixIcon: widget.prefixIcon,
+              prefixIconConstraints: widget.prefixIconConstraints,
+              suffixIcon: !widget.showDeleteIcon
                   ? null
                   : Container(
                       alignment: Alignment.centerRight,
@@ -286,18 +291,47 @@ class _ITextFieldState extends State<ITextField> {
                         ],
                       ),
                     ),
+            ),
+            onChanged: (val) {
+              String v = val;
+              if (widget.maxLength != null) {
+                v = widget.countCalculate(val, widget.maxLength!).text;
+                widget.controller.value = TextEditingValue(
+                  text: v,
+                  selection: TextSelection.collapsed(offset: v.length),
+                );
+              }
+              setState(() {
+                widget.onChanged?.call(v);
+              });
+            },
+            keyboardType: _getTextInputType(),
+            maxLines: widget.maxLines,
+            inputFormatters: _getTextInputFormatter(),
+            style: widget.textStyle,
+            obscureText: widget.obscureText ?? false,
+          ),
         ),
-        onChanged: (val) {
-          setState(() {
-            widget.onChanged?.call(val);
-          });
-        },
-        keyboardType: _getTextInputType(),
-        maxLines: widget.maxLines,
-        inputFormatters: _getTextInputFormatter(),
-        style: widget.textStyle,
-        obscureText: widget.obscureText ?? false,
-      ),
+        if (widget.maxLength != null && widget.isCount)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            child: Container(
+              alignment: widget.countWidgetAlignment,
+              child: _ICountText(
+                count: widget.countCalculate(widget.controller.text, widget.maxLength!).length,
+                maxLength: widget.maxLength!,
+                style: widget.countWidgetStyle ?? TextStyle(color: Theme.of(context).hintColor),
+                countStyle: widget.countWidgetCountStyle,
+                lengthStyle: widget.countWidgetLengthStyle,
+                separatorStyle: widget.countWidgetSeparatorStyle,
+                separator: widget.separator,
+              ),
+            ),
+          ),
+      ],
     );
   }
 

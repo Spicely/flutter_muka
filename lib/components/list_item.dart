@@ -106,7 +106,9 @@ class ListItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: showDivider ? height + 0.1 : height,
+            constraints: BoxConstraints(
+              minHeight: showDivider ? height + 0.1 : height,
+            ),
             margin: margin,
             padding: contentPadding,
             decoration: BoxDecoration(
@@ -120,9 +122,26 @@ class ListItem extends StatelessWidget {
               mainAxisAlignment: mainAxisAlignment,
               children: <Widget>[
                 if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
-                fieldType.index == 0 ? Expanded(child: Container(child: title)) : Container(child: title),
+                fieldType.index == 0
+                    ? Expanded(
+                        child: Container(
+                          constraints: BoxConstraints(
+                            minHeight: showDivider ? height + 0.1 : height,
+                          ),
+                          child: title,
+                        ),
+                      )
+                    : Container(
+                        constraints: BoxConstraints(
+                          minHeight: showDivider ? height + 0.1 : height,
+                        ),
+                        child: title,
+                      ),
                 fieldType.index == 0
                     ? Container(
+                        constraints: BoxConstraints(
+                          minHeight: showDivider ? height + 0.1 : height,
+                        ),
                         alignment: valueAlignment,
                         child: value ?? Container(),
                       )
@@ -130,6 +149,9 @@ class ListItem extends StatelessWidget {
                         child: GestureDetector(
                           onTap: onTapValue,
                           child: Container(
+                            constraints: BoxConstraints(
+                              minHeight: showDivider ? height + 0.1 : height,
+                            ),
                             alignment: valueAlignment,
                             child: value ?? Container(),
                           ),
