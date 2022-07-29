@@ -124,19 +124,9 @@ class ListItem extends StatelessWidget {
                 if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
                 fieldType.index == 0
                     ? Expanded(
-                        child: Container(
-                          constraints: BoxConstraints(
-                            minHeight: showDivider ? height + 0.1 : height,
-                          ),
-                          child: title,
-                        ),
+                        child: Container(child: title),
                       )
-                    : Container(
-                        constraints: BoxConstraints(
-                          minHeight: showDivider ? height + 0.1 : height,
-                        ),
-                        child: title,
-                      ),
+                    : Container(child: title),
                 fieldType.index == 0
                     ? Container(
                         constraints: BoxConstraints(
