@@ -18,16 +18,15 @@ class GridBox extends StatelessWidget {
 
   final double childAspectRatio;
 
-  final double? height;
-
   final EdgeInsetsGeometry padding;
 
   final EdgeInsetsGeometry margin;
 
   final Color color;
 
-  final BorderRadiusGeometry borderRadius;
+  final BoxDecoration? decoration;
 
+  final double? height;
   const GridBox({
     Key? key,
     this.children = const [],
@@ -36,7 +35,7 @@ class GridBox extends StatelessWidget {
     this.crossAxisSpacing = 5.0,
     this.childAspectRatio = 1.0,
     this.padding = const EdgeInsets.symmetric(vertical: 10),
-    this.borderRadius = const BorderRadius.all(Radius.circular(0)),
+    this.decoration,
     this.margin = const EdgeInsets.all(0),
     this.color = Colors.white,
     this.height,
@@ -48,10 +47,11 @@ class GridBox extends StatelessWidget {
       height: this.height,
       margin: this.margin,
       padding: this.padding,
-      decoration: BoxDecoration(
-        borderRadius: this.borderRadius,
-        color: this.color,
-      ),
+      decoration: this.decoration ??
+          BoxDecoration(
+            borderRadius: BorderRadius.circular(0),
+            color: this.color,
+          ),
       child: GridView.builder(
         padding: EdgeInsets.all(0),
         itemCount: this.children.length,

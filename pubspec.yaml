@@ -26,10 +26,11 @@ dependencies:
   intl: 
   extended_image: 
   flutter_spinkit:
- 
+  cached_network_image: 
   logger:
   percent_indicator:
   shared_preferences: 
+  shimmer: 
 
 dev_dependencies:
   flutter_test:

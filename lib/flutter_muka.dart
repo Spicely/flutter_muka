@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:extended_image/extended_image.dart';
@@ -19,6 +20,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:r_upgrade/r_upgrade.dart';
 import 'package:scan/scan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'src/adapter_browser.dart' if (dart.library.js) 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,8 @@ export 'package:path_provider/path_provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:extended_image/extended_image.dart' show ExtendedImage;
 export 'package:extended_image/src/utils.dart';
+export 'package:cached_network_image/cached_network_image.dart';
+export 'package:shimmer/shimmer.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
@@ -64,7 +68,7 @@ part 'components/virtual_keyboard.dart';
 part 'components/progress_loading_button.dart';
 part 'components/dashboard_progress.dart';
 part 'components/app_upgrade.dart';
-
+part 'components/cached_image.dart';
 part 'views/crop_image.dart';
 part 'views/scan_page.dart';
 
