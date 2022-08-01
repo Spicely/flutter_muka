@@ -121,6 +121,8 @@ class ITextField extends StatefulWidget {
   /// count长度计算方法
   final ITextCalculate Function(String, int length) countCalculate;
 
+  final List<TextInputFormatter>? inputFormatters;
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
@@ -167,6 +169,7 @@ class ITextField extends StatefulWidget {
     this.isCount = false,
     this.countWidgetAlignment = Alignment.centerRight,
     this.countCalculate = _calculate,
+    this.inputFormatters,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -307,7 +310,7 @@ class _ITextFieldState extends State<ITextField> {
             },
             keyboardType: _getTextInputType(),
             maxLines: widget.maxLines,
-            inputFormatters: _getTextInputFormatter(),
+            inputFormatters: widget.inputFormatters ?? _getTextInputFormatter(),
             style: widget.textStyle,
             obscureText: widget.obscureText ?? false,
           ),

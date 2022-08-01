@@ -281,7 +281,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // if (pickedFile != null) {
                   //   _multiImageController.add(MultiImagePorps(file: File(pickedFile.path)));
                   // }
-                  _multiImageController.add(MultiImagePorps(url: 'https://img.muka.site/other/bg.jpg'));
+                  _multiImageController.add(MultiImageProps(url: 'https://img.muka.site/other/bg.jpg'));
                 },
               ),
             ],

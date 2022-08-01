@@ -1,7 +1,24 @@
 part of flutter_muka;
 
+class MultiClosePosition {
+  final double? left;
+
+  final double? right;
+
+  final double? top;
+
+  final double? bottom;
+
+  const MultiClosePosition({
+    this.left,
+    this.right,
+    this.top,
+    this.bottom,
+  });
+}
+
 class MultiImageController {
-  final List<MultiImagePorps>? initData;
+  final List<MultiImageProps>? initData;
 
   _MultiImageState? _multiImageState;
 
@@ -16,8 +33,13 @@ class MultiImageController {
   }
 
   /// 添加图片
-  void add(MultiImagePorps data) {
+  void add(MultiImageProps data) {
     _multiImageState?._add(data);
+  }
+
+  /// 添加图片
+  void addAll(List<MultiImageProps> data) {
+    _multiImageState?._addAll(data);
   }
 
   /// 设置编辑状态
@@ -26,7 +48,7 @@ class MultiImageController {
   }
 
   /// 获取数据
-  List<MultiImagePorps> getValue() {
+  List<MultiImageProps> getValue() {
     return _multiImageState == null ? [] : _multiImageState!._data;
   }
 }
@@ -66,6 +88,8 @@ class MultiImage extends StatefulWidget {
 
   final EdgeInsetsGeometry imagePadding;
 
+  final MultiClosePosition closePosition;
+
   const MultiImage({
     Key? key,
     required this.controller,
@@ -82,6 +106,7 @@ class MultiImage extends StatefulWidget {
     this.onRemove,
     this.imagePadding = const EdgeInsets.all(5),
     this.imageRadius = const BorderRadius.all(Radius.circular(5)),
+    this.closePosition = const MultiClosePosition(right: 3, top: 3),
   }) : super(key: key);
 
   @override
@@ -89,7 +114,7 @@ class MultiImage extends StatefulWidget {
 }
 
 class _MultiImageState extends State<MultiImage> {
-  List<MultiImagePorps> _data = [];
+  List<MultiImageProps> _data = [];
 
   late bool _edit;
 
@@ -131,8 +156,10 @@ class _MultiImageState extends State<MultiImage> {
                 ),
                 if (_edit)
                   Positioned(
-                    right: 0,
-                    top: 0,
+                    right: widget.closePosition.right,
+                    top: widget.closePosition.top,
+                    left: widget.closePosition.left,
+                    bottom: widget.closePosition.bottom,
                     child: GestureDetector(
                       child: Container(
                         padding: EdgeInsets.all(2),
@@ -180,7 +207,7 @@ class _MultiImageState extends State<MultiImage> {
     return _edit ? _data.length + 1 : _data.length;
   }
 
-  Widget _getImageView(MultiImagePorps data) {
+  Widget _getImageView(MultiImageProps data) {
     if (data.file != null) {
       return ExtendedImage.file(
         data.file!,
@@ -202,8 +229,13 @@ class _MultiImageState extends State<MultiImage> {
     );
   }
 
-  void _add(MultiImagePorps data) {
+  void _add(MultiImageProps data) {
     _data.add(data);
+    setState(() {});
+  }
+
+  void _addAll(List<MultiImageProps> data) {
+    _data.addAll(data);
     setState(() {});
   }
 
@@ -213,7 +245,7 @@ class _MultiImageState extends State<MultiImage> {
   }
 }
 
-class MultiImagePorps {
+class MultiImageProps {
   final String? url;
 
   final File? file;
@@ -223,7 +255,7 @@ class MultiImagePorps {
   /// 用于需要拼接网络地址使用
   final String? baseUrl;
 
-  MultiImagePorps({
+  MultiImageProps({
     this.url,
     this.file,
     this.baseUrl,
