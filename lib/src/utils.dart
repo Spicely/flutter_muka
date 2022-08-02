@@ -17,6 +17,8 @@ class Utils {
     }
   }
 
+  ///
+
   static Map<String, String> getUrlParams(String params) {
     List<String> value = params.split('&');
     Map<String, String> data = {};
@@ -154,5 +156,15 @@ class Utils {
   static bool isChinese(String input) {
     if (input.isEmpty) return false;
     return new RegExp(CHINESE_REGEX).hasMatch(input);
+  }
+
+  /// 判断为null 或者空字符串
+  static bool isEmpty(String? data) {
+    return data == null || data.isEmpty;
+  }
+
+  /// 判断为null 或者空字符串
+  static bool isNotEmpty(String? data) {
+    return data != null && data.isNotEmpty;
   }
 }

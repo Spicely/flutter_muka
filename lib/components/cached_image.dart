@@ -3,7 +3,7 @@
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2022-07-30 20:49:54
+ * Last Modified: 2022-08-02 14:56:23
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -25,6 +25,8 @@ class CachedImage extends StatelessWidget {
 
   final BoxFit? fit;
 
+  final Color? imageColor;
+
   const CachedImage({
     Key? key,
     this.imageUrl,
@@ -33,6 +35,7 @@ class CachedImage extends StatelessWidget {
     this.circular = 0,
     this.fit,
     this.assetUrl,
+    this.imageColor,
   }) : super(key: key);
 
   @override
@@ -62,6 +65,7 @@ class CachedImage extends StatelessWidget {
           width: width,
           height: height,
           fit: fit,
+          color: imageColor,
         ),
       );
     }

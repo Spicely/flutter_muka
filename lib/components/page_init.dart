@@ -42,6 +42,7 @@ class _PageInitState extends State<PageInit> {
       onWillPop: _doubleExit,
       child: GestureDetector(
         onTap: () {
+          // SystemChannels.
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: widget.child,
