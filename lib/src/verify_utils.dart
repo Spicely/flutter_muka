@@ -1,11 +1,6 @@
 part of flutter_muka;
 
 class VerifyUtils {
-  /// 验证手机号
-  static bool isPhone(String str) {
-    return new RegExp('^[1][3,4,5,6,7,8,9][0-9]{9}\$').hasMatch(str);
-  }
-
   /// 验证身份证号
   static bool isCardId(String cardId) {
     const Map city = {

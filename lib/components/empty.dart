@@ -317,12 +317,12 @@ class EmptyController {
 
   /// 显示
   void show() {
-    _easyState!._setVisible(true);
+    _easyState?._setVisible(true);
   }
 
   /// 隐藏
   void hide() {
-    _easyState!._setVisible(false);
+    _easyState?._setVisible(false);
   }
 
   /// 销毁

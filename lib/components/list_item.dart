@@ -106,6 +106,7 @@ class ListItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            width: double.infinity,
             constraints: BoxConstraints(
               minHeight: showDivider ? height + 0.1 : height,
             ),
@@ -122,20 +123,13 @@ class ListItem extends StatelessWidget {
               mainAxisAlignment: mainAxisAlignment,
               children: <Widget>[
                 if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
-                fieldType.index == 0
+                fieldType == FieldType.TITLE
                     ? Expanded(
                         child: Container(child: title),
                       )
                     : Container(child: title),
-                fieldType.index == 0
-                    ? Container(
-                        constraints: BoxConstraints(
-                          minHeight: showDivider ? height + 0.1 : height,
-                        ),
-                        alignment: valueAlignment,
-                        child: value ?? Container(),
-                      )
-                    : Expanded(
+                fieldType == FieldType.VALUE
+                    ? Expanded(
                         child: GestureDetector(
                           onTap: onTapValue,
                           child: Container(
@@ -143,9 +137,13 @@ class ListItem extends StatelessWidget {
                               minHeight: showDivider ? height + 0.1 : height,
                             ),
                             alignment: valueAlignment,
-                            child: value ?? Container(),
+                            child: value,
                           ),
                         ),
+                      )
+                    : Container(
+                        alignment: valueAlignment,
+                        child: value,
                       ),
                 showArrow
                     ? Padding(

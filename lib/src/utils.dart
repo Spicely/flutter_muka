@@ -167,4 +167,18 @@ class Utils {
   static bool isNotEmpty(String? data) {
     return data != null && data.isNotEmpty;
   }
+
+  /// 验证手机号
+  static bool isPhone(String str) {
+    return new RegExp('^[1][3,4,5,6,7,8,9][0-9]{9}\$').hasMatch(str);
+  }
+
+  /// 数字超过10000转万
+  static String formatNumber(int number) {
+    if (number < 10000) {
+      return number.toString();
+    } else {
+      return (number / 10000).toStringAsFixed(1) + '万';
+    }
+  }
 }
