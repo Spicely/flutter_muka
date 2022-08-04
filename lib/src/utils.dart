@@ -181,4 +181,28 @@ class Utils {
       return (number / 10000).toStringAsFixed(1) + '万';
     }
   }
+
+  /// 压缩图片
+  static Future<File?> compressImage(File file) async {
+    var quality = 100;
+    if (file.lengthSync() > 4 * 1024 * 1024) {
+      quality = 50;
+    } else if (file.lengthSync() > 2 * 1024 * 1024) {
+      quality = 60;
+    } else if (file.lengthSync() > 1 * 1024 * 1024) {
+      quality = 70;
+    } else if (file.lengthSync() > 0.5 * 1024 * 1024) {
+      quality = 80;
+    } else if (file.lengthSync() > 0.25 * 1024 * 1024) {
+      quality = 90;
+    }
+    var dir = await getTemporaryDirectory();
+    var targetPath = '${dir.absolute.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    File? result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      quality: quality,
+    );
+    return result;
+  }
 }
