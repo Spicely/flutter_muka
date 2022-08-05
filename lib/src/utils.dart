@@ -205,4 +205,30 @@ class Utils {
     );
     return result;
   }
+
+  /// 压缩图片
+  static Future<Uint8List?> compressWithList(
+    Uint8List image, {
+    int minWidth = 1920,
+    int minHeight = 1080,
+    int quality = 95,
+    int rotate = 0,
+    int inSampleSize = 1,
+    bool autoCorrectionAngle = true,
+    CompressFormat format = CompressFormat.jpeg,
+    bool keepExif = false,
+  }) async {
+    Uint8List? result = await FlutterImageCompress.compressWithList(
+      image,
+      quality: quality,
+      minWidth: minWidth,
+      minHeight: minHeight,
+      rotate: rotate,
+      inSampleSize: inSampleSize,
+      autoCorrectionAngle: autoCorrectionAngle,
+      format: format,
+      keepExif: keepExif,
+    );
+    return result;
+  }
 }

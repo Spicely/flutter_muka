@@ -13,6 +13,10 @@ class CropImageFile extends StatefulWidget {
 
   final Widget? doneWidget;
 
+  final Function()? beforeCrop;
+
+  final Function()? afterCrop;
+
   const CropImageFile({
     Key? key,
     required this.file,
@@ -21,6 +25,8 @@ class CropImageFile extends StatefulWidget {
     this.cropAspectRatio = 1.0,
     this.cropRectPadding = const EdgeInsets.all(20.0),
     this.doneWidget,
+    this.beforeCrop,
+    this.afterCrop,
   }) : super(key: key);
 
   @override
@@ -69,9 +75,12 @@ class _CropImageState extends State<CropImageFile> {
               IconButton(
                 icon: widget.doneWidget ?? Icon(Icons.done),
                 onPressed: () async {
-                  // BrnLoadingDialog.show(context);
-                  Uint8List data = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;
-                  // BrnLoadingDialog.dismiss(context);
+                  widget.beforeCrop?.call();
+                  Uint8List? data = await cropImageDataWithDartLibrary(state: _editorKey.currentState!);
+                  if (data != null) {
+                    data = await Utils.compressWithList(data);
+                  }
+                  widget.afterCrop?.call();
                   Navigator.pop(context, data);
                 },
               )
@@ -96,6 +105,10 @@ class CropImageMemory extends StatefulWidget {
 
   final Widget? doneWidget;
 
+  final Function()? beforeCrop;
+
+  final Function()? afterCrop;
+
   const CropImageMemory({
     Key? key,
     required this.file,
@@ -104,6 +117,8 @@ class CropImageMemory extends StatefulWidget {
     this.cropAspectRatio = 1.0,
     this.cropRectPadding = const EdgeInsets.all(20.0),
     this.doneWidget,
+    this.beforeCrop,
+    this.afterCrop,
   }) : super(key: key);
 
   @override
@@ -152,9 +167,12 @@ class _CropImageMemoryState extends State<CropImageMemory> {
               IconButton(
                 icon: widget.doneWidget ?? Icon(Icons.done, color: Theme.of(context).primaryColor),
                 onPressed: () async {
-                  // BrnLoadingDialog.show(context);
-                  Uint8List data = (await cropImageDataWithDartLibrary(state: _editorKey.currentState!))!;
-                  // BrnLoadingDialog.dismiss(context);
+                  widget.beforeCrop?.call();
+                  Uint8List? data = await cropImageDataWithDartLibrary(state: _editorKey.currentState!);
+                  if (data != null) {
+                    data = await Utils.compressWithList(data);
+                  }
+                  widget.afterCrop?.call();
                   Navigator.pop(context, data);
                 },
               )
