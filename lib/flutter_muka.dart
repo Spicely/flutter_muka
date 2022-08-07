@@ -52,6 +52,7 @@ part 'src/utils.dart';
 part 'src/verify_utils.dart';
 part 'src/extend_class.dart';
 part 'src/muka_config_theme.dart';
+part 'components/bottom_sheet_layout.dart';
 part 'components/list_item.dart';
 part 'components/multi_image.dart';
 part 'components/text_field.dart';

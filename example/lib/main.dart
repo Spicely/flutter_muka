@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 dividerIndex: 15,
                 dividerEndIndex: 15,
                 color: Colors.white,
-                fieldType: FieldType.TITLE,
+                fieldType: FieldType.title,
                 value: Row(
                   children: [
                     Padding(

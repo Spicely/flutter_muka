@@ -3,7 +3,7 @@
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-02 14:56:23
+ * Last Modified: 2022-08-05 23:00:53
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -18,6 +18,8 @@ part of flutter_muka;
 class CachedImage extends StatelessWidget {
   final String? imageUrl;
   final String? assetUrl;
+
+  final File? file;
 
   final double? width;
   final double? height;
@@ -36,6 +38,7 @@ class CachedImage extends StatelessWidget {
     this.fit,
     this.assetUrl,
     this.imageColor,
+    this.file,
   }) : super(key: key);
 
   @override
@@ -62,6 +65,19 @@ class CachedImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(circular),
         child: Image.asset(
           assetUrl!,
+          width: width,
+          height: height,
+          fit: fit,
+          color: imageColor,
+        ),
+      );
+    }
+
+    if (file != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(circular),
+        child: Image.file(
+          file!,
           width: width,
           height: height,
           fit: fit,
