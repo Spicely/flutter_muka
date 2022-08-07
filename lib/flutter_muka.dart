@@ -58,6 +58,7 @@ part 'components/multi_image.dart';
 part 'components/text_field.dart';
 part 'components/code_time.dart';
 part 'components/empty.dart';
+part 'components/future_layout_builder.dart';
 part 'components/page_init.dart';
 part 'components/grid_box.dart';
 part 'components/grid_item.dart';

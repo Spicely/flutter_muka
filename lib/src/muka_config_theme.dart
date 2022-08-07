@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-06 00:18:59
+ * Last Modified: 2022-08-07 23:11:25
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -53,11 +53,34 @@ class MukaBottomSheetLayoutTheme {
   });
 }
 
+class MukaFutureLayoutBuilderTheme {
+  final Widget loadingWidget;
+
+  final Widget Function(dynamic) errorWidget;
+
+  MukaFutureLayoutBuilderTheme({
+    required this.loadingWidget,
+    required this.errorWidget,
+  });
+}
+
 class MukaConfigTheme {
   Widget emptyWidget() => SizedBox(child: Text('暂无数据'));
 
-  /// bottomSheet 定制框 参数
+  /// BottomSheetLayout
   MukaBottomSheetLayoutTheme bottomSheetLayoutTheme = MukaBottomSheetLayoutTheme();
+
+  /// FutureLayoutBuilder 参数
+  MukaFutureLayoutBuilderTheme futureLayoutBuilderTheme = MukaFutureLayoutBuilderTheme(
+    loadingWidget: Center(
+      child: SpinKitFadingCube(
+        color: Colors.blue,
+      ),
+    ),
+    errorWidget: (error) => Center(
+      child: Text(error is DioError ? error.message : error.toString()),
+    ),
+  );
 }
 
 class MukaConfig {
