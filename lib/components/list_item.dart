@@ -107,13 +107,13 @@ class ListItem extends StatelessWidget {
         children: [
           Ink(
             color: color ?? Colors.transparent,
+            padding: contentPadding,
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
                 minHeight: showDivider ? height + 0.1 : height,
               ),
               margin: margin,
-              padding: contentPadding,
               decoration: BoxDecoration(
                 borderRadius: borderRadius,
                 boxShadow: boxShadow,
