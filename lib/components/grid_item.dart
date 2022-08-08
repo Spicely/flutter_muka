@@ -10,6 +10,8 @@ part of flutter_muka;
 class GridItem extends StatelessWidget {
   final double? width;
 
+  final double? height;
+
   /// 网格图片
   final Widget? image;
 
@@ -25,32 +27,39 @@ class GridItem extends StatelessWidget {
 
   final CrossAxisAlignment crossAxisAlignment;
 
+  final BoxDecoration? decoration;
+
   const GridItem({
     Key? key,
     this.width,
+    this.height,
     this.image,
     this.label,
     this.textMargin = const EdgeInsets.only(top: 5),
     this.padding = const EdgeInsets.all(0),
     this.onTap,
+    this.decoration,
     this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: onTap,
       child: Container(
-        padding: this.padding,
-        color: Colors.transparent,
-        width: this.width ?? double.infinity,
+        padding: padding,
+        color: decoration != null ? null : Colors.transparent,
+        width: width ?? double.infinity,
+        decoration: decoration,
+        height: height,
         child: Column(
-          crossAxisAlignment: this.crossAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            this.image ?? Container(),
+            image ?? Container(),
             Container(
-              margin: this.textMargin,
-              child: this.label ?? Container(),
+              margin: textMargin,
+              child: label ?? Container(),
             ),
           ],
         ),
