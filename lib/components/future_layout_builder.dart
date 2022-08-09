@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-07 23:10:17
+ * Last Modified: 2022-08-09 11:05:39
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -18,16 +18,16 @@ part of flutter_muka;
 
 MukaFutureLayoutBuilderTheme _futureLayoutBuilderTheme = MukaConfig.config.futureLayoutBuilderTheme;
 
-class FutureLayoutBuilder extends StatelessWidget {
-  final Widget child;
+class FutureLayoutBuilder<T> extends StatelessWidget {
+  final Widget Function(T) builder;
 
-  final Future<dynamic>? future;
+  final Future<T>? future;
 
   final MukaFutureLayoutBuilderTheme? config;
 
   const FutureLayoutBuilder({
     Key? key,
-    required this.child,
+    required this.builder,
     this.future,
     this.config,
   }) : super(key: key);
@@ -38,10 +38,10 @@ class FutureLayoutBuilder extends StatelessWidget {
       future: onFuture(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data is bool) {
-            return child;
-          } else {
+          if (snapshot.data is Exception || snapshot.data is DioError) {
             return config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
+          } else {
+            return builder(snapshot.data);
           }
         } else if (snapshot.hasError) {
           return config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
@@ -54,8 +54,8 @@ class FutureLayoutBuilder extends StatelessWidget {
 
   Future<dynamic> onFuture() async {
     try {
-      await future;
-      return true;
+      dynamic res = await future;
+      return res ?? true;
     } catch (e) {
       return e;
     }

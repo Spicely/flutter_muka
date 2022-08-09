@@ -33,6 +33,10 @@ class ListItem extends StatelessWidget {
 
   final Color? color;
 
+  final Color? inkColor;
+
+  final EdgeInsetsGeometry? inkPadding;
+
   final AlignmentGeometry valueAlignment;
 
   /// 当showArrow == true时 无效
@@ -72,6 +76,8 @@ class ListItem extends StatelessWidget {
 
   ListItem({
     Key? key,
+    this.inkColor,
+    this.inkPadding,
     this.showArrow = false,
     this.title,
     this.onTap,
@@ -106,15 +112,17 @@ class ListItem extends StatelessWidget {
       child: Column(
         children: [
           Ink(
-            color: color ?? Colors.transparent,
-            padding: contentPadding,
+            color: inkColor ?? Colors.transparent,
+            padding: inkPadding,
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
-                minHeight: showDivider ? height + 0.1 : height,
+                minHeight: height,
               ),
               margin: margin,
+              padding: contentPadding,
               decoration: BoxDecoration(
+                color: color ?? Colors.transparent,
                 borderRadius: borderRadius,
                 boxShadow: boxShadow,
                 image: image,
@@ -162,7 +170,7 @@ class ListItem extends StatelessWidget {
               ),
             ),
           ),
-          showDivider ? Divider(height: 0.11, indent: dividerIndex, endIndent: dividerEndIndex) : Container(),
+          showDivider ? Divider(height: 0.3, indent: dividerIndex, endIndent: dividerEndIndex) : Container(),
         ],
       ),
     );
