@@ -112,8 +112,11 @@ class ListItem extends StatelessWidget {
       child: Column(
         children: [
           Ink(
-            color: inkColor ?? Colors.transparent,
             padding: inkPadding,
+            decoration: BoxDecoration(
+              color: inkColor ?? Colors.transparent,
+              borderRadius: borderRadius,
+            ),
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
