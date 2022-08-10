@@ -34,6 +34,7 @@ enum EmptyBtnType {
 class Empty extends StatefulWidget {
   Empty({
     Key? key,
+    this.isEmpty,
     this.controller,
     this.child,
     this.empty,
@@ -127,6 +128,8 @@ class Empty extends StatefulWidget {
 
   final TextStyle? btnTextStyle;
 
+  final bool? isEmpty;
+
   @override
   State<StatefulWidget> createState() => _EmptyState();
 }
@@ -168,7 +171,7 @@ class _EmptyState extends State<Empty> {
       children: <Widget>[
         if (widget.child != null) widget.child!,
         Offstage(
-          offstage: !_status,
+          offstage: widget.isEmpty == null ? !_status : !widget.isEmpty!,
           child: Container(
             width: double.infinity,
             height: double.infinity,
