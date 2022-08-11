@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-11 17:43:59
+ * Last Modified: 2022-08-12 00:11:31
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -85,6 +85,14 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder> {
   initState() {
     super.initState();
     _future = onFuture();
+  }
+
+  @override
+  void didUpdateWidget(covariant FutureLayoutBuilder oldWidget) {
+    if (widget.future != oldWidget.future) {
+      _future = onFuture();
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
