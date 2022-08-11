@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-11 15:27:53
+ * Last Modified: 2022-08-11 17:43:59
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -96,7 +96,7 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder> {
           if (snapshot.data is Exception || snapshot.data is DioError) {
             return widget.config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
           } else {
-            return widget.builder(snapshot.data);
+            return widget.builder(snapshot.data as T);
           }
         } else if (snapshot.hasError) {
           return widget.config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
