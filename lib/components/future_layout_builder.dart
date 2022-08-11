@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-09 11:05:39
+ * Last Modified: 2022-08-11 10:32:01
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -21,7 +21,7 @@ MukaFutureLayoutBuilderTheme _futureLayoutBuilderTheme = MukaConfig.config.futur
 class FutureLayoutBuilder<T> extends StatelessWidget {
   final Widget Function(T) builder;
 
-  final Future<T>? future;
+  final Function()? future;
 
   final MukaFutureLayoutBuilderTheme? config;
 
@@ -35,7 +35,7 @@ class FutureLayoutBuilder<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: onFuture(),
+      // future: onFuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data is Exception || snapshot.data is DioError) {
@@ -54,8 +54,8 @@ class FutureLayoutBuilder<T> extends StatelessWidget {
 
   Future<dynamic> onFuture() async {
     try {
-      dynamic res = await future;
-      return res ?? true;
+      // dynamic res = await future;
+      // return res ?? true;
     } catch (e) {
       return e;
     }
