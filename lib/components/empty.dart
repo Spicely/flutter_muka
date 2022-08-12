@@ -377,3 +377,30 @@ class EmptyNotContent {
     );
   }
 }
+
+class SliverEmpty extends StatelessWidget {
+  final Widget child;
+
+  /// 空组件样式
+  final Widget? emptyChild;
+
+  final bool isEmpty;
+
+  const SliverEmpty({
+    Key? key,
+    required this.child,
+    this.emptyChild,
+    this.isEmpty = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (isEmpty) {
+      return emptyChild ??
+          SliverToBoxAdapter(
+            child: MukaConfig.config.emptyWidget(),
+          );
+    }
+    return child;
+  }
+}
