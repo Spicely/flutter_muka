@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-14 23:56:33
+ * Last Modified: 2022-08-15 17:23:39
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -41,14 +41,14 @@ class FutureLayoutBuilder<T> extends StatelessWidget {
     return FutureBuilder<T>(
       future: _future,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasError) {
+          return config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
+        } else if (snapshot.hasData) {
           if (snapshot.data is Exception || snapshot.data is DioError) {
             return config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
           } else {
             return builder(snapshot.data!);
           }
-        } else if (snapshot.hasError) {
-          return config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
         } else {
           return config?.loadingWidget ?? _futureLayoutBuilderTheme.loadingWidget;
         }
