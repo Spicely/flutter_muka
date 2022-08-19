@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-17 00:51:24
+ * Last Modified: 2022-08-19 12:06:02
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -69,11 +69,15 @@ class FutureLayoutBuilder<T> extends StatefulWidget {
 
   final MukaFutureLayoutBuilderTheme? config;
 
+  /// 是否需要拉取
+  final T? data;
+
   const FutureLayoutBuilder({
     Key? key,
     required this.builder,
     this.future,
     this.config,
+    this.data,
   }) : super(key: key);
   @override
   _FutureLayoutBuilderState<T> createState() => _FutureLayoutBuilderState<T>();
@@ -97,6 +101,9 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.data != null) {
+      return widget.builder(widget.data!);
+    }
     return FutureBuilder(
       future: _future,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
