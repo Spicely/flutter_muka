@@ -231,4 +231,9 @@ class Utils {
     );
     return result;
   }
+
+  static double randomDouble(double min, double max) {
+    var x = Random().nextDouble() * max + min;
+    return x;
+  }
 }

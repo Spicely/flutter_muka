@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-19 12:06:02
+ * Last Modified: 2022-08-21 16:25:23
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -108,7 +108,7 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
       future: _future,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data is Exception || snapshot.data is DioError) {
+          if (snapshot.data is Error || snapshot.data is DioError) {
             return widget.config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
           } else {
             return widget.builder(snapshot.data);
