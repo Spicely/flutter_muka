@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-21 16:25:23
+ * Last Modified: 2022-08-31 20:11:36
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -116,7 +116,7 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
         } else if (snapshot.hasError) {
           return widget.config?.errorWidget(snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(snapshot.data);
         } else {
-          return widget.config?.loadingWidget ?? _futureLayoutBuilderTheme.loadingWidget;
+          return widget.config?.loadingWidget() ?? _futureLayoutBuilderTheme.loadingWidget();
         }
       },
     );

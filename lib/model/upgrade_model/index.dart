@@ -12,7 +12,7 @@ class UpgradeModel {
   /// hotUpgrade 热更新
   ///
   /// incrementUpgrade 增量升级
-  final String type;
+  final String? type;
 
   /// 是否跳转appStore
   final bool isAppStore;
@@ -63,7 +63,7 @@ UpgradeModel _$UpgradeModelFromJson(Map<String, dynamic> json) {
     updateContent: json['updateContent'] as String,
     isIgnorable: json['isIgnorable'] as bool,
     versionCode: json['versionCode'] as String,
-    type: json['type'] as String,
+    type: json['type'] as String?,
   );
 }
 

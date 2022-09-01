@@ -123,6 +123,91 @@ class ITextField extends StatefulWidget {
 
   final List<TextInputFormatter>? inputFormatters;
 
+  static TextInputFormatter phoneInputFormatter() {
+    return TextInputFormatter.withFunction((oldValue, newValue) {
+      String text = newValue.text;
+      //获取光标左边的文本
+      final positionStr = (text.substring(0, newValue.selection.baseOffset)).replaceAll(RegExp(r"\s+\b|\b\s"), "");
+      //计算格式化后的光标位置
+      int length = positionStr.length;
+      var position = 0;
+      if (length <= 3) {
+        position = length;
+      } else if (length <= 7) {
+        // 因为前面的字符串里面加了一个空格
+        position = length + 1;
+      } else if (length <= 11) {
+        // 因为前面的字符串里面加了两个空格
+        position = length + 2;
+      } else {
+        // 号码本身为 11 位数字，因多了两个空格，故为 13
+        position = 13;
+      }
+
+      //这里格式化整个输入文本
+      text = text.replaceAll(RegExp(r"\s+\b|\b\s"), "");
+      var string = "";
+      for (int i = 0; i < text.length; i++) {
+        // 这里第 4 位，与第 8 位，我们用空格填充
+        if (i == 3 || i == 7) {
+          if (text[i] != ' ') {
+            string = '$string ';
+          }
+        }
+        string += text[i];
+      }
+
+      return TextEditingValue(
+        text: string,
+        selection: TextSelection.fromPosition(TextPosition(offset: position, affinity: TextAffinity.upstream)),
+      );
+    });
+  }
+
+  static TextInputFormatter cardInputFormatter() {
+    return TextInputFormatter.withFunction((oldValue, newValue) {
+      String text = newValue.text;
+      //获取光标左边的文本
+      final positionStr = (text.substring(0, newValue.selection.baseOffset)).replaceAll(RegExp(r"\s+\b|\b\s"), "");
+      //计算格式化后的光标位置
+      int length = positionStr.length;
+      var position = 0;
+      if (length <= 4) {
+        position = length;
+      } else if (length <= 8) {
+        // 因为前面的字符串里面加了一个空格
+        position = length + 1;
+      } else if (length <= 12) {
+        // 因为前面的字符串里面加了两个空格
+        position = length + 2;
+      } else if (length <= 16) {
+        // 因为前面的字符串里面加了两个空格
+        position = length + 3;
+      } else {
+        // 号码本身为 11 位数字，因多了两个空格，故为 13
+        position = length + 4;
+      }
+
+      //这里格式化整个输入文本
+      text = text.replaceAll(RegExp(r"\s+\b|\b\s"), "");
+      var string = "";
+      for (int i = 0; i < text.length; i++) {
+        // 这里第 4 位，与第 8 位，我们用空格填充
+        if (i == 4 || i == 8 || i == 12 || i == 16) {
+          if (text[i] != ' ') {
+            string = '$string ';
+          }
+        }
+        string += text[i];
+      }
+
+      return TextEditingValue(
+        text: string,
+        selection: TextSelection.fromPosition(TextPosition(offset: position, affinity: TextAffinity.upstream)),
+      );
+    });
+  }
+
   ITextField({
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,

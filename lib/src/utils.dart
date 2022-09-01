@@ -236,4 +236,19 @@ class Utils {
     var x = Random().nextDouble() * max + min;
     return x;
   }
+
+  /// 异常捕获
+  static exceptionCapture(
+    Function() cb, {
+    Function(DioError)? dioError,
+    Function(Object)? error,
+  }) async {
+    try {
+      await cb();
+    } on DioError catch (e) {
+      dioError != null ? dioError.call(e) : MukaConfig.config.exceptionCapture.dioError(e);
+    } catch (e) {
+      error != null ? error.call(e) : MukaConfig.config.exceptionCapture.error(e);
+    }
+  }
 }

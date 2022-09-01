@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-07 23:11:25
+ * Last Modified: 2022-08-31 21:32:46
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -54,33 +54,66 @@ class MukaBottomSheetLayoutTheme {
 }
 
 class MukaFutureLayoutBuilderTheme {
-  final Widget loadingWidget;
+  final Widget Function() loadingWidget;
 
   final Widget Function(dynamic) errorWidget;
 
-  MukaFutureLayoutBuilderTheme({
-    required this.loadingWidget,
-    required this.errorWidget,
+  const MukaFutureLayoutBuilderTheme({
+    this.loadingWidget = _loadingWidget,
+    this.errorWidget = _errorWidget,
   });
 }
 
-class MukaConfigTheme {
-  Widget emptyWidget() => SizedBox(child: Text('暂无数据'));
+Widget _errorWidget(error) {
+  return Center(
+    child: Text(error is DioError ? error.message : error.toString()),
+  );
+}
 
-  /// BottomSheetLayout
-  MukaBottomSheetLayoutTheme bottomSheetLayoutTheme = MukaBottomSheetLayoutTheme();
-
-  /// FutureLayoutBuilder 参数
-  MukaFutureLayoutBuilderTheme futureLayoutBuilderTheme = MukaFutureLayoutBuilderTheme(
-    loadingWidget: Center(
-      child: SpinKitFadingCube(
-        color: Colors.blue,
-      ),
-    ),
-    errorWidget: (error) => Center(
-      child: Text(error is DioError ? error.message : error.toString()),
+Widget _loadingWidget() {
+  return Center(
+    child: SpinKitFadingCube(
+      color: Colors.blue,
     ),
   );
+}
+
+Widget _emptyWidget(BuildContext) => SizedBox(child: Text('暂无数据'));
+
+class MukaConfigTheme {
+  final Widget Function(BuildContext) emptyWidget;
+
+  /// BottomSheetLayout
+  final MukaBottomSheetLayoutTheme bottomSheetLayoutTheme;
+
+  /// FutureLayoutBuilder 参数
+  final MukaFutureLayoutBuilderTheme futureLayoutBuilderTheme;
+
+  final MukaExceptionCapture exceptionCapture;
+
+  MukaConfigTheme({
+    this.emptyWidget = _emptyWidget,
+    this.bottomSheetLayoutTheme = const MukaBottomSheetLayoutTheme(),
+    this.futureLayoutBuilderTheme = const MukaFutureLayoutBuilderTheme(),
+    this.exceptionCapture = const MukaExceptionCapture(),
+  });
+}
+
+class MukaExceptionCapture {
+  /// 请求错误
+  final void Function(DioError) dioError;
+
+  /// 异常错误
+  final void Function(Object) error;
+
+  const MukaExceptionCapture({
+    this.dioError = _logger,
+    this.error = _logger,
+  });
+}
+
+void _logger(Object e) {
+  logger.e(e);
 }
 
 class MukaConfig {

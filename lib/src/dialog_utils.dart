@@ -16,13 +16,13 @@ class DialogUtils {
         child: AlertDialog(
           content: Text(text),
           actions: <Widget>[
-            FlatButton(
-              child: Text('确认'),
-              onPressed: () {
-                onOk!();
-                Navigator.of(context).pop();
-              },
-            ),
+            // FlatButton(
+            //   child: Text('确认'),
+            //   onPressed: () {
+            //     onOk!();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
           ],
         ),
       ),
@@ -226,24 +226,24 @@ class DialogUtils {
                 )
               : null,
           content: Text(text),
-          actions: <Widget>[
-            showCancel
-                ? FlatButton(
-                    child: Text('取消'),
-                    onPressed: () {
-                      onCancel!();
-                      Navigator.of(context).pop();
-                    },
-                  )
-                : Container(),
-            FlatButton(
-              child: Text('确认'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                onOk!();
-              },
-            ),
-          ],
+          // actions: <Widget>[
+          //   showCancel
+          //       ? FlatButton(
+          //           child: Text('取消'),
+          //           onPressed: () {
+          //             onCancel!();
+          //             Navigator.of(context).pop();
+          //           },
+          //         )
+          //       : Container(),
+          //   FlatButton(
+          //     child: Text('确认'),
+          //     onPressed: () {
+          //       Navigator.of(context).pop();
+          //       onOk!();
+          //     },
+          //   ),
+          // ],
         ),
       ),
     );

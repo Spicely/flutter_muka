@@ -105,11 +105,11 @@ class _CodeTimeState extends State<CodeTime> {
   }
 
   /// 启动倒计时的计时器。
-  Future<void> _startTimer(Function(CodeTimeHander next) func) async {
+  Future<void> _startTimer(Function(CodeTimeHandle next) func) async {
     if (!_available) return;
     _available = false;
     Completer _completer = Completer();
-    func(CodeTimeHander(_completer));
+    func(CodeTimeHandle(_completer));
     try {
       await _completer.future;
       _start();
@@ -151,10 +151,10 @@ class _CodeTimeState extends State<CodeTime> {
   }
 }
 
-class CodeTimeHander {
+class CodeTimeHandle {
   final Completer _completer;
 
-  const CodeTimeHander(this._completer);
+  const CodeTimeHandle(this._completer);
 
   /// 成功 [开始计时]
   void resolve() {
@@ -176,7 +176,7 @@ class CodeTimeController {
   }
 
   /// 开始计时
-  void start(Function(CodeTimeHander next) func) {
+  void start(Function(CodeTimeHandle next) func) {
     _codeTimeState!._startTimer(func);
   }
 

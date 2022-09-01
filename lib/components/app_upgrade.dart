@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-07-12 15:53:30
+ * Last Modified: 2022-08-31 16:08:31
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -39,9 +39,10 @@ class AppManage {
     String version = packageInfo.version;
     if (verify) {
       try {
-        Response res = await Dio().post('https://api.muka.site/app/verify', data: {
-          'appId': packageInfo.packageName,
-        });
+        Response res = await Dio().post(
+          'https://api.muka.site/app/verify',
+          data: {'appId': appId},
+        );
 
         if (!res.data['data']['status']) {
           exit(0);
@@ -69,8 +70,6 @@ class AppManage {
         data: method.toUpperCase() != 'GET' ? params : null,
         queryParameters: method.toUpperCase() == 'GET' ? params : null,
       );
-      res.data['data']['downloadUrl'] = 'https://img.muka.site/app/football.apk';
-      res.data['data']['isIgnorable'] = false;
       UpgradeModel val = UpgradeModel.fromJson(res.data['data']);
       _open = false;
       if (val.hasUpdate) {

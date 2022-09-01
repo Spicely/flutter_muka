@@ -58,6 +58,7 @@ part 'src/muka_config_theme.dart';
 part 'components/auto_keep.dart';
 part 'components/bottom_sheet_layout.dart';
 part 'components/current_version.dart';
+part 'components/m_checkbox.dart';
 part 'components/list_item.dart';
 part 'components/multi_image.dart';
 part 'components/text_field.dart';
