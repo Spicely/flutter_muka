@@ -67,7 +67,7 @@ class _StartUpState extends State<StartUp> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     _time = widget.waitTime;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_time == 0) {
@@ -83,7 +83,7 @@ class _StartUpState extends State<StartUp> {
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     _timer?.cancel();
     super.dispose();
   }

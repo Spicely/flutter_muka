@@ -28,13 +28,13 @@ class _ScanPageState extends State<ScanPage> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
   }
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     _controller.pause();
     super.dispose();
   }
@@ -74,7 +74,7 @@ class _ScanPageState extends State<ScanPage> {
                           onPressed: () async {
                             try {
                               _controller.pause();
-                              PickedFile? pickedFile = await _picker.getImage(source: ImageSource.gallery);
+                              XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
                               if (pickedFile != null) {
                                 String? data = await Scan.parse(pickedFile.path);
                                 Navigator.pop(context, data);

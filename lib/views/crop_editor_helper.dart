@@ -1,5 +1,4 @@
 import 'dart:isolate';
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 
@@ -72,8 +71,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
 
   final EditActionDetails editAction = state.editAction!;
 
-  final DateTime time1 = DateTime.now();
-
   //Decode source to Animation. It can holds multi frame.
   Animation? src;
   //LoadBalancer lb;
@@ -85,7 +82,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
   if (src != null) {
     //handle every frame.
     src.frames = src.frames.map((Image image) {
-      final DateTime time2 = DateTime.now();
       //clear orientation
       image = bakeOrientation(image);
 
@@ -108,7 +104,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
       if (editAction.hasRotateAngle) {
         image = copyRotate(image, editAction.rotateAngle);
       }
-      final DateTime time3 = DateTime.now();
       return image;
     }).toList();
   }
@@ -122,7 +117,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
   //var fileData = await compute(encodeJpg, src);
   //var fileData = await isolateEncodeImage(src);
   List<int>? fileData;
-  final DateTime time4 = DateTime.now();
   if (src != null) {
     final bool onlyOneFrame = src.numFrames == 1;
     //If there's only one frame, encode it to jpg.
@@ -133,7 +127,6 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
       fileData = onlyOneFrame ? await compute(encodeJpg, src.first) : await compute(encodeGifAnimation, src);
     }
   }
-  final DateTime time5 = DateTime.now();
   return Uint8List.fromList(fileData!);
 }
 

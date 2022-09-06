@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_muka/flutter_muka.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
@@ -60,8 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _val1 = 1;
 
   MultiImageController _multiImageController = MultiImageController();
-
-  ImagePicker _picker = ImagePicker();
 
   CodeTimeController _controller1 = CodeTimeController();
 
@@ -252,9 +247,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     HttpUtils.request('https://test.uhomeing.com/app/cityRegion/region/成都市',
                         data: {'aa': 'bb'}, method: HttpUtilsMethod.GET);
                   } on DioError catch (e) {
-                    // logger.error
+                    logger.e(e);
                   } catch (e) {
-                    // logger.error
+                    logger.e(e);
                   }
                 },
               ),
@@ -279,7 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onAdd: () async {
                   // PickedFile? pickedFile = await _picker.getImage(source: ImageSource.gallery);
                   // if (pickedFile != null) {
-                  //   _multiImageController.add(MultiImagePorps(file: File(pickedFile.path)));
+                  //   _multiImageController.add(MultiImageProps(file: File(pickedFile.path)));
                   // }
                   _multiImageController.add(MultiImageProps(url: 'https://img.muka.site/other/bg.jpg'));
                 },

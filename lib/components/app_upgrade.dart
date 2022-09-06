@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-31 16:08:31
+ * Last Modified: 2022-09-05 23:51:42
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -103,7 +103,9 @@ class _UpgradeView extends StatefulWidget {
   const _UpgradeView({
     Key? key,
     required this.data,
+    // ignore: unused_element
     this.updateImage,
+    // ignore: unused_element
     this.themeData,
   }) : super(key: key);
 

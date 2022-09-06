@@ -41,7 +41,7 @@ class HttpUtils {
   /// request method
   static Future<dynamic> request(
     String url, {
-    dynamic? data,
+    dynamic data,
     HttpUtilsMethod method = HttpUtilsMethod.POST,
     Map<String, dynamic>? headers,
     String? contentType,
@@ -105,6 +105,7 @@ class HttpUtils {
         client.badCertificateCallback = (cert, host, port) {
           return true;
         };
+        return null;
       };
 
       interceptors?.call(_dio).forEach((i) {
@@ -129,6 +130,7 @@ class HttpUtils {
             return "PROXY $PROXY_URL";
           };
           client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+          return null;
         };
       }
       if (DEBUG) {

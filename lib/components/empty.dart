@@ -55,7 +55,7 @@ class _EmptyState extends State<Empty> {
   /// 网络状态
   ///
   /// true 有网络 false 无网络
-  bool _network = true;
+  // bool _network = true;
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +82,13 @@ class _EmptyState extends State<Empty> {
     );
   }
 
-  Future<bool> _getNetwork() async {
-    ConnectivityResult connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      return false;
-    }
-    return true;
-  }
+  // Future<bool> _getNetwork() async {
+  //   ConnectivityResult connectivityResult = await Connectivity().checkConnectivity();
+  //   if (connectivityResult == ConnectivityResult.none) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 }
 
 class SliverEmpty extends StatelessWidget {

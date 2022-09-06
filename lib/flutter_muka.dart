@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:math';
-import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
@@ -46,6 +45,7 @@ export 'package:extended_image/extended_image.dart' show ExtendedImage;
 export 'package:extended_image/src/utils.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
+export 'package:flutter_html/flutter_html.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
