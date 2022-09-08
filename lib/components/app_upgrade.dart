@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-05 23:51:42
+ * Last Modified: 2022-09-08 23:16:37
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -21,7 +21,6 @@ class AppManage {
   static Future<void> upgrade(
     BuildContext context, {
     required String url,
-    required String appId,
     Image? updateImage,
     bool verify = false,
     String method = 'POST',
@@ -30,7 +29,7 @@ class AppManage {
     ThemeData? themeData,
   }) async {
     if (kIsWeb) {
-      logger.e('AppUpdate.checkUpdate -> 网页调用此函数无效');
+      logger.e('AppManage.upgrade -> 网页调用此函数无效');
       return;
     }
     if (_open) return;
@@ -41,7 +40,7 @@ class AppManage {
       try {
         Response res = await Dio().post(
           'https://api.muka.site/app/verify',
-          data: {'appId': appId},
+          data: {'appId': packageInfo.packageName},
         );
 
         if (!res.data['data']['status']) {
@@ -229,7 +228,7 @@ class __UpgradeViewState extends State<_UpgradeView> {
                               ),
                               child: Text('立即更新', style: TextStyle(color: Colors.white, fontSize: 15)),
                               onPressed: () async {
-                                if (!widget.data.isAppStore) {
+                                if (widget.data.isAppStore) {
                                   if (Platform.isIOS) {
                                     await RUpgrade.upgradeFromAppStore(widget.data.downloadUrl);
                                   } else {
@@ -289,7 +288,6 @@ class __UpgradeViewState extends State<_UpgradeView> {
                     GestureDetector(
                       onTap: () {
                         // hasState = false;
-                        _status = true;
                         Navigator.pop(context);
                       },
                       child: Icon(Icons.highlight_off, color: Colors.white, size: 30),

@@ -120,7 +120,7 @@ Flutter样式组件
 #### AppUpdate
 ```
     /// 检测更新 请求返回数据是固定的
-    AppUpdate.checkUpdate(
+    AppManage.upgrade(
       context,
       url: '/home/app',
       appId: 'io.cordova.maixiaobu',
@@ -171,7 +171,7 @@ Flutter样式组件
     title: Text("左标题"),
     value: Text("右值"),
     showArrow: true,
-    fieldType: FieldType.TITLE,
+    fieldType: FieldType.title,
   );
 ```
 #### CustomStepper

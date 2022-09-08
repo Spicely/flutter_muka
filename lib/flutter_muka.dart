@@ -49,7 +49,6 @@ export 'package:flutter_html/flutter_html.dart';
 
 part 'src/http_utils.dart';
 part 'src/dialog_utils.dart';
-part 'src/app_update.dart';
 part 'src/widget_to_image.dart';
 part 'src/utils.dart';
 part 'src/verify_utils.dart';

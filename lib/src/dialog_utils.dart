@@ -226,24 +226,24 @@ class DialogUtils {
                 )
               : null,
           content: Text(text),
-          // actions: <Widget>[
-          //   showCancel
-          //       ? FlatButton(
-          //           child: Text('取消'),
-          //           onPressed: () {
-          //             onCancel!();
-          //             Navigator.of(context).pop();
-          //           },
-          //         )
-          //       : Container(),
-          //   FlatButton(
-          //     child: Text('确认'),
-          //     onPressed: () {
-          //       Navigator.of(context).pop();
-          //       onOk!();
-          //     },
-          //   ),
-          // ],
+          actions: <Widget>[
+            showCancel
+                ? TextButton(
+                    child: Text('取消'),
+                    onPressed: () {
+                      onCancel!();
+                      Navigator.of(context).pop();
+                    },
+                  )
+                : Container(),
+            TextButton(
+              child: Text('确认'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                onOk!();
+              },
+            ),
+          ],
         ),
       ),
     );
