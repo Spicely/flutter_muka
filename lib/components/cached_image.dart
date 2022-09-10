@@ -3,7 +3,7 @@
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-05 23:00:53
+ * Last Modified: 2022-09-10 18:50:27
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -43,7 +43,7 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl != null) {
+    if (Utils.isNotEmpty(imageUrl)) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: CachedNetworkImage(
@@ -60,7 +60,7 @@ class CachedImage extends StatelessWidget {
         ),
       );
     }
-    if (assetUrl != null) {
+    if (Utils.isNotEmpty(assetUrl)) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: Image.asset(

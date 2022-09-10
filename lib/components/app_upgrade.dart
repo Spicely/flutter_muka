@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-08 23:16:37
+ * Last Modified: 2022-09-11 00:53:26
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -26,6 +26,8 @@ class AppManage {
     String method = 'POST',
     Map<String, dynamic>? data,
     GestureTapCallback? onNotUpdate,
+    GestureTapCallback? onUpdateBefore,
+    GestureTapCallback? onUpdateAfter,
     ThemeData? themeData,
   }) async {
     if (kIsWeb) {
@@ -63,12 +65,14 @@ class AppManage {
       if (data != null) {
         params.addAll(data);
       }
+      onUpdateBefore?.call();
       Response<dynamic> res = await Dio().request(
         url,
         options: Options(method: method),
         data: method.toUpperCase() != 'GET' ? params : null,
         queryParameters: method.toUpperCase() == 'GET' ? params : null,
       );
+      onUpdateAfter?.call();
       UpgradeModel val = UpgradeModel.fromJson(res.data['data']);
       _open = false;
       if (val.hasUpdate) {

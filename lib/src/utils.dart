@@ -104,7 +104,7 @@ class Utils {
     final tempDir = await getTemporaryDirectory();
     double size = await _getTotalSizeOfFilesInDir(tempDir);
 
-    const List<String> unitArr = ['B', 'K', 'M', 'G', 'T'];
+    const List<String> unitArr = ['B', 'KB', 'MB', 'GB', 'TB'];
     int index = 0;
     while (size > 1024) {
       index++;
