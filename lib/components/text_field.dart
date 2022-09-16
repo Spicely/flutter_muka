@@ -539,7 +539,6 @@ class MFormController {
     bool status = true;
     for (var i in _state!.widget.children) {
       if (i.onChangedVerify != null && i.onChangedVerify!.call(_state!.controllers[i.field]!.text) != null) {
-        print(i.onChangedVerify!.call(_state!.controllers[i.field]!.text));
         status = false;
         break;
       }

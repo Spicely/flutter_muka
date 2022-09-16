@@ -168,6 +168,15 @@ class Utils {
     return data != null && data.isNotEmpty;
   }
 
+  /// 判断包含数字/字母
+  static bool validCharacters(String str, {int min = 6, int max = 18}) {
+    if (str.length < min || str.length > max) {
+      return false;
+    }
+    final validCharacter = RegExp('^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]');
+    return validCharacter.hasMatch(str);
+  }
+
   /// 验证手机号
   static bool isPhone(String str) {
     return new RegExp('^[1][3,4,5,6,7,8,9][0-9]{9}\$').hasMatch(str);
