@@ -247,10 +247,10 @@ class Utils {
   }
 
   /// 异常捕获
-  static exceptionCapture(
+  static Future<void> exceptionCapture(
     Function() cb, {
-    Function(DioError)? dioError,
-    Function(Object)? error,
+    void Function(DioError)? dioError,
+    void Function(Object)? error,
   }) async {
     try {
       await cb();

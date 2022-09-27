@@ -13,6 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_muka/views/crop_editor_helper.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:group_button/group_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -31,7 +32,6 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_muka/src/http_res.dart';
 import 'package:package_info/package_info.dart';
 import 'package:signature/signature.dart';
 import 'model/upgrade_model/index.dart';
@@ -80,6 +80,7 @@ part 'components/app_upgrade.dart';
 part 'components/cached_image.dart';
 part 'views/crop_image.dart';
 part 'views/scan_page.dart';
+part 'components/m_form.dart';
 
 Logger logger = Logger(
   printer: PrettyPrinter(

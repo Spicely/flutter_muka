@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-31 21:32:46
+ * Last Modified: 2022-09-27 20:11:20
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -91,11 +91,32 @@ class MukaConfigTheme {
 
   final MukaExceptionCapture exceptionCapture;
 
+  final MukaFormTheme formTheme;
+
   MukaConfigTheme({
     this.emptyWidget = _emptyWidget,
     this.bottomSheetLayoutTheme = const MukaBottomSheetLayoutTheme(),
     this.futureLayoutBuilderTheme = const MukaFutureLayoutBuilderTheme(),
     this.exceptionCapture = const MukaExceptionCapture(),
+    this.formTheme = const MukaFormTheme(),
+  });
+}
+
+/// Form主题
+class MukaFormTheme {
+  final Color? background;
+
+  final double? titleWidth;
+
+  final double height;
+
+  final EdgeInsets? contentPadding;
+
+  const MukaFormTheme({
+    this.background,
+    this.titleWidth,
+    this.contentPadding,
+    this.height = 45,
   });
 }
 
