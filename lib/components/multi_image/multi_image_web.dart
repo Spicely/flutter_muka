@@ -1,4 +1,23 @@
-part of flutter_muka;
+/*
+ * Summary: 文件描述
+ * Created Date: 2022-09-29 00:29:12
+ * Author: Spicely
+ * -----
+ * Last Modified: 2022-09-29 00:29:48
+ * Modified By: Spicely
+ * -----
+ * Copyright (c) 2022 Spicely Inc.
+ * 
+ * May the force be with you.
+ * -----
+ * HISTORY:
+ * Date      	By	Comments
+ */
+
+import 'dart:typed_data';
+
+import 'package:extended_image/extended_image.dart';
+import 'package:flutter/material.dart';
 
 class MultiClosePosition {
   final double? left;
@@ -208,13 +227,6 @@ class _MultiImageState extends State<MultiImage> {
   }
 
   Widget _getImageView(MultiImageProps data) {
-    if (data.file != null) {
-      return ExtendedImage.file(
-        data.file!,
-        width: double.maxFinite,
-        fit: BoxFit.cover,
-      );
-    }
     if (data.fileData != null) {
       return ExtendedImage.memory(
         data.fileData!,
@@ -248,8 +260,6 @@ class _MultiImageState extends State<MultiImage> {
 class MultiImageProps {
   final String? url;
 
-  final File? file;
-
   final Uint8List? fileData;
 
   /// 用于需要拼接网络地址使用
@@ -257,7 +267,6 @@ class MultiImageProps {
 
   MultiImageProps({
     this.url,
-    this.file,
     this.baseUrl,
     this.fileData,
   });

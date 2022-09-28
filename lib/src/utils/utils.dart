@@ -1,4 +1,12 @@
-part of flutter_muka;
+import 'dart:io';
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+
+import '../../flutter_muka.dart';
 
 class Utils {
   static String get platform {

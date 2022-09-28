@@ -1,9 +1,9 @@
 /*
- * Summary: 文件描述
+ * Summary: 缓存图片组件
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-10 18:50:27
+ * Last Modified: 2022-09-29 00:24:55
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -13,7 +13,12 @@
  * HISTORY:
  * Date      	By	Comments
  */
-part of flutter_muka;
+
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import '../../flutter_muka.dart';
 
 class CachedImage extends StatelessWidget {
   final String? imageUrl;

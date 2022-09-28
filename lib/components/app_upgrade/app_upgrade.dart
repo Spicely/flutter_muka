@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-28 23:35:46
+ * Last Modified: 2022-09-29 00:27:22
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -14,7 +14,19 @@
  * Date      	By	Comments
  */
 
-part of flutter_muka;
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:r_upgrade/r_upgrade.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../flutter_muka.dart';
+import '../../model/upgrade_model/index.dart';
 
 class AppManage {
   static bool _open = false;

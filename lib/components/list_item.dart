@@ -113,64 +113,67 @@ class ListItem extends StatelessWidget {
         onTap: onTap,
         child: Column(
           children: [
-            Ink(
-              padding: inkPadding,
-              decoration: BoxDecoration(
-                color: inkColor ?? Colors.transparent,
-                borderRadius: borderRadius,
-              ),
-              child: Container(
-                width: double.infinity,
-                constraints: BoxConstraints(
-                  minHeight: height,
-                ),
-                padding: contentPadding,
+            Material(
+              color: Colors.transparent,
+              child: Ink(
+                padding: inkPadding,
                 decoration: BoxDecoration(
-                  color: color ?? Colors.transparent,
+                  color: inkColor ?? Colors.transparent,
                   borderRadius: borderRadius,
-                  boxShadow: boxShadow,
-                  image: image,
                 ),
-                child: Row(
-                  crossAxisAlignment: crossAxisAlignment,
-                  mainAxisAlignment: mainAxisAlignment,
-                  children: <Widget>[
-                    if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
-                    fieldType == FieldType.title
-                        ? Expanded(
-                            child: Container(child: title),
-                          )
-                        : Container(child: title),
-                    fieldType == FieldType.value
-                        ? Expanded(
-                            child: GestureDetector(
-                              onTap: onTapValue,
-                              child: Container(
-                                constraints: BoxConstraints(
-                                  minHeight: showDivider ? height + 0.1 : height,
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    minHeight: height,
+                  ),
+                  padding: contentPadding,
+                  decoration: BoxDecoration(
+                    color: color ?? Colors.transparent,
+                    borderRadius: borderRadius,
+                    boxShadow: boxShadow,
+                    image: image,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: crossAxisAlignment,
+                    mainAxisAlignment: mainAxisAlignment,
+                    children: <Widget>[
+                      if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
+                      fieldType == FieldType.title
+                          ? Expanded(
+                              child: Container(child: title),
+                            )
+                          : Container(child: title),
+                      fieldType == FieldType.value
+                          ? Expanded(
+                              child: GestureDetector(
+                                onTap: onTapValue,
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    minHeight: showDivider ? height + 0.1 : height,
+                                  ),
+                                  alignment: valueAlignment,
+                                  child: value,
                                 ),
-                                alignment: valueAlignment,
-                                child: value,
                               ),
+                            )
+                          : Container(
+                              alignment: valueAlignment,
+                              child: value,
                             ),
-                          )
-                        : Container(
-                            alignment: valueAlignment,
-                            child: value,
-                          ),
-                    showArrow
-                        ? Padding(
-                            padding: EdgeInsets.only(left: 10, top: 1.5),
-                            child: Center(
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                size: 13,
-                                color: iconColor ?? Theme.of(context).hintColor.withOpacity(0.2),
+                      showArrow
+                          ? Padding(
+                              padding: EdgeInsets.only(left: 10, top: 1.5),
+                              child: Center(
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 13,
+                                  color: iconColor ?? Theme.of(context).hintColor.withOpacity(0.2),
+                                ),
                               ),
-                            ),
-                          )
-                        : icon ?? Container()
-                  ],
+                            )
+                          : icon ?? Container()
+                    ],
+                  ),
                 ),
               ),
             ),

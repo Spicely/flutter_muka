@@ -125,11 +125,11 @@ class HttpUtils {
 
       /// 设置代理
       if (PROXY_URL != null) {
-        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
           client.findProxy = (uri) {
             return "PROXY $PROXY_URL";
           };
-          client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+          client.badCertificateCallback = (cert, host, port) => true;
           return null;
         };
       }
