@@ -32,7 +32,8 @@ dependencies:
   shared_preferences: 
   shimmer: 
   flutter_image_compress: 
-  group_button: 
+  group_button:
+  universal_io: ^2.0.4
 
 dev_dependencies:
   flutter_test:

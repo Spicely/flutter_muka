@@ -1,7 +1,6 @@
 library flutter_muka;
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -24,6 +23,7 @@ import 'package:r_upgrade/r_upgrade.dart';
 import 'package:scan/scan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:universal_io/io.dart';
 import 'src/adapter_browser.dart' if (dart.library.js) 'package:dio/adapter_browser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

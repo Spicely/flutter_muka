@@ -3,7 +3,7 @@
  * Created Date: 2022-07-11 10:44:07
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-11 00:53:26
+ * Last Modified: 2022-09-28 23:35:46
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -13,6 +13,7 @@
  * HISTORY:
  * Date      	By	Comments
  */
+
 part of flutter_muka;
 
 class AppManage {
