@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-27 20:11:20
+ * Last Modified: 2022-10-02 00:34:16
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -54,9 +54,9 @@ class MukaBottomSheetLayoutTheme {
 }
 
 class MukaFutureLayoutBuilderTheme {
-  final Widget Function() loadingWidget;
+  final Widget Function(BuildContext) loadingWidget;
 
-  final Widget Function(dynamic) errorWidget;
+  final Widget Function(BuildContext, dynamic) errorWidget;
 
   const MukaFutureLayoutBuilderTheme({
     this.loadingWidget = _loadingWidget,
@@ -64,21 +64,21 @@ class MukaFutureLayoutBuilderTheme {
   });
 }
 
-Widget _errorWidget(error) {
+Widget _errorWidget(BuildContext context, error) {
   return Center(
     child: Text(error is DioError ? error.message : error.toString()),
   );
 }
 
-Widget _loadingWidget() {
+Widget _loadingWidget(BuildContext context) {
   return Center(
     child: SpinKitFadingCube(
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
     ),
   );
 }
 
-Widget _emptyWidget(BuildContext) => SizedBox(child: Text('暂无数据'));
+Widget _emptyWidget(BuildContext context) => SizedBox(child: Text('暂无数据'));
 
 class MukaConfigTheme {
   final Widget Function(BuildContext) emptyWidget;

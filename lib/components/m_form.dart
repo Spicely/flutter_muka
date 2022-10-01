@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-09-26 23:47:05
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-01 23:21:58
+ * Last Modified: 2022-10-02 00:48:12
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -310,6 +310,7 @@ class _MFormState extends State<MForm> {
           maxLines: props?.maxLines ?? 1,
           contentPadding: EdgeInsets.zero,
           readOnly: widget.readOnly ?? props?.readOnly ?? false,
+          keyboardType: props?.keyboardType ?? ITextInputType.text,
           textAlign: TextAlign.right,
           onChanged: (v) {
             if (e.props is MFormItemTextFieldProps) {
@@ -454,6 +455,8 @@ class MFormItemTextFieldProps extends MFormItemProps {
 
   final void Function()? onTap;
 
+  final ITextInputType? keyboardType;
+
   MFormItemTextFieldProps({
     this.showDeleteIcon = true,
     this.labelText,
@@ -464,10 +467,11 @@ class MFormItemTextFieldProps extends MFormItemProps {
     this.readOnly,
     this.placeholder,
     this.onTap,
+    this.keyboardType,
   });
 }
 
-abstract class MFormItemProps {
+class MFormItemProps {
   final bool? readOnly;
 
   final String? placeholder;

@@ -342,13 +342,15 @@ class _ITextFieldState extends State<ITextField> {
                 contentPadding: widget.contentPadding,
                 prefixIcon: widget.prefixIcon,
                 prefixIconConstraints: widget.prefixIconConstraints,
+                suffixIconConstraints: BoxConstraints(
+                  maxWidth: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 25,
+                ),
                 suffixIcon: widget.readOnly
                     ? null
                     : !widget.showDeleteIcon
                         ? null
                         : Container(
                             alignment: Alignment.centerRight,
-                            width: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 40,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
