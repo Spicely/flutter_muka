@@ -167,8 +167,15 @@ class Utils {
   }
 
   /// 判断为null 或者空字符串
-  static bool isEmpty(String? data) {
-    return data == null || data.isEmpty;
+  static bool isEmpty(dynamic data) {
+    switch (data.runtimeType) {
+      case int:
+        return data == 0;
+      case String:
+        return (data as String).isEmpty;
+      default:
+        return true;
+    }
   }
 
   /// 判断为null 或者空字符串

@@ -3,7 +3,7 @@
  * Created Date: 2022-09-29 00:34:21
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-29 00:35:33
+ * Last Modified: 2022-10-01 22:33:39
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -170,8 +170,15 @@ class Utils {
   }
 
   /// 判断为null 或者空字符串
-  static bool isEmpty(String? data) {
-    return data == null || data.isEmpty;
+  static bool isEmpty(dynamic data) {
+    switch (data.runtimeType) {
+      case int:
+        return data == 0;
+      case String:
+        return (data as String).isEmpty;
+      default:
+        return true;
+    }
   }
 
   /// 判断为null 或者空字符串
