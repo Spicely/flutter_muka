@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-09-26 23:47:05
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-02 00:48:12
+ * Last Modified: 2022-10-03 01:00:41
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -27,6 +27,8 @@ class MFormController {
     if (_state?.controllers != null) {
       Map<String, _MFormMaps> maps = _state!.controllers;
       data.forEach((key, value) {
+        /// 忽略
+        if (key == '__title') return;
         if (maps.containsKey(key)) {
           switch (maps[key]?.controller.runtimeType) {
             case ITextEditingController:
@@ -70,7 +72,7 @@ class MFormController {
     Map<String, dynamic> v = {};
     bool status = true;
     for (var i in _state!.widget.children) {
-      if (i.verification != null) {
+      if (i.verification != null && i.field != '__title') {
         switch (i.type) {
           case MFormItemType.textField:
             String? error = i.verification!.call((_state!.controllers[i.field]!.controller as ITextEditingController).text);
@@ -107,9 +109,7 @@ class MFormController {
       }
       if (!status) {
         break;
-        return;
       }
-      ;
     }
     onSuccess(v);
   }
@@ -432,6 +432,16 @@ class MFormItem {
     this.verification,
     this.props,
   });
+
+  static MFormItem head({String? title, bool? showDivider, double? height}) {
+    return MFormItem(
+      field: '__title',
+      height: height,
+      title: title,
+      showDivider: showDivider,
+      type: MFormItemType.diy,
+    );
+  }
 }
 
 class MFormItemTextFieldProps extends MFormItemProps {
