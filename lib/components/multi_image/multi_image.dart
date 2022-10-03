@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_muka/components/cached_image/cached_image.dart';
 
 class MultiClosePosition {
   final double? left;
@@ -213,8 +214,8 @@ class _MultiImageState extends State<MultiImage> {
 
   Widget _getImageView(MultiImageProps data) {
     if (data.file != null) {
-      return ExtendedImage.file(
-        data.file!,
+      return CachedImage(
+        file: data.file!,
         width: double.maxFinite,
         fit: BoxFit.cover,
       );
@@ -226,8 +227,8 @@ class _MultiImageState extends State<MultiImage> {
         fit: BoxFit.cover,
       );
     }
-    return ExtendedImage.network(
-      (data.baseUrl ?? '') + data.url!,
+    return CachedImage(
+      imageUrl: (data.baseUrl ?? '') + data.url!,
       width: double.maxFinite,
       fit: BoxFit.cover,
     );

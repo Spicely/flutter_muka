@@ -3,7 +3,7 @@
  * Created Date: 2022-07-22 17:32:11
  * Author: Spicely
  * -----
- * Last Modified: 2022-08-31 01:07:08
+ * Last Modified: 2022-10-03 16:31:03
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -62,7 +62,7 @@ class MCheckbox extends StatelessWidget {
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
-          text,
+          Expanded(child: text),
         ],
       ),
     );

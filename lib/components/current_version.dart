@@ -3,7 +3,7 @@
  * Created Date: 2022-08-24 01:03:48
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-02 00:35:08
+ * Last Modified: 2022-10-03 21:40:00
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -32,7 +32,7 @@ class CurrentVersion extends StatelessWidget {
     return FutureLayoutBuilder<String>(
       config: MukaFutureLayoutBuilderTheme(
         loadingWidget: (context) => Container(),
-        errorWidget: (context, _) => Text('1.0.0'),
+        errorWidget: (context, _, __) => Text('1.0.0'),
       ),
       future: _future,
       builder: (version) {

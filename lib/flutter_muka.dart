@@ -33,6 +33,7 @@ export 'package:extended_image/src/utils.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:flutter_html/flutter_html.dart';
+export 'package:http_parser/http_parser.dart';
 
 export 'components/app_upgrade/app_upgrade.dart' if (dart.library.js) 'components/app_upgrade/app_upgrade_web.dart';
 export 'components/cached_image/cached_image.dart' if (dart.library.js) 'components/cached_image/cached_image_web.dart';

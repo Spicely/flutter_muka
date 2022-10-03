@@ -3,7 +3,7 @@
  * Created Date: 2022-08-07 22:37:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-02 00:32:40
+ * Last Modified: 2022-10-03 21:45:51
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -16,10 +16,28 @@
 
 part of flutter_muka;
 
+class FutureLayoutBuilderController {
+  _FutureLayoutBuilderState? _state;
+
+  FutureLayoutBuilderController();
+
+  /// 重载
+  void reload() {
+    _state?.reload();
+  }
+
+  /// 绑定状态
+  void _bindState(_FutureLayoutBuilderState state) {
+    this._state = state;
+  }
+}
+
 class FutureLayoutBuilder<T> extends StatefulWidget {
   final Widget Function(T) builder;
 
   final Function()? future;
+
+  final FutureLayoutBuilderController? controller;
 
   final MukaFutureLayoutBuilderTheme? config;
 
@@ -32,6 +50,7 @@ class FutureLayoutBuilder<T> extends StatefulWidget {
     this.future,
     this.config,
     this.data,
+    this.controller,
   }) : super(key: key);
   @override
   _FutureLayoutBuilderState<T> createState() => _FutureLayoutBuilderState<T>();
@@ -42,6 +61,7 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
   @override
   initState() {
     super.initState();
+    widget.controller?._bindState(this);
     _future = onFuture();
   }
 
@@ -51,6 +71,12 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
       _future = onFuture();
     }
     super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.controller?._bindState(this);
   }
 
   @override
@@ -64,17 +90,24 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data is Error || snapshot.data is DioError) {
-            return widget.config?.errorWidget(context, snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(context, snapshot.data);
+            return widget.config?.errorWidget(context, snapshot.data, reload) ??
+                _futureLayoutBuilderTheme.errorWidget(context, snapshot.data, reload);
           } else {
             return widget.builder(snapshot.data);
           }
         } else if (snapshot.hasError) {
-          return widget.config?.errorWidget(context, snapshot.data) ?? _futureLayoutBuilderTheme.errorWidget(context, snapshot.data);
+          return widget.config?.errorWidget(context, snapshot.data, reload) ??
+              _futureLayoutBuilderTheme.errorWidget(context, snapshot.data, reload);
         } else {
           return widget.config?.loadingWidget(context) ?? _futureLayoutBuilderTheme.loadingWidget(context);
         }
       },
     );
+  }
+
+  void reload() {
+    _future = onFuture();
+    setState(() {});
   }
 
   Future<dynamic> onFuture() async {

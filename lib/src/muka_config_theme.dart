@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-02 00:34:16
+ * Last Modified: 2022-10-03 21:39:46
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -56,7 +56,7 @@ class MukaBottomSheetLayoutTheme {
 class MukaFutureLayoutBuilderTheme {
   final Widget Function(BuildContext) loadingWidget;
 
-  final Widget Function(BuildContext, dynamic) errorWidget;
+  final Widget Function(BuildContext, dynamic, Function() reload) errorWidget;
 
   const MukaFutureLayoutBuilderTheme({
     this.loadingWidget = _loadingWidget,
@@ -64,7 +64,7 @@ class MukaFutureLayoutBuilderTheme {
   });
 }
 
-Widget _errorWidget(BuildContext context, error) {
+Widget _errorWidget(BuildContext context, error, reload) {
   return Center(
     child: Text(error is DioError ? error.message : error.toString()),
   );
