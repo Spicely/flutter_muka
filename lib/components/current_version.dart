@@ -3,7 +3,7 @@
  * Created Date: 2022-08-24 01:03:48
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-03 21:40:00
+ * Last Modified: 2022-10-08 21:04:28
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -30,13 +30,13 @@ class CurrentVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureLayoutBuilder<String>(
-      config: MukaFutureLayoutBuilderTheme(
-        loadingWidget: (context) => Container(),
-        errorWidget: (context, _, __) => Text('1.0.0'),
-      ),
+      config: config ??
+          MukaFutureLayoutBuilderTheme(
+            loadingWidget: (context) => Container(),
+            errorWidget: (context, _, __) => Text('1.0.0'),
+          ),
       future: _future,
       builder: (version) {
-        Container();
         return Text(version, style: this.style);
       },
     );
