@@ -101,12 +101,14 @@ class HttpUtils {
 
       _dio = Dio(options);
 
-      (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-        client.badCertificateCallback = (cert, host, port) {
-          return true;
+      if (!kIsWeb) {
+        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+          client.badCertificateCallback = (cert, host, port) {
+            return true;
+          };
+          return null;
         };
-        return null;
-      };
+      }
 
       interceptors?.call(_dio).forEach((i) {
         _dio!.interceptors.add(i);
