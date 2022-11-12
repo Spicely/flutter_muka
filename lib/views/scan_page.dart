@@ -74,7 +74,7 @@ class _ScanPageState extends State<ScanPage> {
                           onPressed: () async {
                             try {
                               _controller.pause();
-                              XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+                              PickedFile? pickedFile = await _picker.getImage(source: ImageSource.gallery);
                               if (pickedFile != null) {
                                 String? data = await Scan.parse(pickedFile.path);
                                 Navigator.pop(context, data);
