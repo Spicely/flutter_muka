@@ -37,6 +37,10 @@ class PriceNumber extends StatefulWidget {
   /// 金额单位大小
   final double unitSize;
 
+  final FontWeight? uintFontWeight;
+
+  final FontWeight? decimalSizeFontWeight;
+
   const PriceNumber({
     Key? key,
     required this.value,
@@ -49,6 +53,8 @@ class PriceNumber extends StatefulWidget {
     this.unitSize = 16,
     this.color = Colors.red,
     this.fontWeight,
+    this.uintFontWeight,
+    this.decimalSizeFontWeight,
   }) : super(key: key);
 
   @override
@@ -59,38 +65,32 @@ class _PriceNumberState extends State<PriceNumber> {
   @override
   Widget build(BuildContext context) {
     List<String?> data = widget.value.split('.');
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.baseline,
-      textBaseline: TextBaseline.ideographic,
-      children: [
-        widget.unit == null
-            ? Container()
-            : Text(
-                widget.unit!,
-                style: TextStyle(
-                  fontSize: widget.unitSize,
-                  color: widget.unitColor ?? widget.color,
-                  fontWeight: widget.fontWeight,
-                ),
-              ),
-        Text(
-          data[0] ?? '0',
-          style: TextStyle(
-            fontSize: widget.intSize,
-            color: widget.intColor ?? widget.color,
-            fontWeight: widget.fontWeight,
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: widget.unit,
+            style: TextStyle(
+                fontSize: widget.unitSize, color: widget.unitColor ?? widget.color, fontWeight: widget.uintFontWeight ?? widget.fontWeight),
           ),
-        ),
-        Text(
-          '.' + (data[1] ?? '.00'),
-          style: TextStyle(
-            fontSize: widget.decimalSize,
-            color: widget.decimalColor ?? widget.color,
-            fontWeight: widget.fontWeight,
+          TextSpan(
+            text: data[0] ?? '0',
+            style: TextStyle(
+              fontSize: widget.intSize,
+              color: widget.intColor ?? widget.color,
+              fontWeight: widget.fontWeight,
+            ),
           ),
-        ),
-      ],
+          TextSpan(
+            text: '.' + (data[1] ?? '.00'),
+            style: TextStyle(
+              fontSize: widget.decimalSize,
+              color: widget.decimalColor ?? widget.color,
+              fontWeight: widget.decimalSizeFontWeight ?? widget.fontWeight,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
