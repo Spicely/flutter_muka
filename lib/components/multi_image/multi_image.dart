@@ -154,9 +154,11 @@ class _MultiImageState extends State<MultiImage> {
               children: [
                 Padding(
                   padding: widget.imagePadding,
-                  child: ClipRRect(
-                    borderRadius: widget.imageRadius,
-                    child: _getImageView(_data[index]),
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: widget.imageRadius,
+                      child: _getImageView(_data[index]),
+                    ),
                   ),
                 ),
                 if (_edit)
@@ -215,7 +217,7 @@ class _MultiImageState extends State<MultiImage> {
   Widget _getImageView(MultiImageProps data) {
     if (data.file != null) {
       return CachedImage(
-        file: data.file!,
+        file: File(data.file!),
         width: double.maxFinite,
         fit: BoxFit.cover,
       );
@@ -253,17 +255,20 @@ class _MultiImageState extends State<MultiImage> {
 class MultiImageProps {
   final String? url;
 
-  final File? file;
+  final String? file;
 
   final Uint8List? fileData;
 
   /// 用于需要拼接网络地址使用
   final String? baseUrl;
 
+  dynamic data;
+
   MultiImageProps({
     this.url,
     this.file,
     this.baseUrl,
     this.fileData,
+    this.data,
   });
 }
