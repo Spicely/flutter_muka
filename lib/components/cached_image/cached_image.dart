@@ -3,7 +3,7 @@
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-29 00:24:55
+ * Last Modified: 2022-11-28 14:09:50
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -49,10 +49,11 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Utils.isNotEmpty(imageUrl)) {
+      String baseUrl = MukaConfig.config.baseUrl;
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: CachedNetworkImage(
-          imageUrl: imageUrl!,
+          imageUrl: baseUrl + imageUrl!,
           width: width,
           height: height,
           placeholder: (context, url) => Shimmer.fromColors(

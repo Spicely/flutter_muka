@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-03 21:39:46
+ * Last Modified: 2022-11-28 14:08:09
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -81,6 +81,9 @@ Widget _loadingWidget(BuildContext context) {
 Widget _emptyWidget(BuildContext context) => SizedBox(child: Text('暂无数据'));
 
 class MukaConfigTheme {
+  /// 图片补充地址 [https://www.baidu.com]
+  final String baseUrl;
+
   final Widget Function(BuildContext) emptyWidget;
 
   /// BottomSheetLayout
@@ -94,6 +97,7 @@ class MukaConfigTheme {
   final MukaFormTheme formTheme;
 
   MukaConfigTheme({
+    this.baseUrl = '',
     this.emptyWidget = _emptyWidget,
     this.bottomSheetLayoutTheme = const MukaBottomSheetLayoutTheme(),
     this.futureLayoutBuilderTheme = const MukaFutureLayoutBuilderTheme(),
