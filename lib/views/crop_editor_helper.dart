@@ -1,5 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:http_client_helper/http_client_helper.dart';
@@ -23,7 +24,7 @@ void _isolateDecodeImage(SendPort port) {
   rPort.listen((dynamic message) {
     final SendPort send = message[0] as SendPort;
     final List<int> data = message[1] as List<int>;
-    send.send(decodeImage(data));
+    // send.send(decodeImage(data));
   });
 }
 
@@ -74,38 +75,38 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
   //Decode source to Animation. It can holds multi frame.
   Animation? src;
   //LoadBalancer lb;
-  if (kIsWeb) {
-    src = decodeAnimation(data);
-  } else {
-    src = await compute(decodeAnimation, data);
-  }
+  // if (kIsWeb) {
+  //   src = decodeAnimation(data);
+  // } else {
+  //   src = await compute(decodeAnimation, data);
+  // }
   if (src != null) {
     //handle every frame.
-    src.frames = src.frames.map((Image image) {
-      //clear orientation
-      image = bakeOrientation(image);
+    // src.frames = src.frames.map((Image image) {
+    //   //clear orientation
+    //   image = bakeOrientation(image);
 
-      if (editAction.needCrop) {
-        image = copyCrop(image, cropRect!.left.toInt(), cropRect.top.toInt(), cropRect.width.toInt(), cropRect.height.toInt());
-      }
+    //   if (editAction.needCrop) {
+    //     image = copyCrop(image, cropRect!.left.toInt(), cropRect.top.toInt(), cropRect.width.toInt(), cropRect.height.toInt());
+    //   }
 
-      if (editAction.needFlip) {
-        late Flip mode;
-        if (editAction.flipY && editAction.flipX) {
-          mode = Flip.both;
-        } else if (editAction.flipY) {
-          mode = Flip.horizontal;
-        } else if (editAction.flipX) {
-          mode = Flip.vertical;
-        }
-        image = flip(image, mode);
-      }
+    //   if (editAction.needFlip) {
+    //     late Flip mode;
+    //     if (editAction.flipY && editAction.flipX) {
+    //       mode = Flip.both;
+    //     } else if (editAction.flipY) {
+    //       mode = Flip.horizontal;
+    //     } else if (editAction.flipX) {
+    //       mode = Flip.vertical;
+    //     }
+    //     image = flip(image, mode);
+    //   }
 
-      if (editAction.hasRotateAngle) {
-        image = copyRotate(image, editAction.rotateAngle);
-      }
-      return image;
-    }).toList();
+    //   if (editAction.hasRotateAngle) {
+    //     image = copyRotate(image, editAction.rotateAngle);
+    //   }
+    //   return image;
+    // }).toList();
   }
 
   /// you can encode your image
@@ -117,16 +118,16 @@ Future<Uint8List?> cropImageDataWithDartLibrary({required ExtendedImageEditorSta
   //var fileData = await compute(encodeJpg, src);
   //var fileData = await isolateEncodeImage(src);
   List<int>? fileData;
-  if (src != null) {
-    final bool onlyOneFrame = src.numFrames == 1;
-    //If there's only one frame, encode it to jpg.
-    if (kIsWeb) {
-      fileData = onlyOneFrame ? encodeJpg(src.first) : encodeGifAnimation(src);
-    } else {
-      //fileData = await lb.run<List<int>, Image>(encodeJpg, src);
-      fileData = onlyOneFrame ? await compute(encodeJpg, src.first) : await compute(encodeGifAnimation, src);
-    }
-  }
+  // if (src != null) {
+  //   final bool onlyOneFrame = src.numFrames == 1;
+  //   //If there's only one frame, encode it to jpg.
+  //   if (kIsWeb) {
+  //     fileData = onlyOneFrame ? encodeJpg(src.first) : encodeGifAnimation(src);
+  //   } else {
+  //     //fileData = await lb.run<List<int>, Image>(encodeJpg, src);
+  //     fileData = onlyOneFrame ? await compute(encodeJpg, src.first) : await compute(encodeGifAnimation, src);
+  //   }
+  // }
   return Uint8List.fromList(fileData!);
 }
 

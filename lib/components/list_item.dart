@@ -162,7 +162,7 @@ class ListItem extends StatelessWidget {
                             ),
                       showArrow
                           ? Padding(
-                              padding: EdgeInsets.only(left: 10, top: 1.5),
+                              padding: EdgeInsets.only(left: 5, top: 1.5),
                               child: Center(
                                 child: Icon(
                                   Icons.arrow_forward_ios,

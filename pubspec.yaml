@@ -33,7 +33,6 @@ dependencies:
   shimmer: 
   flutter_image_compress: 
   group_button:
-  webview_flutter:
 
 dev_dependencies:
   flutter_test:

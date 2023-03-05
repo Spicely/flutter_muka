@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:flutter_muka/views/m_web_view.dart';
 
 import '../../flutter_muka.dart';
 
@@ -60,23 +59,6 @@ class Utils {
         builder: (BuildContext context) => ScanPage(
           isAlbum: isAlbum,
           scanLineColor: scanLineColor,
-          title: title,
-        ),
-      ),
-    );
-  }
-
-  /// 打开WebView界面
-  static Future<dynamic> openWebView(
-    BuildContext context, {
-    String? title,
-    required String url,
-  }) async {
-    return await Navigator.push(
-      context,
-      CupertinoPageRoute<String>(
-        builder: (BuildContext context) => MWebView(
-          url: url,
           title: title,
         ),
       ),

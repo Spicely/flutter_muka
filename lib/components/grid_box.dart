@@ -34,7 +34,7 @@ class GridBox extends StatelessWidget {
     this.mainAxisSpacing = 4,
     this.crossAxisSpacing = 5.0,
     this.childAspectRatio = 1.0,
-    this.padding = const EdgeInsets.symmetric(vertical: 10),
+    this.padding = const EdgeInsets.symmetric(vertical: 6),
     this.decoration,
     this.margin = const EdgeInsets.all(0),
     this.color = Colors.white,
@@ -52,25 +52,20 @@ class GridBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(0),
             color: this.color,
           ),
-      child: Material(
-        child: Ink(
-          color: Colors.white,
-          child: GridView.builder(
-            padding: EdgeInsets.all(0),
-            itemCount: this.children.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: this.crossAxisCount,
-              mainAxisSpacing: this.mainAxisSpacing,
-              crossAxisSpacing: this.crossAxisSpacing,
-              childAspectRatio: this.childAspectRatio,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return this.children[index];
-            },
-          ),
+      child: GridView.builder(
+        padding: EdgeInsets.all(0),
+        itemCount: this.children.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: this.crossAxisCount,
+          mainAxisSpacing: this.mainAxisSpacing,
+          crossAxisSpacing: this.crossAxisSpacing,
+          childAspectRatio: this.childAspectRatio,
         ),
+        itemBuilder: (BuildContext context, int index) {
+          return this.children[index];
+        },
       ),
     );
   }

@@ -3,7 +3,7 @@ library flutter_muka;
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'dart:math';
-import 'package:dio/adapter.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:group_button/group_button.dart';

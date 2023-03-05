@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-09-26 23:47:05
  * Author: Spicely
  * -----
- * Last Modified: 2022-10-03 01:00:41
+ * Last Modified: 2022-12-01 20:20:41
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -72,10 +72,10 @@ class MFormController {
     Map<String, dynamic> v = {};
     bool status = true;
     for (var i in _state!.widget.children) {
-      if (i.verification != null && i.field != '__title') {
+      if (i.field != '__title') {
         switch (i.type) {
           case MFormItemType.textField:
-            String? error = i.verification!.call((_state!.controllers[i.field]!.controller as ITextEditingController).text);
+            String? error = i.verification?.call((_state!.controllers[i.field]!.controller as ITextEditingController).text);
             if (error != null) {
               onError?.call(error);
               status = false;
@@ -89,7 +89,7 @@ class MFormController {
             if (index != null) {
               value = (_state!.controllers[i.field]!.props as MFormItemSelectProps).items[index].value;
             }
-            String? error = i.verification!.call(value);
+            String? error = i.verification?.call(value);
             if (error != null) {
               onError?.call(error);
               status = false;
@@ -98,7 +98,7 @@ class MFormController {
             v[i.field] = value;
             break;
           default:
-            String? error = i.verification!.call(_state!.controllers[i.field]!.controller);
+            String? error = i.verification?.call(_state!.controllers[i.field]!.controller);
             if (error != null) {
               onError?.call(error);
               status = false;

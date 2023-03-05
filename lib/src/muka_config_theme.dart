@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2022-11-28 14:08:09
+ * Last Modified: 2023-03-04 18:38:54
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -66,7 +66,7 @@ class MukaFutureLayoutBuilderTheme {
 
 Widget _errorWidget(BuildContext context, error, reload) {
   return Center(
-    child: Text(error is DioError ? error.message : error.toString()),
+    child: Text(error is DioError ? error.message ?? '' : error.toString()),
   );
 }
 

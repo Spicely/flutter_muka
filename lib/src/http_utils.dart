@@ -20,9 +20,9 @@ class HttpUtils {
 
   /// 超时时间
   // ignore: non_constant_identifier_names
-  static int CONNECT_TIMEOUT = 40000;
+  static Duration CONNECT_TIMEOUT = Duration(seconds: 10);
   // ignore: non_constant_identifier_names
-  static int RECEIVE_TIMEOUT = 40000;
+  static Duration RECEIVE_TIMEOUT = Duration(seconds: 10);
 
   /// 输出请求内容
   // ignore: non_constant_identifier_names
@@ -102,12 +102,13 @@ class HttpUtils {
       _dio = Dio(options);
 
       if (!kIsWeb) {
-        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-          client.badCertificateCallback = (cert, host, port) {
-            return true;
+        _dio!.httpClientAdapter = IOHttpClientAdapter()
+          ..onHttpClientCreate = (client) {
+            client.badCertificateCallback = (cert, host, port) {
+              return true;
+            };
+            return null;
           };
-          return null;
-        };
       }
 
       interceptors?.call(_dio).forEach((i) {
@@ -127,13 +128,14 @@ class HttpUtils {
 
       /// 设置代理
       if (PROXY_URL != null) {
-        (_dio!.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-          client.findProxy = (uri) {
-            return "PROXY $PROXY_URL";
+        _dio!.httpClientAdapter = IOHttpClientAdapter()
+          ..onHttpClientCreate = (client) {
+            client.findProxy = (uri) {
+              return "PROXY $PROXY_URL";
+            };
+            client.badCertificateCallback = (cert, host, port) => true;
+            return null;
           };
-          client.badCertificateCallback = (cert, host, port) => true;
-          return null;
-        };
       }
       if (DEBUG) {
         _dio!.interceptors.add(_MukaLogInterceptor());
