@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 part of flutter_muka;
 
 typedef List<Interceptor> HttpUtilsInterceptors(Dio? dio);
@@ -15,21 +17,19 @@ class HttpUtils {
   static Dio? _dio;
 
   /// 请求地址
-  // ignore: non_constant_identifier_names
-  static String BASE_URL = '';
+  static set baseUrl(String v) => _dio?.options.baseUrl = v;
+
+  static String get baseUrl => _dio?.options.baseUrl ?? '';
 
   /// 超时时间
-  // ignore: non_constant_identifier_names
   static Duration CONNECT_TIMEOUT = Duration(seconds: 10);
-  // ignore: non_constant_identifier_names
+
   static Duration RECEIVE_TIMEOUT = Duration(seconds: 10);
 
   /// 输出请求内容
-  // ignore: non_constant_identifier_names
-  static bool DEBUG = false;
+  static bool debug = false;
 
   /// 代理设置 代理地址
-  // ignore: non_constant_identifier_names
   static String? PROXY_URL;
 
   /// 添加额外功能
@@ -94,7 +94,6 @@ class HttpUtils {
   static Future<Dio?> createInstance() async {
     if (_dio == null) {
       BaseOptions options = BaseOptions(
-        baseUrl: BASE_URL,
         connectTimeout: CONNECT_TIMEOUT,
         receiveTimeout: RECEIVE_TIMEOUT,
       );
@@ -116,9 +115,9 @@ class HttpUtils {
       });
 
       if (kIsWeb) {
-        var adapter = BrowserHttpClientAdapter();
-        adapter.withCredentials = withCredentials!;
-        _dio!.httpClientAdapter = adapter;
+        // var adapter = BrowserHttpClientAdapter();
+        // adapter.withCredentials = withCredentials!;
+        // _dio!.httpClientAdapter = adapter;
       } else {
         var appDocDir = await getApplicationDocumentsDirectory();
         String appDocPath = appDocDir.path;
@@ -137,7 +136,7 @@ class HttpUtils {
             return null;
           };
       }
-      if (DEBUG) {
+      if (debug) {
         _dio!.interceptors.add(_MukaLogInterceptor());
       }
     }

@@ -1,12 +1,6 @@
-import 'dart:io';
-import 'dart:math';
+// ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-
-import '../../flutter_muka.dart';
+part of flutter_muka;
 
 class Utils {
   static String get platform {
@@ -25,8 +19,6 @@ class Utils {
     }
   }
 
-  ///
-
   static Map<String, String> getUrlParams(String params) {
     List<String> value = params.split('&');
     Map<String, String> data = {};
@@ -44,48 +36,6 @@ class Utils {
   /// 判断是否为线上环境
   static bool get isProd {
     return kReleaseMode;
-  }
-
-  /// 打开扫码界面
-  static Future<String?> openBarcode(
-    BuildContext context, {
-    bool? isAlbum,
-    Color? scanLineColor,
-    String? title,
-  }) async {
-    return await Navigator.push(
-      context,
-      CupertinoPageRoute<String>(
-        builder: (BuildContext context) => ScanPage(
-          isAlbum: isAlbum,
-          scanLineColor: scanLineColor,
-          title: title,
-        ),
-      ),
-    );
-  }
-
-  static Future<String?> showDateTimePicker(
-    BuildContext context, {
-    required DateTime initialDate,
-    required DateTime firstDate,
-    required DateTime lastDate,
-    required TimeOfDay initialTime,
-  }) async {
-    DateTime? ymd = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-    );
-    if (ymd == null) return null;
-
-    TimeOfDay? hm = await showTimePicker(context: context, initialTime: initialTime);
-    if (hm == null) return null;
-
-    DateTime now = DateTime.now();
-    String _hm = DateFormat('HH:mm:ss').format(DateTime(now.year, now.month, now.day, hm.hour, hm.minute));
-    return DateFormat('yyyy-MM-dd ').format(ymd) + _hm;
   }
 
   static Future<double> _getTotalSizeOfFilesInDir(FileSystemEntity file) async {
@@ -204,61 +154,6 @@ class Utils {
     } else {
       return (number / 10000).toStringAsFixed(1) + '万';
     }
-  }
-
-  /// 压缩图片
-  static Future<File?> compressImage(File file) async {
-    var quality = 100;
-    if (file.lengthSync() > 4 * 1024 * 1024) {
-      quality = 50;
-    } else if (file.lengthSync() > 2 * 1024 * 1024) {
-      quality = 60;
-    } else if (file.lengthSync() > 1 * 1024 * 1024) {
-      quality = 70;
-    } else if (file.lengthSync() > 0.5 * 1024 * 1024) {
-      quality = 80;
-    } else if (file.lengthSync() > 0.25 * 1024 * 1024) {
-      quality = 90;
-    }
-    var dir = await getTemporaryDirectory();
-    var targetPath = '${dir.absolute.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
-    File? result = await FlutterImageCompress.compressAndGetFile(
-      file.absolute.path,
-      targetPath,
-      quality: quality,
-    );
-    return result;
-  }
-
-  /// 压缩图片
-  static Future<Uint8List?> compressWithList(
-    Uint8List image, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int quality = 95,
-    int rotate = 0,
-    int inSampleSize = 1,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = CompressFormat.jpeg,
-    bool keepExif = false,
-  }) async {
-    Uint8List? result = await FlutterImageCompress.compressWithList(
-      image,
-      quality: quality,
-      minWidth: minWidth,
-      minHeight: minHeight,
-      rotate: rotate,
-      inSampleSize: inSampleSize,
-      autoCorrectionAngle: autoCorrectionAngle,
-      format: format,
-      keepExif: keepExif,
-    );
-    return result;
-  }
-
-  static double randomDouble(double min, double max) {
-    var x = Random().nextDouble() * max + min;
-    return x;
   }
 
   /// 异常捕获
