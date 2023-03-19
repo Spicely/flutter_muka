@@ -17,9 +17,9 @@ class HttpUtils {
   static Dio? _dio;
 
   /// 请求地址
-  static set baseUrl(String v) => _dio?.options.baseUrl = v;
+  static set baseUrl(String v) => _dio == null ? _options.baseUrl = v : _dio?.options.copyWith(baseUrl: v);
 
-  static String get baseUrl => _dio?.options.baseUrl ?? '';
+  static String get baseUrl => _dio == null ? _options.baseUrl : _dio!.options.baseUrl;
 
   /// 超时时间
   static Duration CONNECT_TIMEOUT = Duration(seconds: 10);
@@ -37,6 +37,11 @@ class HttpUtils {
 
   /// 是否携带cookie
   static bool? withCredentials = false;
+
+  static BaseOptions _options = BaseOptions(
+    connectTimeout: CONNECT_TIMEOUT,
+    receiveTimeout: RECEIVE_TIMEOUT,
+  );
 
   /// request method
   static Future<dynamic> request(
@@ -93,12 +98,7 @@ class HttpUtils {
   /// 创建 dio 实例对象
   static Future<Dio?> createInstance() async {
     if (_dio == null) {
-      BaseOptions options = BaseOptions(
-        connectTimeout: CONNECT_TIMEOUT,
-        receiveTimeout: RECEIVE_TIMEOUT,
-      );
-
-      _dio = Dio(options);
+      _dio = Dio(_options);
 
       if (!kIsWeb) {
         _dio!.httpClientAdapter = IOHttpClientAdapter()
