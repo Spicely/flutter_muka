@@ -17,7 +17,7 @@ class HttpUtils {
   static Dio? _dio;
 
   /// 请求地址
-  static set baseUrl(String v) => _dio == null ? _options.baseUrl = v : _dio?.options.copyWith(baseUrl: v);
+  static set baseUrl(String v) => _dio == null ? _options.baseUrl = v : _dio?.options.baseUrl = v;
 
   static String get baseUrl => _dio == null ? _options.baseUrl : _dio!.options.baseUrl;
 
