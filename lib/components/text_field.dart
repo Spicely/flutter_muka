@@ -401,7 +401,7 @@ class _ITextFieldState extends State<ITextField> {
               },
               keyboardType: _getTextInputType(),
               maxLines: widget.maxLines,
-              inputFormatters: widget.inputFormatters ?? _getTextInputFormatter(),
+              inputFormatters: [...(widget.inputFormatters ?? []), ...(_getTextInputFormatter() ?? [])],
               style: widget.textStyle,
               obscureText: widget.obscureText ?? false,
             ),
