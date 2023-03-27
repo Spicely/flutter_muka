@@ -22,9 +22,6 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:http_parser/http_parser.dart';
 
-export 'components/cached_image/cached_image.dart' if (dart.library.js) 'components/cached_image/cached_image_web.dart';
-export 'components/multi_image/multi_image.dart' if (dart.library.js) 'components/multi_image/multi_image_web.dart';
-
 part 'src/utils.dart';
 part 'src/muka_config_theme.dart';
 part 'src/http_utils.dart';
@@ -35,10 +32,13 @@ part 'components/list_item.dart';
 part 'components/text_field.dart';
 part 'components/code_time.dart';
 part 'components/empty.dart';
+part 'components/cached_image.dart';
 part 'components/future_layout_builder.dart';
 part 'components/grid_box.dart';
 part 'components/grid_item.dart';
 part 'components/virtual_keyboard.dart';
+part 'components/multi_image.dart';
+part 'components/diver_text.dart';
 
 Logger logger = Logger(
   printer: PrettyPrinter(

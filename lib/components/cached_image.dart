@@ -1,9 +1,10 @@
+part of flutter_muka;
 /*
- * Summary: 缓存图片组件 - web
- * Created Date: 2022-09-29 00:24:33
+ * Summary: 缓存图片组件
+ * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2022-09-29 00:25:29
+ * Last Modified: 2023-03-27 10:49:34
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -14,13 +15,11 @@
  * Date      	By	Comments
  */
 
-import 'package:flutter/material.dart';
-
-import '../../flutter_muka.dart';
-
 class CachedImage extends StatelessWidget {
   final String? imageUrl;
   final String? assetUrl;
+
+  final File? file;
 
   final double? width;
   final double? height;
@@ -39,15 +38,17 @@ class CachedImage extends StatelessWidget {
     this.fit,
     this.assetUrl,
     this.imageColor,
+    this.file,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (Utils.isNotEmpty(imageUrl)) {
+      String baseUrl = MukaConfig.config.baseUrl;
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: CachedNetworkImage(
-          imageUrl: imageUrl!,
+          imageUrl: baseUrl + imageUrl!,
           width: width,
           height: height,
           placeholder: (context, url) => Shimmer.fromColors(
@@ -73,6 +74,18 @@ class CachedImage extends StatelessWidget {
       );
     }
 
+    if (file != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(circular),
+        child: Image.file(
+          file!,
+          width: width,
+          height: height,
+          fit: fit,
+          color: imageColor,
+        ),
+      );
+    }
     return ClipRRect(
       borderRadius: BorderRadius.circular(circular),
       child: Shimmer.fromColors(

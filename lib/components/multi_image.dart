@@ -1,9 +1,4 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_muka/components/cached_image/cached_image.dart';
+part of flutter_muka;
 
 class MultiClosePosition {
   final double? left;
