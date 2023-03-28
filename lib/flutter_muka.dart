@@ -39,6 +39,7 @@ part 'components/grid_item.dart';
 part 'components/virtual_keyboard.dart';
 part 'components/multi_image.dart';
 part 'components/diver_text.dart';
+part 'components/notice_dialog.dart';
 
 Logger logger = Logger(
   printer: PrettyPrinter(
