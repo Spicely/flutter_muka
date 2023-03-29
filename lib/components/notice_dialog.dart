@@ -3,7 +3,7 @@
  * Created Date: 2023-03-28 10:29:13
  * Author: Spicely
  * -----
- * Last Modified: 2023-03-28 14:35:36
+ * Last Modified: 2023-03-29 14:33:21
  * Modified By: Spicely
  * -----
  * Copyright (c) 2023 Spicely Inc.
@@ -70,66 +70,69 @@ class NoticeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ButtonStyle defaultBtnStyle = TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)));
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            width: 320,
-            color: Colors.white,
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                Text(title, style: theme?.titleStyle),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(content, style: theme?.contentStyle, textAlign: TextAlign.center),
-                ),
-                SizedBox(height: 20),
-                Divider(height: 0.1),
-                SizedBox(
-                  height: 45,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: double.infinity,
-                          child: TextButton(
-                            onPressed: onCancel ??
-                                () {
-                                  Navigator.pop(context);
-                                },
-                            child: Text(cancelText, style: theme?.cancelTextStyle),
-                            style: theme?.cancelBtnStyle ?? defaultBtnStyle,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: double.infinity,
-                        width: 0.5,
-                        color: Theme.of(context).dividerColor,
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: double.infinity,
-                          child: TextButton(
-                            onPressed: onConfirm,
-                            child: Text(confirmText, style: theme?.confirmTextStyle),
-                            style: theme?.confirmBtnStyle ?? defaultBtnStyle,
-                          ),
-                        ),
-                      ),
-                    ],
+    return Material(
+      color: Colors.transparent,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              width: 320,
+              color: Colors.white,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Text(title, style: theme?.titleStyle),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(content, style: theme?.contentStyle, textAlign: TextAlign.center),
                   ),
-                ),
-              ],
+                  SizedBox(height: 20),
+                  Divider(height: 0.1),
+                  SizedBox(
+                    height: 45,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: TextButton(
+                              onPressed: onCancel ??
+                                  () {
+                                    Navigator.pop(context);
+                                  },
+                              child: Text(cancelText, style: theme?.cancelTextStyle),
+                              style: theme?.cancelBtnStyle ?? defaultBtnStyle,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: double.infinity,
+                          width: 0.5,
+                          color: Theme.of(context).dividerColor,
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: TextButton(
+                              onPressed: onConfirm,
+                              child: Text(confirmText, style: theme?.confirmTextStyle),
+                              style: theme?.confirmBtnStyle ?? defaultBtnStyle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
