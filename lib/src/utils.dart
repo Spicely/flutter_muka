@@ -191,7 +191,7 @@ class Utils {
 
   /// 压缩图片
   static Future<File?> compressImageQuality(File file, int quality, {String? filename}) async {
-    var dir = await getTemporaryDirectory();
+    Directory dir = await getApplicationDocumentsDirectory();
 
     /// 获取文件名后缀
     var suffix = file.path.substring(file.path.lastIndexOf('.'));
@@ -212,9 +212,9 @@ class Utils {
         format = CompressFormat.jpeg;
     }
 
-    var targetPath = '${dir.absolute.path}/${filename ?? DateTime.now().millisecondsSinceEpoch}$suffix';
+    var targetPath = '${dir.path}/${filename ?? DateTime.now().millisecondsSinceEpoch}$suffix';
     File? result = await FlutterImageCompress.compressAndGetFile(
-      file.absolute.path,
+      file.path,
       targetPath,
       format: format,
       quality: quality,
