@@ -170,4 +170,55 @@ class Utils {
       error != null ? error.call(e) : MukaConfig.config.exceptionCapture.error(e);
     }
   }
+
+  /// 压缩图片
+  static Future<File?> compressImage(File file, {String? filename}) async {
+    var quality = 100;
+    if (file.lengthSync() > 4 * 1024 * 1024) {
+      quality = 50;
+    } else if (file.lengthSync() > 2 * 1024 * 1024) {
+      quality = 60;
+    } else if (file.lengthSync() > 1 * 1024 * 1024) {
+      quality = 70;
+    } else if (file.lengthSync() > 0.5 * 1024 * 1024) {
+      quality = 80;
+    } else if (file.lengthSync() > 0.25 * 1024 * 1024) {
+      quality = 90;
+    }
+    File? result = await compressImageQuality(file, quality, filename: filename);
+    return result;
+  }
+
+  /// 压缩图片
+  static Future<File?> compressImageQuality(File file, int quality, {String? filename}) async {
+    var dir = await getTemporaryDirectory();
+
+    /// 获取文件名后缀
+    var suffix = file.path.substring(file.path.lastIndexOf('.'));
+    CompressFormat format;
+
+    /// 依据后缀判断图片格式
+    switch (suffix) {
+      case '.png':
+        format = CompressFormat.png;
+        break;
+      case '.heic':
+        format = CompressFormat.heic;
+        break;
+      case '.webp':
+        format = CompressFormat.webp;
+        break;
+      default:
+        format = CompressFormat.jpeg;
+    }
+
+    var targetPath = '${dir.absolute.path}/${filename ?? DateTime.now().millisecondsSinceEpoch}$suffix';
+    File? result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      format: format,
+      quality: quality,
+    );
+    return result;
+  }
 }

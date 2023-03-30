@@ -19,6 +19,7 @@ dependencies:
   extended_image: 
   flutter_spinkit:
   cached_network_image: 
+  flutter_image_compress: 
   logger:
   shimmer: 
 
