@@ -2,16 +2,15 @@ library flutter_muka;
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:logger/logger.dart';
 import 'flutter_muka.dart';
 import 'package:flutter/material.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info/package_info.dart';
 
 export 'package:dio/dio.dart';
 export 'package:path_provider/path_provider.dart';
