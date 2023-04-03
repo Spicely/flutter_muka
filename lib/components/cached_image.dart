@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-03-27 10:49:34
+ * Last Modified: 2023-04-03 18:42:45
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -61,18 +61,6 @@ class CachedImage extends StatelessWidget {
         ),
       );
     }
-    if (Utils.isNotEmpty(assetUrl)) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(circular),
-        child: Image.asset(
-          assetUrl!,
-          width: width,
-          height: height,
-          fit: fit,
-          color: imageColor,
-        ),
-      );
-    }
 
     if (file != null) {
       return ClipRRect(
@@ -86,6 +74,20 @@ class CachedImage extends StatelessWidget {
         ),
       );
     }
+
+    if (Utils.isNotEmpty(assetUrl)) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(circular),
+        child: Image.asset(
+          assetUrl!,
+          width: width,
+          height: height,
+          fit: fit,
+          color: imageColor,
+        ),
+      );
+    }
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(circular),
       child: Shimmer.fromColors(
