@@ -221,4 +221,19 @@ class Utils {
     );
     return result;
   }
+
+  /// 判断值是否为空
+  ///
+  /// 如果为空则返回默认值
+  ///
+  /// 如果不为空则返回属性值
+  static T getValue<T>(T? obj, T defaultValue) {
+    return obj == null
+        ? defaultValue
+        : obj is String
+            ? obj.isEmpty
+                ? defaultValue
+                : obj
+            : obj;
+  }
 }
