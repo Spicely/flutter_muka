@@ -340,6 +340,7 @@ class _ITextFieldState extends State<ITextField> {
                 labelText: widget.labelText,
                 labelStyle: widget.labelStyle,
                 contentPadding: widget.contentPadding,
+                floatingLabelBehavior: FloatingLabelBehavior.always,
                 prefixIcon: widget.prefixIcon,
                 prefixIconConstraints: widget.prefixIconConstraints,
                 suffixIconConstraints: BoxConstraints(
