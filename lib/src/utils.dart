@@ -171,30 +171,33 @@ class Utils {
     }
   }
 
-  /// 压缩图片
-  static Future<File?> compressImage(File file, {String? filename}) async {
-    var quality = 100;
-    if (file.lengthSync() > 4 * 1024 * 1024) {
-      quality = 50;
-    } else if (file.lengthSync() > 2 * 1024 * 1024) {
-      quality = 60;
-    } else if (file.lengthSync() > 1 * 1024 * 1024) {
-      quality = 70;
-    } else if (file.lengthSync() > 0.5 * 1024 * 1024) {
-      quality = 80;
-    } else if (file.lengthSync() > 0.25 * 1024 * 1024) {
-      quality = 90;
-    }
-    File? result = await compressImageQuality(file, quality, filename: filename);
-    return result;
-  }
+  // /// 压缩图片
+  // static Future<String?> compressImage( path, {String? filename}) async {
+  //   var quality = 100;
+  //   if (file.lengthSync() > 4 * 1024 * 1024) {
+  //     quality = 50;
+  //   } else if (file.lengthSync() > 2 * 1024 * 1024) {
+  //     quality = 60;
+  //   } else if (file.lengthSync() > 1 * 1024 * 1024) {
+  //     quality = 70;
+  //   } else if (file.lengthSync() > 0.5 * 1024 * 1024) {
+  //     quality = 80;
+  //   } else if (file.lengthSync() > 0.25 * 1024 * 1024) {
+  //     quality = 90;
+  //   }
+  //   File? result = await compressImageQuality(file, quality, filename: filename);
+  //   return result;
+  // }
 
   /// 压缩图片
-  static Future<File?> compressImageQuality(File file, int quality, {String? filename}) async {
-    Directory dir = await getApplicationDocumentsDirectory();
+  static Future<String?> compressImageQuality(String path, int quality, {String? filename, String? dir}) async {
+    if (dir == null) {
+      Directory doc = await getApplicationDocumentsDirectory();
+      dir = doc.path;
+    }
 
     /// 获取文件名后缀
-    var suffix = file.path.substring(file.path.lastIndexOf('.'));
+    var suffix = path.substring(path.lastIndexOf('.'));
     CompressFormat format;
 
     /// 依据后缀判断图片格式
@@ -212,14 +215,14 @@ class Utils {
         format = CompressFormat.jpeg;
     }
 
-    var targetPath = '${dir.path}/${filename ?? DateTime.now().millisecondsSinceEpoch}$suffix';
-    File? result = await FlutterImageCompress.compressAndGetFile(
-      file.path,
+    var targetPath = '$dir/${filename ?? DateTime.now().millisecondsSinceEpoch}$suffix';
+    return (await FlutterImageCompress.compressAndGetFile(
+      path,
       targetPath,
       format: format,
       quality: quality,
-    );
-    return result;
+    ))
+        ?.path;
   }
 
   /// 判断值是否为空
