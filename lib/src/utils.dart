@@ -30,6 +30,7 @@ class Utils {
   }
 
   static String getSecrecyMobile(String mobile) {
+    if (mobile.length < 11) return mobile;
     return mobile.replaceRange(3, 7, '****');
   }
 
