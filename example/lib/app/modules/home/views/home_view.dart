@@ -24,6 +24,15 @@ class HomeView extends GetView<HomeController> {
             onTap: () {
               Get.toNamed(Routes.FORM);
             },
+            showDivider: true,
+          ),
+          ListItem(
+            color: Colors.white,
+            title: Text('线程测试'),
+            showArrow: true,
+            onTap: () {
+              Get.toNamed(Routes.ISOLATE);
+            },
           ),
         ],
       ),

@@ -6,10 +6,10 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies: 
-  cupertino_icons: ^1.0.4
-  permission_handler: ^9.2.0
-  image_picker: ^0.8.5
-  get: 4.6.5
+  cupertino_icons:
+  permission_handler:
+  image_picker: 
+  get: 
   flutter: 
     sdk: flutter
   flutter_muka: 
@@ -22,3 +22,4 @@ dev_dependencies:
 flutter: 
   uses-material-design: true
 
+ 

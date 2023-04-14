@@ -4,6 +4,8 @@ import '../modules/form/bindings/form_binding.dart';
 import '../modules/form/views/form_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/isolate/bindings/isolate_binding.dart';
+import '../modules/isolate/views/isolate_view.dart';
 
 part 'app_routes.dart';
 
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.FORM,
       page: () => const FormView(),
       binding: FormBinding(),
+    ),
+    GetPage(
+      name: _Paths.ISOLATE,
+      page: () => const IsolateView(),
+      binding: IsolateBinding(),
     ),
   ];
 }
