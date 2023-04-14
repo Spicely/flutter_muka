@@ -33,7 +33,7 @@ class ListItem extends StatelessWidget {
 
   final Color? color;
 
-  final Color? inkColor;
+  final Color? splashColor;
 
   final EdgeInsetsGeometry? inkPadding;
 
@@ -76,7 +76,7 @@ class ListItem extends StatelessWidget {
 
   ListItem({
     Key? key,
-    this.inkColor,
+    this.splashColor,
     this.inkPadding,
     this.showArrow = false,
     this.title,
@@ -96,7 +96,7 @@ class ListItem extends StatelessWidget {
     this.dividerIndex = 0,
     this.dividerEndIndex = 0,
     this.leading,
-    this.leadingEdgeInsets: const EdgeInsets.only(right: 10),
+    this.leadingEdgeInsets = const EdgeInsets.only(right: 10),
     this.image,
     this.iconColor,
     this.onTapValue,
@@ -108,78 +108,75 @@ class ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      child: GestureDetector(
-        onLongPress: onLongPress,
-        onTap: onTap,
-        child: Column(
-          children: [
-            Material(
-              color: Colors.transparent,
-              child: Ink(
-                padding: inkPadding,
-                decoration: BoxDecoration(
-                  color: inkColor ?? Colors.transparent,
-                  borderRadius: borderRadius,
+      child: Column(
+        children: [
+          Ink(
+            padding: inkPadding,
+            decoration: BoxDecoration(
+              color: color ?? Colors.transparent,
+              borderRadius: borderRadius,
+            ),
+            child: InkWell(
+              splashColor: splashColor ?? Theme.of(context).splashColor,
+              onLongPress: onLongPress,
+              onTap: onTap,
+              child: Container(
+                width: double.infinity,
+                constraints: BoxConstraints(
+                  minHeight: height,
                 ),
-                child: Container(
-                  width: double.infinity,
-                  constraints: BoxConstraints(
-                    minHeight: height,
-                  ),
-                  padding: contentPadding,
-                  decoration: BoxDecoration(
-                    color: color ?? Colors.transparent,
-                    borderRadius: borderRadius,
-                    boxShadow: boxShadow,
-                    image: image,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: crossAxisAlignment,
-                    mainAxisAlignment: mainAxisAlignment,
-                    children: <Widget>[
-                      if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
-                      fieldType == FieldType.title
-                          ? Expanded(
-                              child: Container(child: title),
-                            )
-                          : Container(child: title),
-                      fieldType == FieldType.value
-                          ? Expanded(
-                              child: GestureDetector(
-                                onTap: onTapValue,
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                    minHeight: showDivider ? height + 0.1 : height,
-                                  ),
-                                  alignment: valueAlignment,
-                                  child: value,
+                padding: contentPadding,
+                decoration: BoxDecoration(
+                  borderRadius: borderRadius,
+                  boxShadow: boxShadow,
+                  image: image,
+                ),
+                child: Row(
+                  crossAxisAlignment: crossAxisAlignment,
+                  mainAxisAlignment: mainAxisAlignment,
+                  children: <Widget>[
+                    if (leading != null) Padding(padding: leadingEdgeInsets, child: leading),
+                    fieldType == FieldType.title
+                        ? Expanded(
+                            child: Container(child: title),
+                          )
+                        : Container(child: title),
+                    fieldType == FieldType.value
+                        ? Expanded(
+                            child: GestureDetector(
+                              onTap: onTapValue,
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  minHeight: showDivider ? height + 0.1 : height,
                                 ),
+                                alignment: valueAlignment,
+                                child: value,
                               ),
-                            )
-                          : Container(
-                              alignment: valueAlignment,
-                              child: value,
                             ),
-                      showArrow
-                          ? Padding(
-                              padding: EdgeInsets.only(left: 5, top: 1.5),
-                              child: Center(
-                                child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 13,
-                                  color: iconColor ?? Theme.of(context).hintColor.withOpacity(0.2),
-                                ),
+                          )
+                        : Container(
+                            alignment: valueAlignment,
+                            child: value,
+                          ),
+                    showArrow
+                        ? Padding(
+                            padding: EdgeInsets.only(left: 5, top: 1.5),
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                size: 13,
+                                color: iconColor ?? Theme.of(context).hintColor.withOpacity(0.2),
                               ),
-                            )
-                          : icon ?? Container()
-                    ],
-                  ),
+                            ),
+                          )
+                        : icon ?? Container()
+                  ],
                 ),
               ),
             ),
-            showDivider ? Divider(height: 0.3, indent: dividerIndex, endIndent: dividerEndIndex) : Container(),
-          ],
-        ),
+          ),
+          showDivider ? Divider(height: 0.1, indent: dividerIndex, endIndent: dividerEndIndex) : Container(),
+        ],
       ),
     );
   }

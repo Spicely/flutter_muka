@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:flutter_muka/flutter_muka.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +6,7 @@ class IsolateController extends GetxController {
 
   void createIsolate() async {
     logger.i('创建线程');
-    isolateTask = await Utils.createIsolate('10010', name);
+    isolateTask = await Utils.createIsolate<int>('10010', 1, name);
     isolateTask.receivePort.listen((message) {
       print(message);
     });
@@ -23,10 +21,10 @@ class IsolateController extends GetxController {
   }
 
   /// 线程计算
-  static void name(SendPort sendPort) {
+  static void name(IsolateTaskData<int> task) {
+    print(task.data);
     int i = 0;
     while (i < 10000000000) {
-      sendPort.send(i);
       i++;
     }
     logger.i('线程计算完成');

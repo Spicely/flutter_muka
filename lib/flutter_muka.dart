@@ -2,6 +2,7 @@ library flutter_muka;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/io.dart';

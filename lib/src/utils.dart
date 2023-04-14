@@ -2,6 +2,22 @@
 
 part of flutter_muka;
 
+class IsolateTask {
+  final Isolate isolate;
+
+  final ReceivePort receivePort;
+
+  IsolateTask(this.isolate, this.receivePort);
+}
+
+class IsolateTaskData<T> {
+  final SendPort sendPort;
+
+  final T data;
+
+  IsolateTaskData(this.sendPort, this.data);
+}
+
 class Utils {
   static String get platform {
     if (Platform.isAndroid) {
@@ -19,14 +35,26 @@ class Utils {
     }
   }
 
-  static Map<String, String> getUrlParams(String params) {
-    List<String> value = params.split('&');
-    Map<String, String> data = {};
-    value.forEach((i) {
-      List<String> v = i.split('=');
-      data[v[0]] = v[1];
-    });
-    return data;
+  /// 线程存储
+  static final Map<String, IsolateTask> _isolateMap = {};
+
+  /// 创建线程
+  static Future<IsolateTask> createIsolate<T>(String name, T data, Function(IsolateTaskData<T>) callback) async {
+    if (_isolateMap.containsKey(name)) {
+      return _isolateMap[name]!;
+    }
+    ReceivePort receivePort = ReceivePort();
+    Isolate isolate = await Isolate.spawn(callback, IsolateTaskData<T>(receivePort.sendPort, data));
+    _isolateMap[name] = IsolateTask(isolate, receivePort);
+    return _isolateMap[name]!;
+  }
+
+  /// 销毁线程
+  static void destroyIsolate(String name) {
+    if (_isolateMap.containsKey(name)) {
+      _isolateMap[name]!.isolate.kill(priority: Isolate.immediate);
+      _isolateMap.remove(name);
+    }
   }
 
   static String getSecrecyMobile(String mobile) {
@@ -149,11 +177,13 @@ class Utils {
   }
 
   /// 数字超过10000转万
-  static String formatNumber(int number) {
+  ///
+  /// [unit] 单位
+  static String formatNumber(int number, {String unit = '万'}) {
     if (number < 10000) {
       return number.toString();
     } else {
-      return (number / 10000).toStringAsFixed(1) + '万';
+      return (number / 10000).toStringAsFixed(1) + unit;
     }
   }
 
@@ -171,24 +201,6 @@ class Utils {
       error != null ? error.call(e) : MukaConfig.config.exceptionCapture.error(e);
     }
   }
-
-  // /// 压缩图片
-  // static Future<String?> compressImage( path, {String? filename}) async {
-  //   var quality = 100;
-  //   if (file.lengthSync() > 4 * 1024 * 1024) {
-  //     quality = 50;
-  //   } else if (file.lengthSync() > 2 * 1024 * 1024) {
-  //     quality = 60;
-  //   } else if (file.lengthSync() > 1 * 1024 * 1024) {
-  //     quality = 70;
-  //   } else if (file.lengthSync() > 0.5 * 1024 * 1024) {
-  //     quality = 80;
-  //   } else if (file.lengthSync() > 0.25 * 1024 * 1024) {
-  //     quality = 90;
-  //   }
-  //   File? result = await compressImageQuality(file, quality, filename: filename);
-  //   return result;
-  // }
 
   /// 压缩图片
   static Future<String?> compressImageQuality(String path, int quality, {String? filename, String? dir}) async {
