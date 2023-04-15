@@ -49,6 +49,11 @@ class Utils {
     return _isolateMap[name]!;
   }
 
+  /// 获取线程
+  static IsolateTask? getIsolate(String name) {
+    return _isolateMap[name];
+  }
+
   /// 销毁线程
   static void destroyIsolate(String name) {
     if (_isolateMap.containsKey(name)) {
