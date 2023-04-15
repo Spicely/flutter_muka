@@ -48,6 +48,9 @@ class Utils {
     RootIsolateToken? rootIsolateToken = RootIsolateToken.instance;
     ReceivePort receivePort = ReceivePort();
     Isolate isolate = await Isolate.spawn(callback, IsolateTaskData<T>(receivePort.sendPort, data, rootIsolateToken));
+
+    /// 线程结束 销毁监听
+
     _isolateMap[name] = IsolateTask(isolate, receivePort);
     return _isolateMap[name]!;
   }
@@ -60,6 +63,7 @@ class Utils {
   /// 销毁线程
   static void destroyIsolate(String name) {
     if (_isolateMap.containsKey(name)) {
+      _isolateMap[name]!.receivePort.close();
       _isolateMap[name]!.isolate.kill(priority: Isolate.immediate);
       _isolateMap.remove(name);
     }
