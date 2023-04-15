@@ -13,9 +13,11 @@ class IsolateTask {
 class IsolateTaskData<T> {
   final SendPort sendPort;
 
+  RootIsolateToken? rootIsolateToken;
+
   final T data;
 
-  IsolateTaskData(this.sendPort, this.data);
+  IsolateTaskData(this.sendPort, this.data, this.rootIsolateToken);
 }
 
 class Utils {
@@ -43,8 +45,9 @@ class Utils {
     if (_isolateMap.containsKey(name)) {
       return _isolateMap[name]!;
     }
+    RootIsolateToken? rootIsolateToken = RootIsolateToken.instance;
     ReceivePort receivePort = ReceivePort();
-    Isolate isolate = await Isolate.spawn(callback, IsolateTaskData<T>(receivePort.sendPort, data));
+    Isolate isolate = await Isolate.spawn(callback, IsolateTaskData<T>(receivePort.sendPort, data, rootIsolateToken));
     _isolateMap[name] = IsolateTask(isolate, receivePort);
     return _isolateMap[name]!;
   }
