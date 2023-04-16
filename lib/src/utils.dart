@@ -7,7 +7,9 @@ class IsolateTask {
 
   final ReceivePort receivePort;
 
-  IsolateTask(this.isolate, this.receivePort);
+  final Stream broadcastStream;
+
+  IsolateTask(this.isolate, this.receivePort, this.broadcastStream);
 }
 
 class IsolateTaskData<T> {
@@ -47,11 +49,12 @@ class Utils {
     }
     RootIsolateToken? rootIsolateToken = RootIsolateToken.instance;
     ReceivePort receivePort = ReceivePort();
+    Stream broadcastStream = receivePort.asBroadcastStream();
     Isolate isolate = await Isolate.spawn(callback, IsolateTaskData<T>(receivePort.sendPort, data, rootIsolateToken));
 
     /// 线程结束 销毁监听
 
-    _isolateMap[name] = IsolateTask(isolate, receivePort);
+    _isolateMap[name] = IsolateTask(isolate, receivePort, broadcastStream);
     return _isolateMap[name]!;
   }
 
