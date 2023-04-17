@@ -7,7 +7,7 @@ class IsolateTask {
 
   final ReceivePort receivePort;
 
-  final Stream broadcastStream;
+  final Stream? broadcastStream;
 
   IsolateTask(this.isolate, this.receivePort, this.broadcastStream);
 }
@@ -43,17 +43,25 @@ class Utils {
   static final Map<String, IsolateTask> _isolateMap = {};
 
   /// 创建线程
-  static Future<IsolateTask> createIsolate<T>(String name, T data, Function(IsolateTaskData<T>) callback) async {
+  static Future<IsolateTask> createIsolate<T>(
+    String name,
+    T data,
+    Function(IsolateTaskData<T>) callback, {
+    bool isBroadcastStream = false,
+  }) async {
     if (_isolateMap.containsKey(name)) {
       return _isolateMap[name]!;
     }
     RootIsolateToken? rootIsolateToken = RootIsolateToken.instance;
     ReceivePort receivePort = ReceivePort();
-    Stream broadcastStream = receivePort.asBroadcastStream();
     Isolate isolate = await Isolate.spawn(callback, IsolateTaskData<T>(receivePort.sendPort, data, rootIsolateToken));
 
-    /// 线程结束 销毁监听
+    isolate.addOnExitListener(receivePort.sendPort);
 
+    Stream? broadcastStream;
+    if (isBroadcastStream) {
+      broadcastStream = receivePort.asBroadcastStream();
+    }
     _isolateMap[name] = IsolateTask(isolate, receivePort, broadcastStream);
     return _isolateMap[name]!;
   }
