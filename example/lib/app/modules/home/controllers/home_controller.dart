@@ -7,6 +7,5 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    textEditingController.showError('111');
   }
 }

@@ -39,7 +39,6 @@ class HomeView extends GetView<HomeController> {
             child: ITextField(
               controller: controller.textEditingController,
               hintText: '1111',
-              showError: true,
             ),
           )
         ],

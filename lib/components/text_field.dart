@@ -27,8 +27,6 @@ ITextCalculate _calculate(String v, int length) => ITextCalculate(length: v.leng
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
 
-  final bool showError;
-
   final int maxLines;
 
   final int? maxLength;
@@ -220,7 +218,6 @@ class ITextField extends StatefulWidget {
     this.hintStyle,
     this.onChanged,
     this.suffixIconWidth,
-    this.showError = false,
     this.cursorColor,
     this.deleteIcon,
     this.inputBorder,
@@ -267,8 +264,6 @@ class ITextField extends StatefulWidget {
 
 class _ITextFieldState extends State<ITextField> {
   bool _isNumber = false;
-
-  String? _errorText;
 
   ///输入类型
   TextInputType _getTextInputType() {
@@ -324,18 +319,18 @@ class _ITextFieldState extends State<ITextField> {
           toolbarOptions: widget.toolbarOptions,
           textAlign: widget.textAlign,
           decoration: InputDecoration(
-            hintStyle: widget.hintStyle,
+            hintStyle: widget.hintStyle ?? theme.hintStyle,
             counterStyle: TextStyle(color: Colors.white),
             hintText: widget.hintText,
-            errorStyle: widget.errorStyle,
+            errorStyle: widget.errorStyle ?? theme.errorStyle,
             errorMaxLines: widget.errorMaxLines,
             errorBorder: widget.errorBorder ?? theme.errorBorder,
             focusedErrorBorder: widget.focusedErrorBorder ?? theme.focusedErrorBorder,
-            border: _errorText == null ? widget.inputBorder : widget.errorBorder ?? theme.errorBorder,
-            focusedBorder: _errorText == null ? widget.focusedBorder : widget.errorBorder ?? theme.errorBorder,
-            enabledBorder: _errorText == null ? widget.enabledBorder : widget.errorBorder ?? theme.errorBorder,
+            border: widget.errorBorder ?? theme.errorBorder,
+            focusedBorder: widget.errorBorder ?? theme.errorBorder,
+            enabledBorder: widget.errorBorder ?? theme.errorBorder,
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle,
+            labelStyle: widget.labelStyle ?? theme.labelStyle,
             contentPadding: widget.contentPadding,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             prefixIcon: widget.prefixIcon,
@@ -403,16 +398,6 @@ class _ITextFieldState extends State<ITextField> {
           style: widget.textStyle,
           obscureText: widget.obscureText ?? false,
         ),
-        // if (widget.showError)
-        //   Positioned(
-        //     left: 0,
-        //     bottom: -5,
-        //     child: Container(
-        //       alignment: Alignment.centerLeft,
-        //       height: 25,
-        //       child: _errorText != null ? Text(_errorText!, style: widget.errorStyle ?? theme.errorStyle) : null,
-        //     ),
-        //   ),
         if (widget.maxLength != null && widget.isCount)
           Positioned(
             left: 0,
@@ -441,18 +426,6 @@ class _ITextFieldState extends State<ITextField> {
     super.didChangeDependencies();
     widget.controller._bindTextState(this);
   }
-
-  void _showError(String label) {
-    setState(() {
-      _errorText = label;
-    });
-  }
-
-  void _clearError() {
-    setState(() {
-      _errorText = null;
-    });
-  }
 }
 
 class ITextEditingController extends TextEditingController {
@@ -464,21 +437,6 @@ class ITextEditingController extends TextEditingController {
   void _bindTextState(_ITextFieldState state) {
     _state = state;
   }
-
-  /// 显示错误信息
-  void showError(String label) {
-    _state?._showError(label);
-  }
-
-  /// 删除错误信息
-  void clearError() {
-    _state?._clearError();
-  }
-
-  /// 判断是否有错
-  bool get isError => _state?._errorText == null ? false : true;
-
-  bool get isNotError => _state?._errorText == null ? true : false;
 }
 
 /// 计数器
