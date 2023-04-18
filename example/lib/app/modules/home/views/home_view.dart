@@ -34,6 +34,14 @@ class HomeView extends GetView<HomeController> {
               Get.toNamed(Routes.ISOLATE);
             },
           ),
+          Container(
+            height: 40,
+            child: ITextField(
+              controller: controller.textEditingController,
+              hintText: '1111',
+              showError: true,
+            ),
+          )
         ],
       ),
     );
