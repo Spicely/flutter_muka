@@ -1,13 +1,13 @@
 part of flutter_muka;
 
-String _render(int time) => '重新获取${time}s';
+String _builder(int time) => '重新获取${time}s';
 
 class CodeTime extends StatefulWidget {
   /// 倒计时的秒数，默认60秒
   final int countdown;
 
   /// 用户点击时的回调函数。
-  final void Function() onTap;
+  final void Function()? onTap;
 
   final CodeTimeController controller;
 
@@ -18,7 +18,7 @@ class CodeTime extends StatefulWidget {
   final String endLabel;
 
   /// 计时时显示的内容
-  final String Function(int time) render;
+  final String Function(int time) builder;
 
   final double? width;
 
@@ -30,9 +30,11 @@ class CodeTime extends StatefulWidget {
 
   final EdgeInsetsGeometry padding;
 
+  /// 倒计时完成后回调
+  final void Function()? onTimeEnd;
+
   const CodeTime({
     required this.controller,
-    required this.onTap,
     this.countdown = 60,
     this.label = '获取验证码',
     this.endLabel = '重新获取',
@@ -41,7 +43,9 @@ class CodeTime extends StatefulWidget {
     this.hasBorder = false,
     this.borderRadius = 0,
     this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    this.render = _render,
+    this.builder = _builder,
+    this.onTap,
+    this.onTimeEnd,
   });
 
   @override
@@ -127,11 +131,12 @@ class _CodeTimeState extends State<CodeTime> {
         return;
       }
       _seconds--;
-      _label = widget.render.call(_seconds);
+      _label = widget.builder.call(_seconds);
       setState(() {});
       if (_seconds == 0) {
         _label = widget.endLabel;
         _available = true;
+        widget.onTimeEnd?.call();
       }
     });
   }
