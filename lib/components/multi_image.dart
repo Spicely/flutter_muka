@@ -218,7 +218,7 @@ class _MultiImageState extends State<MultiImage> {
       );
     }
     if (data.fileData != null) {
-      return ExtendedImage.memory(
+      return Image.memory(
         data.fileData!,
         width: double.maxFinite,
         fit: BoxFit.cover,

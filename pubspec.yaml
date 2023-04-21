@@ -16,7 +16,6 @@ dependencies:
   dio: 
   r_upgrade: 
   package_info:
-  extended_image: 
   flutter_spinkit:
   cached_network_image: 
   flutter_image_compress: 

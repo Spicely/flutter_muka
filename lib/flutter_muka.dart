@@ -17,8 +17,6 @@ import 'flutter_muka.dart';
 
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:dio/dio.dart' hide MultipartFile;
-export 'package:extended_image/extended_image.dart';
-export 'package:extended_image/src/utils.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:http_parser/http_parser.dart';
 export 'package:path_provider/path_provider.dart';
