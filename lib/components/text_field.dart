@@ -27,8 +27,6 @@ ITextCalculate _calculate(String v, int length) => ITextCalculate(length: v.leng
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
 
-  final bool showError;
-
   final int maxLines;
 
   final int? maxLength;
@@ -220,7 +218,6 @@ class ITextField extends StatefulWidget {
     this.hintStyle,
     this.onChanged,
     this.suffixIconWidth,
-    this.showError = false,
     this.cursorColor,
     this.deleteIcon,
     this.inputBorder,
@@ -268,8 +265,6 @@ class ITextField extends StatefulWidget {
 class _ITextFieldState extends State<ITextField> {
   bool _isNumber = false;
 
-  String? _errorText;
-
   ///输入类型
   TextInputType _getTextInputType() {
     switch (widget.keyboardType) {
@@ -311,108 +306,97 @@ class _ITextFieldState extends State<ITextField> {
     InputDecorationTheme theme = Theme.of(context).inputDecorationTheme;
     return Stack(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: widget.controller,
-              focusNode: widget.focusNode,
-              cursorColor: widget.cursorColor,
-              enableInteractiveSelection: true,
-              readOnly: widget.readOnly,
-              onSubmitted: widget.onSubmitted,
-              onTap: widget.onTap,
-              onAppPrivateCommand: widget.onAppPrivateCommand,
-              onEditingComplete: widget.onEditingComplete,
-              toolbarOptions: widget.toolbarOptions,
-              textAlign: widget.textAlign,
-              decoration: InputDecoration(
-                hintStyle: widget.hintStyle,
-                counterStyle: TextStyle(color: Colors.white),
-                hintText: widget.hintText,
-                errorStyle: widget.errorStyle,
-                errorMaxLines: widget.errorMaxLines,
-                errorBorder: widget.errorBorder ?? theme.errorBorder,
-                focusedErrorBorder: widget.focusedErrorBorder ?? theme.focusedErrorBorder,
-                border: _errorText == null ? widget.inputBorder : widget.errorBorder ?? theme.errorBorder,
-                focusedBorder: _errorText == null ? widget.focusedBorder : widget.errorBorder ?? theme.errorBorder,
-                enabledBorder: _errorText == null ? widget.enabledBorder : widget.errorBorder ?? theme.errorBorder,
-                labelText: widget.labelText,
-                labelStyle: widget.labelStyle,
-                contentPadding: widget.contentPadding,
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                prefixIcon: widget.prefixIcon,
-                prefixIconConstraints: widget.prefixIconConstraints,
-                suffixIconConstraints: BoxConstraints(
-                  maxWidth: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 25,
-                ),
-                suffixIcon: widget.readOnly
-                    ? null
-                    : !widget.showDeleteIcon
-                        ? null
-                        : Container(
-                            alignment: Alignment.centerRight,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                widget.showDeleteIcon
-                                    ? !widget.readOnly
-                                        ? Container(
-                                            width: 20.0,
-                                            height: 20.0,
-                                            child: widget.controller.text.length > 0
-                                                ? IconButton(
-                                                    alignment: Alignment.center,
-                                                    padding: EdgeInsets.all(0.0),
-                                                    iconSize: 18.0,
-                                                    icon: widget.deleteIcon != null
-                                                        ? widget.deleteIcon!
-                                                        : Icon(
-                                                            Icons.cancel,
-                                                            color: Color.fromRGBO(0, 0, 0, 0.3),
-                                                          ),
-                                                    onPressed: () {
-                                                      widget.controller.clear();
-                                                      setState(() {
-                                                        widget.onChanged?.call(widget.controller.text);
-                                                      });
-                                                    },
-                                                  )
-                                                : null,
-                                          )
-                                        : Container()
-                                    : Container(),
-                                widget.suffixIcon ?? Container(),
-                              ],
-                            ),
-                          ),
-              ),
-              onChanged: (val) {
-                String v = val;
-                if (widget.maxLength != null) {
-                  v = widget.countCalculate(val, widget.maxLength!).text;
-                  widget.controller.value = TextEditingValue(
-                    text: v,
-                    selection: TextSelection.collapsed(offset: v.length),
-                  );
-                }
-                setState(() {
-                  widget.onChanged?.call(v);
-                });
-              },
-              keyboardType: _getTextInputType(),
-              maxLines: widget.maxLines,
-              inputFormatters: [...(widget.inputFormatters ?? []), ...(_getTextInputFormatter() ?? [])],
-              style: widget.textStyle,
-              obscureText: widget.obscureText ?? false,
+        TextField(
+          controller: widget.controller,
+          focusNode: widget.focusNode,
+          cursorColor: widget.cursorColor,
+          enableInteractiveSelection: true,
+          readOnly: widget.readOnly,
+          onSubmitted: widget.onSubmitted,
+          onTap: widget.onTap,
+          onAppPrivateCommand: widget.onAppPrivateCommand,
+          onEditingComplete: widget.onEditingComplete,
+          toolbarOptions: widget.toolbarOptions,
+          textAlign: widget.textAlign,
+          decoration: InputDecoration(
+            hintStyle: widget.hintStyle ?? theme.hintStyle,
+            counterStyle: TextStyle(color: Colors.white),
+            hintText: widget.hintText,
+            errorStyle: widget.errorStyle ?? theme.errorStyle,
+            errorMaxLines: widget.errorMaxLines,
+            errorBorder: widget.errorBorder ?? theme.errorBorder,
+            focusedErrorBorder: widget.focusedErrorBorder ?? theme.focusedErrorBorder,
+            border: widget.errorBorder ?? theme.errorBorder,
+            focusedBorder: widget.errorBorder ?? theme.errorBorder,
+            enabledBorder: widget.errorBorder ?? theme.errorBorder,
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle ?? theme.labelStyle,
+            contentPadding: widget.contentPadding,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            prefixIcon: widget.prefixIcon,
+            prefixIconConstraints: widget.prefixIconConstraints,
+            suffixIconConstraints: BoxConstraints(
+              maxWidth: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 25,
             ),
-            if (widget.showError)
-              Container(
-                alignment: Alignment.centerLeft,
-                height: 25,
-                child: _errorText != null ? Text(_errorText!, style: widget.errorStyle ?? theme.errorStyle) : null,
-              ),
-          ],
+            suffixIcon: widget.readOnly
+                ? null
+                : !widget.showDeleteIcon
+                    ? null
+                    : Container(
+                        alignment: Alignment.centerRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            widget.showDeleteIcon
+                                ? !widget.readOnly
+                                    ? Container(
+                                        width: 20.0,
+                                        height: 20.0,
+                                        child: widget.controller.text.length > 0
+                                            ? IconButton(
+                                                alignment: Alignment.center,
+                                                padding: EdgeInsets.all(0.0),
+                                                iconSize: 18.0,
+                                                icon: widget.deleteIcon != null
+                                                    ? widget.deleteIcon!
+                                                    : Icon(
+                                                        Icons.cancel,
+                                                        color: Color.fromRGBO(0, 0, 0, 0.3),
+                                                      ),
+                                                onPressed: () {
+                                                  widget.controller.clear();
+                                                  setState(() {
+                                                    widget.onChanged?.call(widget.controller.text);
+                                                  });
+                                                },
+                                              )
+                                            : null,
+                                      )
+                                    : Container()
+                                : Container(),
+                            widget.suffixIcon ?? Container(),
+                          ],
+                        ),
+                      ),
+          ),
+          onChanged: (val) {
+            String v = val;
+            if (widget.maxLength != null) {
+              v = widget.countCalculate(val, widget.maxLength!).text;
+              widget.controller.value = TextEditingValue(
+                text: v,
+                selection: TextSelection.collapsed(offset: v.length),
+              );
+            }
+            setState(() {
+              widget.onChanged?.call(v);
+            });
+          },
+          keyboardType: _getTextInputType(),
+          maxLines: widget.maxLines,
+          inputFormatters: [...(widget.inputFormatters ?? []), ...(_getTextInputFormatter() ?? [])],
+          style: widget.textStyle,
+          obscureText: widget.obscureText ?? false,
         ),
         if (widget.maxLength != null && widget.isCount)
           Positioned(
@@ -442,18 +426,6 @@ class _ITextFieldState extends State<ITextField> {
     super.didChangeDependencies();
     widget.controller._bindTextState(this);
   }
-
-  void _showError(String label) {
-    setState(() {
-      _errorText = label;
-    });
-  }
-
-  void _clearError() {
-    setState(() {
-      _errorText = null;
-    });
-  }
 }
 
 class ITextEditingController extends TextEditingController {
@@ -465,21 +437,6 @@ class ITextEditingController extends TextEditingController {
   void _bindTextState(_ITextFieldState state) {
     _state = state;
   }
-
-  /// 显示错误信息
-  void showError(String label) {
-    _state?._showError(label);
-  }
-
-  /// 删除错误信息
-  void clearError() {
-    _state?._clearError();
-  }
-
-  /// 判断是否有错
-  bool get isError => _state?._errorText == null ? false : true;
-
-  bool get isNotError => _state?._errorText == null ? true : false;
 }
 
 /// 计数器
