@@ -43,8 +43,6 @@ class ITextField extends StatefulWidget {
 
   final GestureTapCallback? onTap;
 
-  final ToolbarOptions? toolbarOptions;
-
   final AppPrivateCommandCallback? onAppPrivateCommand;
 
   final Icon? deleteIcon;
@@ -117,6 +115,8 @@ class ITextField extends StatefulWidget {
   final TextStyle? countWidgetSeparatorStyle;
 
   final Alignment countWidgetAlignment;
+
+  final bool autofocus;
 
   /// count长度计算方法
   final ITextCalculate Function(String, int length) countCalculate;
@@ -245,7 +245,6 @@ class ITextField extends StatefulWidget {
     this.onSubmitted,
     this.onTap,
     this.textAlign = TextAlign.start,
-    this.toolbarOptions,
     this.separator = '/',
     this.countWidgetStyle,
     this.countWidgetCountStyle,
@@ -255,6 +254,7 @@ class ITextField extends StatefulWidget {
     this.countWidgetAlignment = Alignment.centerRight,
     this.countCalculate = _calculate,
     this.inputFormatters,
+    this.autofocus = false,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -314,9 +314,9 @@ class _ITextFieldState extends State<ITextField> {
           readOnly: widget.readOnly,
           onSubmitted: widget.onSubmitted,
           onTap: widget.onTap,
+          autofocus: widget.autofocus,
           onAppPrivateCommand: widget.onAppPrivateCommand,
           onEditingComplete: widget.onEditingComplete,
-          toolbarOptions: widget.toolbarOptions,
           textAlign: widget.textAlign,
           decoration: InputDecoration(
             hintStyle: widget.hintStyle ?? theme.hintStyle,
@@ -326,17 +326,16 @@ class _ITextFieldState extends State<ITextField> {
             errorMaxLines: widget.errorMaxLines,
             errorBorder: widget.errorBorder ?? theme.errorBorder,
             focusedErrorBorder: widget.focusedErrorBorder ?? theme.focusedErrorBorder,
-            border: widget.errorBorder ?? theme.errorBorder,
-            focusedBorder: widget.errorBorder ?? theme.errorBorder,
-            enabledBorder: widget.errorBorder ?? theme.errorBorder,
+            border: widget.inputBorder ?? theme.border,
+            focusedBorder: widget.focusedBorder ?? theme.focusedBorder,
+            enabledBorder: widget.enabledBorder ?? theme.enabledBorder,
             labelText: widget.labelText,
             labelStyle: widget.labelStyle ?? theme.labelStyle,
             contentPadding: widget.contentPadding,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
             prefixIcon: widget.prefixIcon,
             prefixIconConstraints: widget.prefixIconConstraints,
             suffixIconConstraints: BoxConstraints(
-              maxWidth: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 25,
+              maxWidth: widget.suffixIcon != null ? widget.suffixIconWidth ?? 85 : 35,
             ),
             suffixIcon: widget.readOnly
                 ? null
@@ -352,6 +351,7 @@ class _ITextFieldState extends State<ITextField> {
                                     ? Container(
                                         width: 20.0,
                                         height: 20.0,
+                                        margin: EdgeInsets.only(right: 10),
                                         child: widget.controller.text.length > 0
                                             ? IconButton(
                                                 alignment: Alignment.center,
