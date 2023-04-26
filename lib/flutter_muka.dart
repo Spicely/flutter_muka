@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:back_to_desktop/back_to_desktop.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/io.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
@@ -34,6 +35,7 @@ part 'components/grid_item.dart';
 part 'components/list_item.dart';
 part 'components/multi_image.dart';
 part 'components/notice_dialog.dart';
+part 'components/page_init.dart';
 part 'components/text_field.dart';
 part 'components/virtual_keyboard.dart';
 part 'src/http_utils.dart';
