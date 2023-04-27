@@ -36,9 +36,11 @@ packages:
   back_to_desktop:
     dependency: "direct main"
     description:
-      path: "plugins/back_to_desktop"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "5ce56689ec5ddac36dc00008698b5abcc60d8faf"
+      url: "https://github.com/Spicely/android_back_to_desktop.git"
+    source: git
     version: "0.0.1"
   boolean_selector:
     dependency: transitive

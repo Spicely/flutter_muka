@@ -22,7 +22,8 @@ dependencies:
   logger:
   shimmer: 
   back_to_desktop: 
-    path: ./plugins/back_to_desktop
+    git:
+      url: https://github.com/Spicely/android_back_to_desktop.git
 
 dev_dependencies:
   flutter_test:
