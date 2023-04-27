@@ -45,10 +45,15 @@ class _PageInitState extends State<PageInit> {
     return WillPopScope(
       onWillPop: widget.isBackToDesktop
           ? () async {
+              /// 判断是否为根页面
+              if (Navigator.of(context).canPop()) {
+                return true;
+              }
               if (Platform.isAndroid) {
                 await BackToDesktop.backToDesktop();
+                return false;
               }
-              return false;
+              return true;
             }
           : _doubleExit,
       child: GestureDetector(
