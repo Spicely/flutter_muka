@@ -288,4 +288,14 @@ class Utils {
   static setCache<T>(String key, dynamic value) {
     _cache[key] = value;
   }
+
+  /// 移除缓存
+  static removeCache(String key) {
+    _cache.remove(key);
+  }
+
+  /// 清空缓存
+  static clearCache() {
+    _cache.clear();
+  }
 }
