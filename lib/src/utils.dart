@@ -275,4 +275,17 @@ class Utils {
                 : obj
             : obj;
   }
+
+  /// 缓存
+  static Map<String, dynamic> _cache = {};
+
+  /// 获取缓存
+  static T? getCache<T>(String key) {
+    return _cache[key];
+  }
+
+  /// 设置缓存
+  static setCache<T>(String key, dynamic value) {
+    _cache[key] = value;
+  }
 }
