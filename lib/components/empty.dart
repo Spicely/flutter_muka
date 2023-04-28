@@ -32,15 +32,18 @@ enum EmptyBtnType {
 }
 
 class Empty extends StatefulWidget {
-  Empty({
-    Key? key,
-    this.isEmpty,
-    this.child,
-  }) : super(key: key);
-
   final bool? isEmpty;
 
   final Widget? child;
+
+  /// 空组件样式
+  final Widget? emptyChild;
+  Empty({
+    Key? key,
+    this.child,
+    this.emptyChild,
+    this.isEmpty,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _EmptyState();
@@ -51,6 +54,22 @@ class _EmptyState extends State<Empty> {
   ///
   /// true显示 false 不显示
   bool _status = false;
+
+  @override
+  initState() {
+    _status = widget.isEmpty ?? false;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant Empty oldWidget) {
+    if (oldWidget.isEmpty != _status) {
+      setState(() {
+        _status = widget.isEmpty ?? false;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   /// 网络状态
   ///
@@ -72,7 +91,7 @@ class _EmptyState extends State<Empty> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  MukaConfig.config.emptyWidget(context),
+                  widget.emptyChild ?? MukaConfig.config.emptyWidget(context),
                 ],
               ),
             ),
