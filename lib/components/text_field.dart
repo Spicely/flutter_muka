@@ -118,6 +118,8 @@ class ITextField extends StatefulWidget {
 
   final bool autofocus;
 
+  final Color? closeIconColor;
+
   /// count长度计算方法
   final ITextCalculate Function(String, int length) countCalculate;
 
@@ -255,6 +257,7 @@ class ITextField extends StatefulWidget {
     this.countCalculate = _calculate,
     this.inputFormatters,
     this.autofocus = false,
+    this.closeIconColor,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -361,7 +364,7 @@ class _ITextFieldState extends State<ITextField> {
                                                     ? widget.deleteIcon!
                                                     : Icon(
                                                         Icons.cancel,
-                                                        color: Color.fromRGBO(0, 0, 0, 0.3),
+                                                        color: widget.closeIconColor ?? Color.fromRGBO(0, 0, 0, 0.3),
                                                       ),
                                                 onPressed: () {
                                                   widget.controller.clear();
