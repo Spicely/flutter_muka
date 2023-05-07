@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-04-03 18:42:45
+ * Last Modified: 2023-05-07 00:33:28
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -45,18 +45,23 @@ class CachedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (Utils.isNotEmpty(imageUrl)) {
       String baseUrl = MukaConfig.config.baseUrl;
+
+      CachedNetworkImageProvider img = CachedImage.getCache(context, baseUrl + imageUrl!);
+
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: CachedNetworkImage(
-          imageUrl: baseUrl + imageUrl!,
+        child: Image(
+          image: img,
           width: width,
           height: height,
-          placeholder: (context, url) => Shimmer.fromColors(
-            baseColor: Colors.grey.shade200,
-            highlightColor: Colors.grey.shade100,
-            child: Container(width: width, height: height, color: Colors.grey),
-          ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          loadingBuilder: (context, child, loadingProgress) => loadingProgress == null
+              ? child
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey.shade200,
+                  highlightColor: Colors.grey.shade100,
+                  child: Container(width: width, height: height, color: Colors.grey),
+                ),
+          errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
           fit: fit,
         ),
       );
@@ -96,5 +101,28 @@ class CachedImage extends StatelessWidget {
         child: Container(width: width, height: height, color: Colors.grey),
       ),
     );
+  }
+
+  /// 缓存
+  static Map<String, CachedNetworkImageProvider> _cache = {};
+
+  /// 获取缓存
+  static CachedNetworkImageProvider getCache(BuildContext context, String url) {
+    if (_cache.containsKey(url)) {
+      return _cache[url]!;
+    }
+    _cache[url] = CachedNetworkImageProvider(url);
+    precacheImage(_cache[url]!, context);
+    return _cache[url]!;
+  }
+
+  /// 移除缓存
+  static removeCache(String key) {
+    _cache.remove(key);
+  }
+
+  /// 清空缓存
+  static clearCache() {
+    _cache.clear();
   }
 }
