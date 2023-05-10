@@ -386,10 +386,6 @@ class _ITextFieldState extends State<ITextField> {
             String v = val;
             if (widget.maxLength != null) {
               v = widget.countCalculate(val, widget.maxLength!).text;
-              widget.controller.value = TextEditingValue(
-                text: v,
-                selection: TextSelection.collapsed(offset: v.length),
-              );
             }
             setState(() {
               widget.onChanged?.call(v);
