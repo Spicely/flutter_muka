@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-07 00:33:28
+ * Last Modified: 2023-05-11 18:30:00
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -29,6 +29,8 @@ class CachedImage extends StatelessWidget {
 
   final Color? imageColor;
 
+  final MukaCachedTheme? config;
+
   const CachedImage({
     Key? key,
     this.imageUrl,
@@ -39,6 +41,7 @@ class CachedImage extends StatelessWidget {
     this.assetUrl,
     this.imageColor,
     this.file,
+    this.config,
   }) : super(key: key);
 
   @override
@@ -56,12 +59,12 @@ class CachedImage extends StatelessWidget {
           height: height,
           loadingBuilder: (context, child, loadingProgress) => loadingProgress == null
               ? child
-              : Shimmer.fromColors(
-                  baseColor: Colors.grey.shade200,
-                  highlightColor: Colors.grey.shade100,
-                  child: Container(width: width, height: height, color: Colors.grey),
-                ),
-          errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+              : config?.placeholder(width: width, height: height) ??
+                  MukaConfig.config.cachedTheme.placeholder(width: width, height: height),
+          errorBuilder: (context, obj, stackTrace) {
+            return config?.errorBuilder(context, obj, stackTrace, width: width, height: height) ??
+                MukaConfig.config.cachedTheme.errorBuilder(context, obj, stackTrace, width: width, height: height);
+          },
           fit: fit,
         ),
       );

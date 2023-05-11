@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2023-03-04 18:38:54
+ * Last Modified: 2023-05-11 18:28:14
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -94,7 +94,7 @@ class MukaConfigTheme {
 
   final MukaExceptionCapture exceptionCapture;
 
-  final MukaFormTheme formTheme;
+  final MukaCachedTheme cachedTheme;
 
   MukaConfigTheme({
     this.baseUrl = '',
@@ -102,25 +102,28 @@ class MukaConfigTheme {
     this.bottomSheetLayoutTheme = const MukaBottomSheetLayoutTheme(),
     this.futureLayoutBuilderTheme = const MukaFutureLayoutBuilderTheme(),
     this.exceptionCapture = const MukaExceptionCapture(),
-    this.formTheme = const MukaFormTheme(),
+    this.cachedTheme = const MukaCachedTheme(),
   });
 }
 
-/// Form主题
-class MukaFormTheme {
-  final Color? background;
+Widget _errorBuilder(BuildContext context, Object error, StackTrace? stackTrace, {double? width, double? height}) =>
+    const Icon(Icons.error);
 
-  final double? titleWidth;
+Widget _cachePlaceholder({double? width, double? height}) => Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.grey.shade100,
+      child: Container(width: width, height: height, color: Colors.grey),
+    );
 
-  final double height;
+class MukaCachedTheme {
+  final Widget Function(BuildContext, Object, StackTrace?, {double? width, double? height}) errorBuilder;
 
-  final EdgeInsets? contentPadding;
+  /// 占位图
+  final Widget Function({double? width, double? height}) placeholder;
 
-  const MukaFormTheme({
-    this.background,
-    this.titleWidth,
-    this.contentPadding,
-    this.height = 45,
+  const MukaCachedTheme({
+    this.errorBuilder = _errorBuilder,
+    this.placeholder = _cachePlaceholder,
   });
 }
 
