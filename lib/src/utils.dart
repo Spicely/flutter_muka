@@ -237,7 +237,7 @@ class Utils {
     CompressFormat format;
 
     /// 依据后缀判断图片格式
-    switch (suffix) {
+    switch (suffix.toLowerCase()) {
       case '.png':
         format = CompressFormat.png;
         break;
