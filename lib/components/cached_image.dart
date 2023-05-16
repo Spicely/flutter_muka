@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-11 18:30:00
+ * Last Modified: 2023-05-15 14:09:23
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -17,12 +17,15 @@ part of flutter_muka;
 
 class CachedImage extends StatelessWidget {
   final String? imageUrl;
+
   final String? assetUrl;
 
   final File? file;
 
   final double? width;
+
   final double? height;
+
   final double circular;
 
   final BoxFit? fit;
@@ -30,6 +33,8 @@ class CachedImage extends StatelessWidget {
   final Color? imageColor;
 
   final MukaCachedTheme? config;
+
+  final String? package;
 
   const CachedImage({
     Key? key,
@@ -42,6 +47,7 @@ class CachedImage extends StatelessWidget {
     this.imageColor,
     this.file,
     this.config,
+    this.package,
   }) : super(key: key);
 
   @override
@@ -49,7 +55,7 @@ class CachedImage extends StatelessWidget {
     if (Utils.isNotEmpty(imageUrl)) {
       String baseUrl = MukaConfig.config.baseUrl;
 
-      CachedNetworkImageProvider img = CachedImage.getCache(context, baseUrl + imageUrl!);
+      var img = CachedImage.getCache(context, baseUrl + imageUrl!, CacheType.network);
 
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
@@ -71,28 +77,18 @@ class CachedImage extends StatelessWidget {
     }
 
     if (file != null) {
+      var img = CachedImage.getCache(context, file!.path, CacheType.file, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: Image.file(
-          file!,
-          width: width,
-          height: height,
-          fit: fit,
-          color: imageColor,
-        ),
+        child: Image(image: img, width: width, height: height, fit: fit, color: imageColor),
       );
     }
 
     if (Utils.isNotEmpty(assetUrl)) {
+      var img = CachedImage.getCache(context, assetUrl!, CacheType.assets, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: Image.asset(
-          assetUrl!,
-          width: width,
-          height: height,
-          fit: fit,
-          color: imageColor,
-        ),
+        child: Image(image: img, width: width, height: height, fit: fit, color: imageColor),
       );
     }
 
@@ -107,14 +103,25 @@ class CachedImage extends StatelessWidget {
   }
 
   /// 缓存
-  static Map<String, CachedNetworkImageProvider> _cache = {};
+  static Map<String, dynamic> _cache = {};
 
   /// 获取缓存
-  static CachedNetworkImageProvider getCache(BuildContext context, String url) {
+  static getCache(BuildContext context, String url, CacheType type, {String? package}) {
     if (_cache.containsKey(url)) {
       return _cache[url]!;
     }
-    _cache[url] = CachedNetworkImageProvider(url);
+
+    switch (type) {
+      case CacheType.file:
+        _cache[url] = FileImage(File(url));
+        break;
+      case CacheType.assets:
+        _cache[url] = AssetImage(url, package: package);
+        break;
+      default:
+        _cache[url] = CachedNetworkImageProvider(url);
+    }
+
     precacheImage(_cache[url]!, context);
     return _cache[url]!;
   }
@@ -128,4 +135,15 @@ class CachedImage extends StatelessWidget {
   static clearCache() {
     _cache.clear();
   }
+}
+
+enum CacheType {
+  /// 文件
+  file,
+
+  /// 资产
+  assets,
+
+  /// 网路
+  network,
 }
