@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-15 14:09:23
+ * Last Modified: 2023-05-20 20:02:26
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -60,7 +60,7 @@ class CachedImage extends StatelessWidget {
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: Image(
-          image: img,
+          image: ResizeImage(img, width: width?.toInt(), height: height?.toInt()),
           width: width,
           height: height,
           loadingBuilder: (context, child, loadingProgress) => loadingProgress == null
@@ -80,7 +80,7 @@ class CachedImage extends StatelessWidget {
       var img = CachedImage.getCache(context, file!.path, CacheType.file, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: Image(image: img, width: width, height: height, fit: fit, color: imageColor),
+        child: Image(image: ResizeImage(img, width: width?.toInt(), height: height?.toInt()), fit: fit, color: imageColor),
       );
     }
 
@@ -88,7 +88,7 @@ class CachedImage extends StatelessWidget {
       var img = CachedImage.getCache(context, assetUrl!, CacheType.assets, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: Image(image: img, width: width, height: height, fit: fit, color: imageColor),
+        child: Image(image: ResizeImage(img, width: width?.toInt(), height: height?.toInt()), fit: fit, color: imageColor),
       );
     }
 
