@@ -232,30 +232,11 @@ class Utils {
       dir = doc.path;
     }
 
-    /// 获取文件名后缀
-    var suffix = path.substring(path.lastIndexOf('.'));
-    CompressFormat format;
-
-    /// 依据后缀判断图片格式
-    switch (suffix.toLowerCase()) {
-      case '.png':
-        format = CompressFormat.png;
-        break;
-      case '.heic':
-        format = CompressFormat.heic;
-        break;
-      case '.webp':
-        format = CompressFormat.webp;
-        break;
-      default:
-        format = CompressFormat.jpeg;
-    }
-
-    var targetPath = '$dir/${filename ?? DateTime.now().millisecondsSinceEpoch}$suffix';
+    var targetPath = '$dir/${filename ?? DateTime.now().millisecondsSinceEpoch}.png';
     return (await FlutterImageCompress.compressAndGetFile(
       path,
       targetPath,
-      format: format,
+      format: CompressFormat.png,
       quality: quality,
     ))
         ?.path;
