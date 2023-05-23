@@ -213,6 +213,7 @@ class _MultiImageState extends State<MultiImage> {
     if (data.file != null) {
       return CachedImage(
         file: File(data.file!),
+        height: double.maxFinite,
         width: double.maxFinite,
         fit: BoxFit.cover,
       );
@@ -227,6 +228,7 @@ class _MultiImageState extends State<MultiImage> {
     return CachedImage(
       imageUrl: (data.baseUrl ?? '') + data.url!,
       width: double.maxFinite,
+      height: double.maxFinite,
       fit: BoxFit.cover,
     );
   }

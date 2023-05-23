@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-20 20:02:26
+ * Last Modified: 2023-05-23 10:14:43
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -22,9 +22,9 @@ class CachedImage extends StatelessWidget {
 
   final File? file;
 
-  final double? width;
+  final double width;
 
-  final double? height;
+  final double height;
 
   final double circular;
 
@@ -39,8 +39,8 @@ class CachedImage extends StatelessWidget {
   const CachedImage({
     Key? key,
     this.imageUrl,
-    this.width,
-    this.height,
+    required this.width,
+    required this.height,
     this.circular = 0,
     this.fit,
     this.assetUrl,
@@ -52,6 +52,9 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    int reWidth = (width * devicePixelRatio).toInt();
+    int reHeight = (height * devicePixelRatio).toInt();
     if (Utils.isNotEmpty(imageUrl)) {
       String baseUrl = MukaConfig.config.baseUrl;
 
@@ -60,7 +63,7 @@ class CachedImage extends StatelessWidget {
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: Image(
-          image: ResizeImage(img, width: width?.toInt(), height: height?.toInt()),
+          image: ResizeImage(img, width: reWidth, height: reHeight),
           width: width,
           height: height,
           loadingBuilder: (context, child, loadingProgress) => loadingProgress == null
@@ -80,7 +83,13 @@ class CachedImage extends StatelessWidget {
       var img = CachedImage.getCache(context, file!.path, CacheType.file, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: Image(image: ResizeImage(img, width: width?.toInt(), height: height?.toInt()), fit: fit, color: imageColor),
+        child: Image(
+          image: ResizeImage(img, width: reWidth, height: reHeight),
+          fit: fit,
+          color: imageColor,
+          width: width,
+          height: height,
+        ),
       );
     }
 
@@ -88,7 +97,13 @@ class CachedImage extends StatelessWidget {
       var img = CachedImage.getCache(context, assetUrl!, CacheType.assets, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: Image(image: ResizeImage(img, width: width?.toInt(), height: height?.toInt()), fit: fit, color: imageColor),
+        child: Image(
+          image: ResizeImage(img, width: reWidth, height: reHeight),
+          fit: fit,
+          color: imageColor,
+          width: width,
+          height: height,
+        ),
       );
     }
 
