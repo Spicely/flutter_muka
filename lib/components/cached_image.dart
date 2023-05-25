@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-23 10:14:43
+ * Last Modified: 2023-05-25 10:46:48
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -58,7 +58,7 @@ class CachedImage extends StatelessWidget {
     if (Utils.isNotEmpty(imageUrl)) {
       String baseUrl = MukaConfig.config.baseUrl;
 
-      var img = CachedImage.getCache(context, baseUrl + imageUrl!, CacheType.network);
+      var img = CachedImage.getImage(context, baseUrl + imageUrl!, CacheType.network);
 
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
@@ -80,7 +80,7 @@ class CachedImage extends StatelessWidget {
     }
 
     if (file != null) {
-      var img = CachedImage.getCache(context, file!.path, CacheType.file, package: package);
+      var img = CachedImage.getImage(context, file!.path, CacheType.file, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: Image(
@@ -94,7 +94,7 @@ class CachedImage extends StatelessWidget {
     }
 
     if (Utils.isNotEmpty(assetUrl)) {
-      var img = CachedImage.getCache(context, assetUrl!, CacheType.assets, package: package);
+      var img = CachedImage.getImage(context, assetUrl!, CacheType.assets, package: package);
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
         child: Image(
@@ -117,38 +117,22 @@ class CachedImage extends StatelessWidget {
     );
   }
 
-  /// 缓存
-  static Map<String, dynamic> _cache = {};
-
   /// 获取缓存
-  static getCache(BuildContext context, String url, CacheType type, {String? package}) {
-    if (_cache.containsKey(url)) {
-      return _cache[url]!;
-    }
-
+  static getImage(BuildContext context, String url, CacheType type, {String? package}) {
+    ImageProvider<Object> img;
     switch (type) {
       case CacheType.file:
-        _cache[url] = FileImage(File(url));
+        img = FileImage(File(url));
         break;
       case CacheType.assets:
-        _cache[url] = AssetImage(url, package: package);
+        img = AssetImage(url, package: package);
         break;
       default:
-        _cache[url] = CachedNetworkImageProvider(url);
+        img = CachedNetworkImageProvider(url);
     }
 
-    precacheImage(_cache[url]!, context);
-    return _cache[url]!;
-  }
-
-  /// 移除缓存
-  static removeCache(String key) {
-    _cache.remove(key);
-  }
-
-  /// 清空缓存
-  static clearCache() {
-    _cache.clear();
+    precacheImage(img, context);
+    return img;
   }
 }
 
