@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-25 10:46:48
+ * Last Modified: 2023-05-29 23:31:53
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -130,8 +130,6 @@ class CachedImage extends StatelessWidget {
       default:
         img = CachedNetworkImageProvider(url);
     }
-
-    precacheImage(img, context);
     return img;
   }
 }
