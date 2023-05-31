@@ -232,11 +232,10 @@ class Utils {
       dir = doc.path;
     }
 
-    var targetPath = '$dir/${filename ?? DateTime.now().millisecondsSinceEpoch}.png';
+    var targetPath = '$dir/${filename ?? DateTime.now().millisecondsSinceEpoch}.jpeg';
     return (await FlutterImageCompress.compressAndGetFile(
       path,
       targetPath,
-      format: CompressFormat.png,
       quality: quality,
     ))
         ?.path;
