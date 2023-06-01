@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-30 01:31:22
+ * Last Modified: 2023-06-01 16:04:14
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -63,6 +63,7 @@ class CachedImage extends StatelessWidget {
           image: img,
           width: width,
           height: height,
+          gaplessPlayback: true,
           loadingBuilder: (context, child, loadingProgress) => loadingProgress == null
               ? child
               : config?.placeholder(width: width, height: height) ??
@@ -86,6 +87,7 @@ class CachedImage extends StatelessWidget {
           color: imageColor,
           width: width,
           height: height,
+          gaplessPlayback: true,
         ),
       );
     }
@@ -100,6 +102,7 @@ class CachedImage extends StatelessWidget {
           color: imageColor,
           width: width,
           height: height,
+          gaplessPlayback: true,
         ),
       );
     }
@@ -125,7 +128,7 @@ class CachedImage extends StatelessWidget {
         img = AssetImage(url, package: package);
         break;
       default:
-        img = CachedNetworkImageProvider(url);
+        img = NetworkImage(url);
     }
     return img;
   }
