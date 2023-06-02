@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-08-03 11:10:06
  * Author: Spicely
  * -----
- * Last Modified: 2023-05-11 18:28:14
+ * Last Modified: 2023-06-02 15:15:09
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -106,8 +106,7 @@ class MukaConfigTheme {
   });
 }
 
-Widget _errorBuilder(BuildContext context, Object error, StackTrace? stackTrace, {double? width, double? height}) =>
-    const Icon(Icons.error);
+Widget _errorBuilder(BuildContext context, {double? width, double? height}) => const Icon(Icons.error);
 
 Widget _cachePlaceholder({double? width, double? height}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade200,
@@ -116,7 +115,7 @@ Widget _cachePlaceholder({double? width, double? height}) => Shimmer.fromColors(
     );
 
 class MukaCachedTheme {
-  final Widget Function(BuildContext, Object, StackTrace?, {double? width, double? height}) errorBuilder;
+  final Widget Function(BuildContext, {double? width, double? height}) errorBuilder;
 
   /// 占位图
   final Widget Function({double? width, double? height}) placeholder;

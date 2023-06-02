@@ -17,7 +17,7 @@ dependencies:
   r_upgrade: 
   package_info:
   flutter_spinkit:
-  cached_network_image: 
+  extended_image: 
   flutter_image_compress: 
   logger:
   shimmer: 
