@@ -4,7 +4,11 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
+<<<<<<< HEAD
  * Last Modified: 2023-06-01 16:55:05
+=======
+ * Last Modified: 2023-05-30 01:31:22
+>>>>>>> parent of 3acadae (修复bug)
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -125,7 +129,7 @@ class CachedImage extends StatelessWidget {
         img = AssetImage(url, package: package);
         break;
       default:
-        img = NetworkImage(url);
+        img = CachedNetworkImageProvider(url);
     }
     return img;
   }
