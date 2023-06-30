@@ -255,4 +255,28 @@ class Utils {
                 : obj
             : obj;
   }
+
+  /// 时间戳转日期
+  static String timestampToDate(
+    int? timestamp, {
+    String yesterday = '昨天',
+    String beforeYesterday = '前天',
+  }) {
+    if (timestamp == null) return '';
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    DateTime now = DateTime.now();
+    if (dateTime.year == now.year) {
+      if (dateTime.month == now.month && dateTime.day == now.day) {
+        return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+      } else if (dateTime.month == now.month && dateTime.day == now.day - 1) {
+        return yesterday;
+      } else if (dateTime.month == now.month && dateTime.day == now.day - 2) {
+        return beforeYesterday;
+      } else {
+        return '${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
+      }
+    } else {
+      return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
+    }
+  }
 }
