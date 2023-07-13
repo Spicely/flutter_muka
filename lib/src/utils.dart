@@ -279,4 +279,17 @@ class Utils {
       return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
     }
   }
+
+  /// 获取文件大小
+  static String getFileSize(int size) {
+    if (size < 1024) {
+      return '$size B';
+    } else if (size < 1024 * 1024) {
+      return '${(size / 1024).toStringAsFixed(2)} KB';
+    } else if (size < 1024 * 1024 * 1024) {
+      return '${(size / 1024 / 1024).toStringAsFixed(2)} MB';
+    } else {
+      return '${(size / 1024 / 1024 / 1024).toStringAsFixed(2)} GB';
+    }
+  }
 }
