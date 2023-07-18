@@ -14,7 +14,7 @@ dependencies:
   cookie_jar: 
   dio_cookie_manager:
   dio: 
-  r_upgrade: 
+  # r_upgrade: 
   package_info:
   flutter_spinkit:
   extended_image: 

@@ -456,14 +456,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  r_upgrade:
-    dependency: transitive
-    description:
-      name: r_upgrade
-      sha256: "14337dd29cf67265ec86e1d518212cb6b6eafe9167fd366b050ccb1656461c55"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.2"
   shimmer:
     dependency: transitive
     description:
