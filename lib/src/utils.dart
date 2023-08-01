@@ -23,6 +23,9 @@ class IsolateTaskData<T> {
 }
 
 class Utils {
+  /// 是否是桌面
+  static bool isDesktop = (Platform.isMacOS || Platform.isWindows || Platform.isLinux) ? true : false;
+
   static String get platform {
     if (Platform.isAndroid) {
       return 'android';
