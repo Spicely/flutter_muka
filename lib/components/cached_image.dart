@@ -4,11 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
-<<<<<<< HEAD
- * Last Modified: 2023-07-31 15:52:08
-=======
- * Last Modified: 2023-07-31 15:52:08
->>>>>>> parent of 3acadae (修复bug)
+ * Last Modified: 2023-08-12 14:57:30
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -61,16 +57,29 @@ class CachedImage extends StatelessWidget {
 
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: CachedNetworkImage(
-          imageUrl: baseUrl + imageUrl!,
+        child: ExtendedImage.network(
+          baseUrl + imageUrl!,
           width: width,
           height: height,
           fit: fit,
-          placeholder: (context, url) =>
-              config?.placeholder(width: width, height: height) ?? MukaConfig.config.cachedTheme.placeholder(width: width, height: height),
-          errorWidget: (context, url, error) =>
-              config?.errorBuilder(context, width: width, height: height) ??
-              MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height),
+          cache: true,
+          loadStateChanged: (state) {
+            switch (state.extendedImageLoadState) {
+              case LoadState.loading:
+                return config?.placeholder(width: width, height: height) ??
+                    MukaConfig.config.cachedTheme.placeholder(width: width, height: height);
+              case LoadState.failed:
+                return config?.errorBuilder(context, width: width, height: height) ??
+                    MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height);
+              default:
+                return ExtendedRawImage(
+                  image: state.extendedImageInfo?.image,
+                  width: width,
+                  height: height,
+                  fit: fit,
+                );
+            }
+          },
         ),
       );
     }
