@@ -216,12 +216,12 @@ class Utils {
   /// 异常捕获
   static Future<void> exceptionCapture(
     Function() cb, {
-    void Function(DioError)? dioError,
+    void Function(DioException)? dioError,
     void Function(Object)? error,
   }) async {
     try {
       await cb();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       dioError != null ? dioError.call(e) : MukaConfig.config.exceptionCapture.dioError(e);
     } catch (e) {
       error != null ? error.call(e) : MukaConfig.config.exceptionCapture.error(e);
@@ -229,19 +229,19 @@ class Utils {
   }
 
   /// 压缩图片
-  static Future<String?> compressImageQuality(String path, int quality, {String? filename, String? dir}) async {
+  static Future<String?> compressImageQuality(String path, {String? filename, String? dir, int quality = 95}) async {
     if (dir == null) {
       Directory doc = await getApplicationDocumentsDirectory();
       dir = doc.path;
     }
 
     var targetPath = '$dir/${filename ?? DateTime.now().millisecondsSinceEpoch}.jpeg';
-    return (await FlutterImageCompress.compressAndGetFile(
-      path,
-      targetPath,
-      quality: quality,
-    ))
-        ?.path;
+    return (await FlutterImageCompress.compressAndGetFile(path, targetPath, quality: quality))?.path;
+  }
+
+  /// 压缩内存图片
+  static Future<Uint8List> compressImageMemory(Uint8List data, {String? filename, String? dir, int quality = 95}) async {
+    return FlutterImageCompress.compressWithList(data, quality: quality);
   }
 
   /// 判断值是否为空
