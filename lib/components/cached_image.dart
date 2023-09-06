@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-08-12 14:57:30
+ * Last Modified: 2023-09-06 17:16:02
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -85,16 +85,33 @@ class CachedImage extends StatelessWidget {
     }
 
     if (file != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(circular),
-        child: Image(
-          image: FileImage(File(file!.path)),
-          fit: fit,
-          color: imageColor,
-          width: width,
-          height: height,
-        ),
-      );
+      if (width != null && height != null) {
+        double pixel = MediaQuery.of(context).devicePixelRatio;
+        int w = (width! * pixel).toInt();
+        int h = (height! * pixel).toInt();
+
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(circular),
+          child: Image(
+            image: ResizeImage(FileImage(File(file!.path)), width: w, height: h),
+            fit: fit,
+            color: imageColor,
+            width: width,
+            height: height,
+          ),
+        );
+      } else {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(circular),
+          child: Image(
+            image: FileImage(File(file!.path)),
+            fit: fit,
+            color: imageColor,
+            width: width,
+            height: height,
+          ),
+        );
+      }
     }
 
     if (Utils.isNotEmpty(assetUrl)) {
