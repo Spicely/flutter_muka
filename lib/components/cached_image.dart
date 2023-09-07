@@ -4,7 +4,7 @@ part of flutter_muka;
  * Created Date: 2022-06-16 23:54:28
  * Author: Spicely
  * -----
- * Last Modified: 2023-09-06 17:16:02
+ * Last Modified: 2023-09-07 11:25:34
  * Modified By: Spicely
  * -----
  * Copyright (c) 2022 Spicely Inc.
@@ -32,6 +32,9 @@ class CachedImage extends StatelessWidget {
 
   final Color? imageColor;
 
+  /// 内存图片
+  final Uint8List? memory;
+
   final MukaCachedTheme? config;
 
   final String? package;
@@ -48,6 +51,7 @@ class CachedImage extends StatelessWidget {
     this.file,
     this.config,
     this.package,
+    this.memory,
   }) : super(key: key);
 
   @override
@@ -119,6 +123,19 @@ class CachedImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(circular),
         child: Image(
           image: AssetImage(assetUrl!, package: package),
+          fit: fit,
+          color: imageColor,
+          width: width,
+          height: height,
+        ),
+      );
+    }
+
+    if (memory != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(circular),
+        child: Image(
+          image: MemoryImage(memory!),
           fit: fit,
           color: imageColor,
           width: width,
