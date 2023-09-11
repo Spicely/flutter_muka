@@ -27,7 +27,7 @@ ITextCalculate _calculate(String v, int length) => ITextCalculate(length: v.leng
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
 
-  final int maxLines;
+  final int? maxLines;
 
   final int? maxLength;
 
