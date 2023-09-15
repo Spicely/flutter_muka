@@ -29,6 +29,8 @@ class ITextField extends StatefulWidget {
 
   final int? maxLines;
 
+  final int? minLines;
+
   final int? maxLength;
 
   final String? hintText;
@@ -214,6 +216,7 @@ class ITextField extends StatefulWidget {
     Key? key,
     ITextInputType keyboardType: ITextInputType.text,
     this.maxLines = 1,
+    this.minLines = 1,
     this.maxLength,
     this.hintText,
     this.digitsOnly,
@@ -393,6 +396,7 @@ class _ITextFieldState extends State<ITextField> {
           },
           keyboardType: _getTextInputType(),
           maxLines: widget.maxLines,
+          minLines: widget.minLines,
           inputFormatters: [...(widget.inputFormatters ?? []), ...(_getTextInputFormatter() ?? [])],
           style: widget.textStyle,
           obscureText: widget.obscureText ?? false,
