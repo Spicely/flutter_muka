@@ -214,7 +214,7 @@ class ITextField extends StatefulWidget {
 
   ITextField({
     Key? key,
-    ITextInputType keyboardType: ITextInputType.text,
+    ITextInputType keyboardType = ITextInputType.text,
     this.maxLines = 1,
     this.minLines = 1,
     this.maxLength,
