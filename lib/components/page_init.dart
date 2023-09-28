@@ -58,7 +58,10 @@ class _PageInitState extends State<PageInit> {
           : _doubleExit,
       child: GestureDetector(
         onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
         },
         child: widget.child,
       ),
