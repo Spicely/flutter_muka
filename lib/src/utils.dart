@@ -295,4 +295,14 @@ class Utils {
       return '${(size / 1024 / 1024 / 1024).toStringAsFixed(2)} GB';
     }
   }
+
+  /// 获取当月第一天
+  static DateTime getFirstDayOfMonth(DateTime time) {
+    return DateTime(time.year, time.month, 1);
+  }
+
+  /// 获取当月最后一天
+  static DateTime getLastDayOfMonth(DateTime time) {
+    return DateTime(time.year, time.month + 1, 0);
+  }
 }
