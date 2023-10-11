@@ -28,7 +28,9 @@ class CodeTime extends StatefulWidget {
 
   final double borderRadius;
 
-  final EdgeInsetsGeometry padding;
+  final Color? backgroundColor;
+
+  final Color? primaryColor;
 
   /// 倒计时完成后回调
   final void Function()? onTimeEnd;
@@ -42,10 +44,11 @@ class CodeTime extends StatefulWidget {
     this.width,
     this.hasBorder = false,
     this.borderRadius = 0,
-    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    this.primaryColor,
     this.builder = _builder,
     this.onTap,
     this.onTimeEnd,
+    this.backgroundColor,
   });
 
   @override
@@ -88,21 +91,24 @@ class _CodeTimeState extends State<CodeTime> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        padding: widget.padding,
+        // padding: widget.padding,
+
         decoration: widget.hasBorder
             ? BoxDecoration(
                 border: Border.all(
                   width: 1,
-                  color: _available ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
+                  color: _available ? Theme.of(context).primaryColor : widget.backgroundColor ?? Theme.of(context).disabledColor,
                 ),
                 borderRadius: BorderRadius.circular(widget.borderRadius),
+                color: widget.backgroundColor,
               )
             : null,
         width: widget.width,
         height: widget.height,
+        alignment: Alignment.center,
         child: Text(
           _label,
-          style: TextStyle(fontSize: 12, color: _available ? Theme.of(context).primaryColor : Theme.of(context).disabledColor),
+          style: TextStyle(fontSize: 12, color: _available ? widget.primaryColor : Theme.of(context).disabledColor),
         ),
       ),
     );
