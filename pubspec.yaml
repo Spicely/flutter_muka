@@ -16,7 +16,7 @@ dependencies:
   dio: 
   # r_upgrade: 
   flutter_spinkit:
-  extended_image: 
+  extended_image: 8.1.1 
   flutter_image_compress: 
   pretty_dio_logger:
   logger:
