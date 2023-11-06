@@ -434,6 +434,7 @@ class _ITextFieldState extends State<ITextField> {
 class ITextEditingController extends TextEditingController {
   ITextEditingController({String? text});
 
+  // ignore: unused_field
   _ITextFieldState? _state;
 
   /// 绑定状态

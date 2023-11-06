@@ -9,11 +9,15 @@ class PageInit extends StatefulWidget {
   /// 退出到桌面
   final bool isBackToDesktop;
 
+  /// 点击时间
+  final Function? onPageTap;
+
   const PageInit({
     Key? key,
     this.child,
     this.onExitBefore,
     this.isBackToDesktop = false,
+    this.onPageTap,
   }) : super(key: key);
 
   @override
@@ -62,6 +66,7 @@ class _PageInitState extends State<PageInit> {
           if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
             FocusManager.instance.primaryFocus?.unfocus();
           }
+          widget.onPageTap?.call();
         },
         child: widget.child,
       ),
