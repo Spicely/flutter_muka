@@ -20,6 +20,19 @@ class PageInit extends StatefulWidget {
     this.onPageTap,
   }) : super(key: key);
 
+  /// 是否阻止事件
+  static bool _isStopEvent = false;
+
+  /// 阻止事件
+  static void stopEvent() {
+    _isStopEvent = true;
+  }
+
+  /// 开启事件
+  static void startEvent() {
+    _isStopEvent = false;
+  }
+
   @override
   _PageInitState createState() => _PageInitState();
 }
@@ -62,9 +75,11 @@ class _PageInitState extends State<PageInit> {
           : _doubleExit,
       child: GestureDetector(
         onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-            FocusManager.instance.primaryFocus?.unfocus();
+          if (!PageInit._isStopEvent) {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
           }
           widget.onPageTap?.call();
         },
