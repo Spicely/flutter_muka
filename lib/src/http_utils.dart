@@ -32,6 +32,9 @@ class HttpUtils {
   /// 代理设置 代理地址
   static String? PROXY_URL;
 
+  /// 忽略证书检测
+  static bool ignoreCertificate = true;
+
   /// 添加额外功能
   static HttpUtilsInterceptors? interceptors;
 
@@ -127,14 +130,25 @@ class HttpUtils {
 
       /// 设置代理
       if (PROXY_URL != null) {
-        _dio!.httpClientAdapter = IOHttpClientAdapter()
-          ..onHttpClientCreate = (client) {
+        _dio!.httpClientAdapter = IOHttpClientAdapter(
+          createHttpClient: () {
+            HttpClient client = new HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
             client.findProxy = (uri) {
               return "PROXY $PROXY_URL";
             };
-            client.badCertificateCallback = (cert, host, port) => true;
-            return null;
-          };
+            return client;
+          },
+        );
+      }
+
+      /// 忽略证书
+      if (ignoreCertificate) {
+        _dio!.httpClientAdapter = IOHttpClientAdapter(
+          createHttpClient: () {
+            HttpClient client = new HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            return client;
+          },
+        );
       }
       if (debug) {
         _dio!.interceptors.add(
