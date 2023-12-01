@@ -142,14 +142,14 @@ class HttpUtils {
       }
 
       /// 忽略证书
-      if (ignoreCertificate) {
-        _dio!.httpClientAdapter = IOHttpClientAdapter(
-          createHttpClient: () {
-            HttpClient client = new HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-            return client;
-          },
-        );
-      }
+      // if (ignoreCertificate) {
+      //   _dio!.httpClientAdapter = IOHttpClientAdapter(
+      //     createHttpClient: () {
+      //       HttpClient client = new HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      //       return client;
+      //     },
+      //   );
+      // }
       if (debug) {
         _dio!.interceptors.add(
           PrettyDioLogger(
