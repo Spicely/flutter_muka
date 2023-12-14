@@ -27,39 +27,43 @@ class PageInit extends StatefulWidget {
 class _PageInitState extends State<PageInit> {
   int _lastClickTime = 0;
 
-  Future<bool> _doubleExit() {
+  void _doubleExit() {
     int nowTime = DateTime.now().microsecondsSinceEpoch;
     if (widget.onExitBefore == null) {
-      return Future.value(true);
+      Navigator.pop(context);
+      return;
     }
     if (_lastClickTime != 0 && nowTime - _lastClickTime > 1500) {
-      return Future.value(true);
+      /// 关闭APP
+      SystemNavigator.pop(animated: true);
     } else {
       _lastClickTime = DateTime.now().microsecondsSinceEpoch;
       Future.delayed(const Duration(milliseconds: 1500), () {
         _lastClickTime = 0;
       });
       widget.onExitBefore?.call();
-      return Future.value(false);
+      return;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: widget.isBackToDesktop
-          ? () async {
-              /// 判断是否为根页面
-              if (Navigator.of(context).canPop()) {
-                return true;
-              }
-              if (Platform.isAndroid) {
-                await BackToDesktop.backToDesktop();
-                return false;
-              }
-              return true;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
+        if (!didPop) {
+          if (widget.isBackToDesktop) {
+            if (Platform.isAndroid) {
+              await BackToDesktop.backToDesktop();
+              return;
             }
-          : _doubleExit,
+            Navigator.pop(context);
+          } else {
+            _doubleExit();
+          }
+        }
+      },
       child: GestureDetector(
         onTap: () {
           if (widget.onPageTap == null) {

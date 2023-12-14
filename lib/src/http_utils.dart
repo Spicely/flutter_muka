@@ -103,16 +103,6 @@ class HttpUtils {
     if (_dio == null) {
       _dio = Dio(_options);
 
-      if (!kIsWeb) {
-        _dio!.httpClientAdapter = IOHttpClientAdapter()
-          ..onHttpClientCreate = (client) {
-            client.badCertificateCallback = (cert, host, port) {
-              return true;
-            };
-            return null;
-          };
-      }
-
       interceptors?.call(_dio).forEach((i) {
         _dio!.interceptors.add(i);
       });

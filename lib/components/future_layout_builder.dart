@@ -89,15 +89,13 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
       future: _future,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data is Error || snapshot.data is DioError || snapshot.data is MissingPluginException) {
-            return widget.config?.errorWidget(context, snapshot.data, reload) ??
-                _futureLayoutBuilderTheme.errorWidget(context, snapshot.data, reload);
+          if (snapshot.data is Error || snapshot.data is DioException || snapshot.data is MissingPluginException) {
+            return widget.config?.errorWidget(context, snapshot.data, reload) ?? _futureLayoutBuilderTheme.errorWidget(context, snapshot.data, reload);
           } else {
             return widget.builder(snapshot.data);
           }
         } else if (snapshot.hasError) {
-          return widget.config?.errorWidget(context, snapshot.data, reload) ??
-              _futureLayoutBuilderTheme.errorWidget(context, snapshot.data, reload);
+          return widget.config?.errorWidget(context, snapshot.data, reload) ?? _futureLayoutBuilderTheme.errorWidget(context, snapshot.data, reload);
         } else {
           return widget.config?.loadingWidget(context) ?? _futureLayoutBuilderTheme.loadingWidget(context);
         }

@@ -66,7 +66,7 @@ class MukaFutureLayoutBuilderTheme {
 
 Widget _errorWidget(BuildContext context, error, reload) {
   return Center(
-    child: Text(error is DioError ? error.message ?? '' : error.toString()),
+    child: Text(error is DioException ? error.message ?? '' : error.toString()),
   );
 }
 
@@ -128,7 +128,7 @@ class MukaCachedTheme {
 
 class MukaExceptionCapture {
   /// 请求错误
-  final void Function(DioError) dioError;
+  final void Function(DioException) dioError;
 
   /// 异常错误
   final void Function(Object) error;
