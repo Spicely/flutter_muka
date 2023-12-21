@@ -35,7 +35,7 @@ class NoticeDialogTheme {
     this.cancelTextStyle = const TextStyle(fontSize: 16, color: Colors.blue),
     this.confirmTextStyle = const TextStyle(fontSize: 16, color: Colors.blue),
     this.titleStyle = const TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
-    this.contentStyle = const TextStyle(fontSize: 14),
+    this.contentStyle = const TextStyle(fontSize: 14, color: Colors.black),
   });
 }
 
