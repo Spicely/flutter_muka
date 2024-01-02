@@ -68,8 +68,8 @@ class _PageInitState extends State<PageInit> {
         onTap: () {
           if (widget.onPageTap == null) {
             FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-              FocusManager.instance.primaryFocus?.unfocus();
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.focusedChild?.unfocus();
             }
           } else {
             widget.onPageTap?.call(context);
