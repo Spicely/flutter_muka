@@ -10,7 +10,7 @@ class PageInit extends StatefulWidget {
   final bool isBackToDesktop;
 
   /// 点击时间
-  final Function? onPageTap;
+  final Function(BuildContext)? onPageTap;
 
   const PageInit({
     Key? key,
@@ -72,7 +72,7 @@ class _PageInitState extends State<PageInit> {
               FocusManager.instance.primaryFocus?.unfocus();
             }
           } else {
-            widget.onPageTap?.call();
+            widget.onPageTap?.call(context);
           }
         },
         child: widget.child,
