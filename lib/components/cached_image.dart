@@ -70,11 +70,9 @@ class CachedImage extends StatelessWidget {
           loadStateChanged: (state) {
             switch (state.extendedImageLoadState) {
               case LoadState.loading:
-                return config?.placeholder(width: width, height: height) ??
-                    MukaConfig.config.cachedTheme.placeholder(width: width, height: height);
+                return config?.placeholder(width: width, height: height) ?? MukaConfig.config.cachedTheme.placeholder(width: width, height: height);
               case LoadState.failed:
-                return config?.errorBuilder(context, width: width, height: height) ??
-                    MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height);
+                return config?.errorBuilder(context, width: width, height: height) ?? MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height);
               default:
                 return ExtendedRawImage(
                   image: state.extendedImageInfo?.image,
@@ -91,8 +89,8 @@ class CachedImage extends StatelessWidget {
     if (file != null) {
       if (width != null && height != null) {
         double pixel = MediaQuery.of(context).devicePixelRatio;
-        int w = (width! * pixel).toInt();
-        int h = (height! * pixel).toInt();
+        int w = (width! * pixel).ceil();
+        int h = (height! * pixel).ceil();
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(circular),
