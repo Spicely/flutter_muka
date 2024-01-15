@@ -27,7 +27,7 @@ class PageInit extends StatefulWidget {
 class _PageInitState extends State<PageInit> {
   int _lastClickTime = 0;
 
-  void _doubleExit() {
+  void _doubleExit(BuildContext context) {
     int nowTime = DateTime.now().microsecondsSinceEpoch;
     if (widget.onExitBefore == null) {
       Navigator.pop(context);
@@ -60,7 +60,7 @@ class _PageInitState extends State<PageInit> {
             }
             Navigator.pop(context);
           } else {
-            _doubleExit();
+            _doubleExit(context);
           }
         }
       },

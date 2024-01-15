@@ -20,6 +20,7 @@ dependencies:
   flutter_image_compress: 
   pretty_dio_logger:
   flutter_blurhash: 
+  flutter_cache_manager: 
   logger:
   shimmer: 
   back_to_desktop: 

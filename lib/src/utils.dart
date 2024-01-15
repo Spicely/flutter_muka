@@ -305,4 +305,11 @@ class Utils {
   static DateTime getLastDayOfMonth(DateTime time) {
     return DateTime(time.year, time.month + 1, 0);
   }
+
+  static Future<String> getImagePath(String url) async {
+    Completer<String> completer = Completer();
+    File file = await DefaultCacheManager().getSingleFile(url);
+    completer.complete(file.path);
+    return completer.future;
+  }
 }
