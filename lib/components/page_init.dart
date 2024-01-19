@@ -49,10 +49,12 @@ class _PageInitState extends State<PageInit> {
   @override
   void initState() {
     super.initState();
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.focusedChild?.unfocus();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScopeNode currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.focusedChild?.unfocus();
+      }
+    });
   }
 
   @override
