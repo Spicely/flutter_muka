@@ -27,7 +27,7 @@ class PageInit extends StatefulWidget {
 class _PageInitState extends State<PageInit> {
   int _lastClickTime = 0;
 
-  void _doubleExit(BuildContext context) {
+  void _doubleExit() {
     int nowTime = DateTime.now().microsecondsSinceEpoch;
     if (widget.onExitBefore == null) {
       Navigator.pop(context);
@@ -47,6 +47,15 @@ class _PageInitState extends State<PageInit> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.focusedChild?.unfocus();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -60,7 +69,7 @@ class _PageInitState extends State<PageInit> {
             }
             Navigator.pop(context);
           } else {
-            _doubleExit(context);
+            _doubleExit();
           }
         }
       },
