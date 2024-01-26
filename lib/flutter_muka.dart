@@ -45,6 +45,8 @@ part 'src/http_utils.dart';
 part 'src/muka_config_theme.dart';
 part 'src/utils.dart';
 
+part 'mixins/widget_visibility_mixin.dart';
+
 Logger logger = Logger(
   printer: PrettyPrinter(
     methodCount: 2, // number of method calls to be displayed
