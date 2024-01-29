@@ -26,6 +26,9 @@ class Utils {
   /// 是否是桌面
   static bool isDesktop = (Platform.isMacOS || Platform.isWindows || Platform.isLinux) ? true : false;
 
+  /// 是否是移动端
+  static bool isMobile = (Platform.isAndroid || Platform.isIOS) ? true : false;
+
   static String get platform {
     if (Platform.isAndroid) {
       return 'android';
