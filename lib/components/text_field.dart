@@ -122,6 +122,12 @@ class ITextField extends StatefulWidget {
 
   final Color? closeIconColor;
 
+  final double? cursorHeight;
+
+  final double cursorWidth;
+
+  final Radius? cursorRadius;
+
   /// count长度计算方法
   final ITextCalculate Function(String, int length) countCalculate;
 
@@ -261,6 +267,9 @@ class ITextField extends StatefulWidget {
     this.inputFormatters,
     this.autofocus = false,
     this.closeIconColor,
+    this.cursorHeight,
+    this.cursorWidth = 2.0,
+    this.cursorRadius,
   })  : keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
 
@@ -324,6 +333,9 @@ class _ITextFieldState extends State<ITextField> {
           onAppPrivateCommand: widget.onAppPrivateCommand,
           onEditingComplete: widget.onEditingComplete,
           textAlign: widget.textAlign,
+          cursorHeight: widget.cursorHeight,
+          cursorWidth: widget.cursorWidth,
+          cursorRadius: widget.cursorRadius,
           decoration: InputDecoration(
             hintStyle: widget.hintStyle ?? theme.hintStyle,
             counterStyle: TextStyle(color: Colors.white),
