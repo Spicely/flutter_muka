@@ -56,32 +56,12 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Utils.isNotEmpty(imageUrl)) {
-      String baseUrl = MukaConfig.config.baseUrl;
-
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(circular),
-        child: CachedNetworkImage(
-          imageUrl: baseUrl + imageUrl!,
-          width: width,
-          height: height,
-          fit: fit,
-          placeholder: (context, url) => config?.placeholder(width: width, height: height) ?? MukaConfig.config.cachedTheme.placeholder(width: width, height: height),
-          errorWidget: (context, url, error) => config?.errorBuilder(context, width: width, height: height) ?? MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height),
-        ),
-      );
-    }
-
     if (file != null) {
       if (width != null && height != null) {
-        double pixel = MediaQuery.of(context).devicePixelRatio;
-        int w = (width! * pixel).ceil();
-        int h = (height! * pixel).ceil();
-
         return ClipRRect(
           borderRadius: BorderRadius.circular(circular),
           child: Image(
-            image: ResizeImage(FileImage(File(file!.path)), width: w, height: h),
+            image: FileImage(File(file!.path)),
             fit: fit,
             color: imageColor,
             width: width,
@@ -127,7 +107,21 @@ class CachedImage extends StatelessWidget {
         ),
       );
     }
+    if (Utils.isNotEmpty(imageUrl)) {
+      String baseUrl = MukaConfig.config.baseUrl;
 
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(circular),
+        child: CachedNetworkImage(
+          imageUrl: baseUrl + imageUrl!,
+          width: width,
+          height: height,
+          fit: fit,
+          placeholder: (context, url) => config?.placeholder(width: width, height: height) ?? MukaConfig.config.cachedTheme.placeholder(width: width, height: height),
+          errorWidget: (context, url, error) => config?.errorBuilder(context, width: width, height: height) ?? MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height),
+        ),
+      );
+    }
     return ClipRRect(
       borderRadius: BorderRadius.circular(circular),
       child: Shimmer.fromColors(
