@@ -3,6 +3,7 @@ library flutter_muka;
 import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,11 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'flutter_muka.dart';
 
 export 'package:dio/dio.dart' hide MultipartFile;
-export 'package:cached_network_image/cached_network_image.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:http_parser/http_parser.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:shimmer/shimmer.dart';
+export 'package:extended_image/extended_image.dart';
 
 part 'components/auto_keep.dart';
 part 'components/bottom_sheet_layout.dart';

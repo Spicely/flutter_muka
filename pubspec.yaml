@@ -16,7 +16,7 @@ dependencies:
   dio: 
   # r_upgrade: 
   flutter_spinkit:
-  cached_network_image: 
+  extended_image: 8.2.0
   flutter_image_compress: 
   pretty_dio_logger:
   flutter_blurhash: 

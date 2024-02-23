@@ -287,15 +287,15 @@ class Utils {
   }
 
   /// 获取文件大小
-  static String getFileSize(int size) {
+  static String getFileSize(int size, {int asFixed = 1}) {
     if (size < 1024) {
       return '$size B';
     } else if (size < 1024 * 1024) {
-      return '${(size / 1024).toStringAsFixed(2)} KB';
+      return '${(size / 1024).toStringAsFixed(asFixed)} KB';
     } else if (size < 1024 * 1024 * 1024) {
-      return '${(size / 1024 / 1024).toStringAsFixed(2)} MB';
+      return '${(size / 1024 / 1024).toStringAsFixed(asFixed)} MB';
     } else {
-      return '${(size / 1024 / 1024 / 1024).toStringAsFixed(2)} GB';
+      return '${(size / 1024 / 1024 / 1024).toStringAsFixed(asFixed)} GB';
     }
   }
 
