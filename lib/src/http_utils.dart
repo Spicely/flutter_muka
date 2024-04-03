@@ -47,7 +47,7 @@ class HttpUtils {
   );
 
   /// request method
-  static Future<dynamic> request(
+  static Future<T> request<T>(
     String url, {
     dynamic data,
     HttpUtilsMethod method = HttpUtilsMethod.POST,
@@ -56,16 +56,16 @@ class HttpUtils {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
     ProgressCallback? onSendProgress,
+    dynamic Function(Map<String, dynamic>)? convert,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};
     contentType = contentType ?? Headers.jsonContentType;
 
     Dio? dio = await createInstance();
-    var result;
+    T result;
 
-    Response response;
-    response = await dio!.request(
+    Response<dynamic> response = await dio!.request(
       url,
       queryParameters: method == HttpUtilsMethod.GET ? data : null,
       data: method != HttpUtilsMethod.GET ? data : null,
@@ -79,7 +79,16 @@ class HttpUtils {
       ),
     );
 
-    result = response.data;
+    if (convert != null) {
+      if (T is List) {
+        result = (response.data as List).map((e) => convert(e)).toList().toList() as T;
+      } else {
+        result = convert(response.data);
+      }
+    } else {
+      result = response.data;
+    }
+
     return result;
   }
 
