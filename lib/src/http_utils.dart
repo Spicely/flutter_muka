@@ -47,7 +47,7 @@ class HttpUtils {
   );
 
   /// request method
-  static Future<T> request<T, K>(
+  static Future<T> request<T>(
     String url, {
     dynamic data,
     HttpUtilsMethod method = HttpUtilsMethod.POST,
@@ -56,7 +56,7 @@ class HttpUtils {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
     ProgressCallback? onSendProgress,
-    K Function(Map<String, dynamic>)? convert,
+    T Function(dynamic)? convert,
   }) async {
     data = data ?? (method == HttpUtilsMethod.GET ? null : {});
     headers = headers ?? {};
@@ -80,11 +80,7 @@ class HttpUtils {
     );
 
     if (convert != null) {
-      if (response.data is List) {
-        result = (response.data as List).map((e) => convert(e)).toList() as T;
-      } else {
-        result = convert(response.data) as T;
-      }
+      result = convert(response.data);
     } else {
       result = response.data;
     }
