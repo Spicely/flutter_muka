@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_muka/flutter_muka.dart';
+
 class LoadingButton extends StatefulWidget {
   final Future<void> Function()? onPressed;
 
@@ -26,26 +28,43 @@ class _LoadingButtonState extends State<LoadingButton> {
 
   @override
   Widget build(BuildContext context) {
+    MukaLoadingButtonTheme loadingButtonTheme = MukaConfig.config.loadingButtonTheme;
     return ElevatedButton(
       style: widget.style,
       onPressed: widget.onPressed == null
           ? null
           : isLoading
-              ? _handleLoading
-              : null,
-      child: widget.child,
+              ? null
+              : _handleLoading,
+      child: isLoading ? widget.loading ?? loadingButtonTheme.loadingWidget(context) : widget.child,
     );
   }
 
-  Future<void> _handleLoading() async {
+  void _handleLoading() {
     setState(() {
       isLoading = true;
     });
-    await widget.onPressed!();
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-    }
+    Utils.exceptionCapture(() async {
+      await widget.onPressed!();
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }, dioError: (e) {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      MukaConfig.config.exceptionCapture.dioError(e);
+    }, error: (e) {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      MukaConfig.config.exceptionCapture.error(e);
+    });
   }
 }

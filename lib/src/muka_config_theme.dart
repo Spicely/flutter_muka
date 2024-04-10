@@ -53,6 +53,14 @@ class MukaBottomSheetLayoutTheme {
   });
 }
 
+class MukaLoadingButtonTheme {
+  final Widget Function(BuildContext) loadingWidget;
+
+  const MukaLoadingButtonTheme({
+    this.loadingWidget = _loadingWidget,
+  });
+}
+
 class MukaFutureLayoutBuilderTheme {
   final Widget Function(BuildContext) loadingWidget;
 
@@ -72,8 +80,9 @@ Widget _errorWidget(BuildContext context, error, reload) {
 
 Widget _loadingWidget(BuildContext context) {
   return Center(
-    child: SpinKitFadingCube(
-      color: Theme.of(context).primaryColor,
+    child: SpinKitThreeBounce(
+      size: 20,
+      color: Theme.of(context).colorScheme.primary,
     ),
   );
 }
@@ -96,6 +105,8 @@ class MukaConfigTheme {
 
   final MukaCachedTheme cachedTheme;
 
+  final MukaLoadingButtonTheme loadingButtonTheme;
+
   MukaConfigTheme({
     this.baseUrl = '',
     this.emptyWidget = _emptyWidget,
@@ -103,6 +114,7 @@ class MukaConfigTheme {
     this.futureLayoutBuilderTheme = const MukaFutureLayoutBuilderTheme(),
     this.exceptionCapture = const MukaExceptionCapture(),
     this.cachedTheme = const MukaCachedTheme(),
+    this.loadingButtonTheme = const MukaLoadingButtonTheme(),
   });
 }
 
