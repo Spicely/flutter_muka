@@ -17,6 +17,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'flutter_muka.dart';
 
@@ -41,6 +42,7 @@ part 'components/multi_image.dart';
 part 'components/notice_dialog.dart';
 part 'components/page_init.dart';
 part 'components/text_field.dart';
+part 'components/window_bar.dart';
 part 'components/virtual_keyboard.dart';
 part 'src/http_utils.dart';
 part 'src/muka_config_theme.dart';
