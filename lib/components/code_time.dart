@@ -6,9 +6,6 @@ class CodeTime extends StatefulWidget {
   /// 倒计时的秒数，默认60秒
   final int countdown;
 
-  /// 用户点击时的回调函数。
-  final void Function()? onTap;
-
   final CodeTimeController controller;
 
   /// 初始值显示文本
@@ -20,16 +17,6 @@ class CodeTime extends StatefulWidget {
   /// 计时时显示的内容
   final String Function(int time) builder;
 
-  final double? width;
-
-  final double? height;
-
-  final bool hasBorder;
-
-  final double borderRadius;
-
-  final Color? backgroundColor;
-
   final Color? primaryColor;
 
   /// 倒计时完成后回调
@@ -40,15 +27,9 @@ class CodeTime extends StatefulWidget {
     this.countdown = 60,
     this.label = '获取验证码',
     this.endLabel = '重新获取',
-    this.height,
-    this.width,
-    this.hasBorder = false,
-    this.borderRadius = 0,
     this.primaryColor,
     this.builder = _builder,
-    this.onTap,
     this.onTimeEnd,
-    this.backgroundColor,
   });
 
   @override
@@ -88,29 +69,9 @@ class _CodeTimeState extends State<CodeTime> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.onTap,
-      child: Container(
-        // padding: widget.padding,
-
-        decoration: widget.hasBorder
-            ? BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: _available ? Theme.of(context).primaryColor : widget.backgroundColor ?? Theme.of(context).disabledColor,
-                ),
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-                color: widget.backgroundColor,
-              )
-            : null,
-        width: widget.width,
-        height: widget.height,
-        alignment: Alignment.center,
-        child: Text(
-          _label,
-          style: TextStyle(fontSize: 12, color: _available ? widget.primaryColor : Theme.of(context).disabledColor),
-        ),
-      ),
+    return Text(
+      _label,
+      style: TextStyle(fontSize: 12, color: _available ? widget.primaryColor : Theme.of(context).disabledColor),
     );
   }
 
