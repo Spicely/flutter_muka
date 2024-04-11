@@ -1,6 +1,8 @@
 part of flutter_muka;
 
 class WindowBar extends StatefulWidget {
+  static double barHeight = 35;
+
   final bool exitApp;
 
   const WindowBar({Key? key, this.exitApp = true});
@@ -33,7 +35,7 @@ class _WinBarState extends State<WindowBar> with WindowListener {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 35,
+      height: WindowBar.barHeight,
       child: Row(
         children: [
           Expanded(
