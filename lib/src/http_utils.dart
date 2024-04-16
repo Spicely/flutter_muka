@@ -127,7 +127,7 @@ class HttpUtils {
       if (PROXY_URL != null) {
         _dio!.httpClientAdapter = IOHttpClientAdapter(
           createHttpClient: () {
-            HttpClient client = new HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+            HttpClient client = HttpClient()..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
             client.findProxy = (uri) {
               return "PROXY $PROXY_URL";
             };
