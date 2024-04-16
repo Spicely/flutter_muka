@@ -118,7 +118,13 @@ class MukaConfigTheme {
   });
 }
 
-Widget _errorBuilder(BuildContext context, {double? width, double? height}) => const Icon(Icons.error);
+Widget _errorBuilder(BuildContext context, {double? width, double? height}) => SizedBox(
+      width: width,
+      height: height,
+      child: Center(
+        child: const Icon(Icons.error),
+      ),
+    );
 
 Widget _cachePlaceholder({double? width, double? height}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade200,
