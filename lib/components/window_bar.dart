@@ -1,7 +1,7 @@
 part of flutter_muka;
 
 class WindowBar extends StatefulWidget {
-  static double barHeight = 35;
+  static double barHeight = Platform.isMacOS ? 10 : 35;
 
   final bool exitApp;
 
