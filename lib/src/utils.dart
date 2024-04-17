@@ -309,10 +309,17 @@ class Utils {
     return DateTime(time.year, time.month + 1, 0);
   }
 
-  static Future<String> getImagePath(String url) async {
-    Completer<String> completer = Completer();
-    File file = await DefaultCacheManager().getSingleFile(url);
-    completer.complete(file.path);
-    return completer.future;
+  /// 保存网络图片到相册
+  static Future<bool> saveNetworkImageToGallery(String url, {bool useCache = true}) async {
+    Uint8List? data = await getNetworkImageData(url, useCache: useCache);
+    if (data == null) {
+      return false;
+    }
+    try {
+      await ImageGallerySaver.saveImage(data);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

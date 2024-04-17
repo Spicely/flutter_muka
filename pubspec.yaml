@@ -20,13 +20,14 @@ dependencies:
   flutter_image_compress: 
   pretty_dio_logger:
   flutter_blurhash: 
-  flutter_cache_manager: 
   logger:
   shimmer:
   window_manager:  
   back_to_desktop: 
     git:
       url: https://github.com/Spicely/android_back_to_desktop.git
+  image_gallery_saver:
+
 
 dev_dependencies:
   flutter_lints:
