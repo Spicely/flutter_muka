@@ -1,11 +1,13 @@
 part of flutter_muka;
 
 class WindowBar extends StatefulWidget {
-  static double barHeight = Platform.isMacOS ? 10 : 35;
+  static double barHeight = Platform.isMacOS ? 10 : 30;
 
   final bool exitApp;
 
-  const WindowBar({Key? key, this.exitApp = true});
+  final double size;
+
+  const WindowBar({Key? key, this.exitApp = true, this.size = 30});
 
   @override
   State<WindowBar> createState() => _WinBarState();
@@ -53,7 +55,7 @@ class _WinBarState extends State<WindowBar> with WindowListener {
                 IconButton(
                   iconSize: 16,
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 35, minHeight: 35),
+                  constraints: BoxConstraints(minWidth: widget.size, minHeight: widget.size),
                   icon: const Icon(Icons.remove_rounded),
                   onPressed: windowManager.minimize,
                   style: ButtonStyle(
@@ -63,7 +65,7 @@ class _WinBarState extends State<WindowBar> with WindowListener {
                 IconButton(
                   iconSize: 16,
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 35, minHeight: 35),
+                  constraints: BoxConstraints(minWidth: widget.size, minHeight: widget.size),
                   icon: Icon(isWinMax ? Icons.fullscreen_exit_rounded : Icons.fullscreen_rounded),
                   onPressed: isWinMax ? windowManager.restore : windowManager.maximize,
                   style: ButtonStyle(
@@ -73,7 +75,7 @@ class _WinBarState extends State<WindowBar> with WindowListener {
                 IconButton(
                   iconSize: 16,
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(minWidth: 35, minHeight: 35),
+                  constraints: BoxConstraints(minWidth: widget.size, minHeight: widget.size),
                   icon: const Icon(Icons.close_rounded),
                   onPressed: widget.exitApp ? windowManager.destroy : windowManager.hide,
                   hoverColor: Colors.red,
