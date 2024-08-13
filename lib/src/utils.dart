@@ -310,16 +310,16 @@ class Utils {
   }
 
   /// 保存网络图片到相册
-  static Future<bool> saveNetworkImageToGallery(String url, {bool useCache = true}) async {
-    Uint8List? data = await getNetworkImageData(url, useCache: useCache);
-    if (data == null) {
-      return false;
-    }
-    try {
-      await ImageGallerySaver.saveImage(data);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+  // static Future<bool> saveNetworkImageToGallery(String url, {bool useCache = true}) async {
+  //   Uint8List? data = await getNetworkImageData(url, useCache: useCache);
+  //   if (data == null) {
+  //     return false;
+  //   }
+  //   try {
+  //     await ImageGallerySaver.saveImage(data);
+  //     return true;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
 }

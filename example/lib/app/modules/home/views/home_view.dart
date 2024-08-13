@@ -12,6 +12,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return PageInit(
+      isBackToDesktop: true,
       onExitBefore: () {
         logger.i('退出App');
       },
