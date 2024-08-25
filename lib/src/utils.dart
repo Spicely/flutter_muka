@@ -309,7 +309,7 @@ class Utils {
     return DateTime(time.year, time.month + 1, 0);
   }
 
-  /// 保存网络图片到相册
+  // 保存网络图片到相册
   // static Future<bool> saveNetworkImageToGallery(String url, {bool useCache = true}) async {
   //   Uint8List? data = await getNetworkImageData(url, useCache: useCache);
   //   if (data == null) {
@@ -322,4 +322,26 @@ class Utils {
   //     return false;
   //   }
   // }
+
+  /// 时间转hh:mm:ss
+  static String timeToStamp(int time) {
+    /// 计算天数
+    int days = time ~/ (24 * 60);
+
+    /// 计算剩余的小时数
+    int hours = (time % (24 * 60)) ~/ 60;
+
+    /// 计算剩余的分钟数
+    int minutes = time % 60;
+
+    /// 将天、小时和分钟格式化为两位数的字符串
+    String formattedDays = days > 0 ? '$days:' : '';
+    String formattedHours = hours.toString().padLeft(2, '0');
+    String formattedMinutes = minutes.toString().padLeft(2, '0');
+
+    /// 拼接成 'D 天 HH:MM' 格式
+    String result = '$formattedDays$formattedHours:$formattedMinutes';
+
+    return result;
+  }
 }

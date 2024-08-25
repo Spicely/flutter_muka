@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_muka/flutter_muka.dart';
+import '../flutter_muka.dart';
 
 class LoadingButton extends StatefulWidget {
   final Future<void> Function()? onPressed;

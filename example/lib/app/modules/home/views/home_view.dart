@@ -40,6 +40,14 @@ class HomeView extends GetView<HomeController> {
                 Get.toNamed(Routes.ISOLATE);
               },
             ),
+            ListItem(
+              color: Colors.white,
+              title: Text('文件选择'),
+              showArrow: true,
+              onTap: () {
+                Get.toNamed(Routes.PHOTO_MANAGER);
+              },
+            ),
             Container(
               height: 40,
               child: ITextField(
