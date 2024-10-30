@@ -230,7 +230,7 @@ class _DraggableScrollableSheetManagerState extends State<DraggableScrollableShe
     for (var v in _selectedAssetList) {
       // print((await v.thumbnailData)?.path);
       // print((await v.file)?.path);
-      paths.add(PhotoManagerPaths(imagePath: (await v.file)?.path));
+      paths.add(PhotoManagerPaths(imagePath: (await v.originFile)?.path));
     }
     widget.onTap?.call(paths);
     setState(() {});

@@ -29,6 +29,7 @@ export 'package:http_parser/http_parser.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:photo_manager/photo_manager.dart';
 export 'package:shimmer/shimmer.dart';
+export 'package:blurhash_ffi/blurhash_ffi.dart';
 
 part 'components/auto_keep.dart';
 part 'components/bottom_sheet_layout.dart';
