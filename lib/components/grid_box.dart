@@ -22,7 +22,7 @@ class GridBox extends StatelessWidget {
 
   final EdgeInsetsGeometry margin;
 
-  final Color color;
+  final Color? color;
 
   final BoxDecoration? decoration;
 
@@ -37,7 +37,7 @@ class GridBox extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(vertical: 6),
     this.decoration,
     this.margin = const EdgeInsets.all(0),
-    this.color = Colors.white,
+    this.color,
     this.height,
   }) : super(key: key);
 

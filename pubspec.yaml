@@ -26,7 +26,6 @@ dependencies:
   photo_manager: 
   photo_manager_image_provider:
   file_picker:
-  blurhash_ffi:
   back_to_desktop: 
     git:
       url: https://github.com/Spicely/android_back_to_desktop.git

@@ -155,6 +155,7 @@ class HttpUtils {
             error: true,
             compact: true,
             maxWidth: 90,
+            filter: (options, args) => !args.isResponse || !args.hasUint8ListData,
           ),
         );
       }
