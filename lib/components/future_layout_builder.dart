@@ -58,6 +58,9 @@ class FutureLayoutBuilder<T> extends StatefulWidget {
 
 class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
   late Future<dynamic> _future;
+
+  ValueKey key = ValueKey(DateTime.now());
+
   @override
   initState() {
     super.initState();
@@ -86,6 +89,7 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
       return widget.builder(widget.data!);
     }
     return FutureBuilder(
+      key: key,
       future: _future,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
@@ -103,7 +107,8 @@ class _FutureLayoutBuilderState<T> extends State<FutureLayoutBuilder<T>> {
     );
   }
 
-  void reload() {
+  void reload() async {
+    key = ValueKey(DateTime.now());
     _future = onFuture();
     setState(() {});
   }

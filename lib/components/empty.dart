@@ -7,30 +7,6 @@ part of flutter_muka;
 //// Date: 2020年06月19日 20:33:24 Friday
 //////////////////////////////////////////////////////////////////////////
 
-/// 显示类型
-enum EmptyType {
-  /// 无内容
-  content,
-
-  /// 无消息
-  msg,
-
-  /// 无搜索结果
-  search,
-
-  /// 没有订单
-  order,
-
-  /// 没有购物车
-  cart,
-}
-
-enum EmptyBtnType {
-  outlined,
-  elevated,
-  none,
-}
-
 class Empty extends StatefulWidget {
   final bool? isEmpty;
 
@@ -38,11 +14,15 @@ class Empty extends StatefulWidget {
 
   /// 空组件样式
   final Widget? emptyChild;
+
+  final String emptyText;
+
   Empty({
     Key? key,
     this.child,
     this.emptyChild,
     this.isEmpty,
+    this.emptyText = '暂无数据',
   }) : super(key: key);
 
   @override
@@ -91,7 +71,7 @@ class _EmptyState extends State<Empty> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  widget.emptyChild ?? MukaConfig.config.emptyWidget(context),
+                  widget.emptyChild ?? MukaConfig.config.emptyWidget(context, widget.emptyText),
                 ],
               ),
             ),
@@ -118,11 +98,14 @@ class SliverEmpty extends StatelessWidget {
 
   final bool isEmpty;
 
+  final String emptyText;
+
   const SliverEmpty({
     Key? key,
     required this.child,
     this.emptyChild,
     this.isEmpty = false,
+    this.emptyText = '暂无数据',
   }) : super(key: key);
 
   @override
@@ -130,7 +113,7 @@ class SliverEmpty extends StatelessWidget {
     if (isEmpty) {
       return emptyChild ??
           SliverToBoxAdapter(
-            child: MukaConfig.config.emptyWidget(context),
+            child: MukaConfig.config.emptyWidget(context, emptyText),
           );
     }
     return child;

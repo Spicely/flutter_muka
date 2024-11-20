@@ -7,6 +7,7 @@ abstract class Routes {
   static const FORM = _Paths.FORM;
   static const ISOLATE = _Paths.ISOLATE;
   static const PHOTO_MANAGER = _Paths.PHOTO_MANAGER;
+  static const LAYOUT = _Paths.LAYOUT;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const FORM = '/form';
   static const ISOLATE = '/isolate';
   static const PHOTO_MANAGER = '/photo-manager';
+  static const LAYOUT = '/layout';
 }

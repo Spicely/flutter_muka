@@ -87,13 +87,13 @@ Widget _loadingWidget(BuildContext context) {
   );
 }
 
-Widget _emptyWidget(BuildContext context) => SizedBox(child: Text('暂无数据'));
+Widget _emptyWidget(BuildContext context, String emptyText) => SizedBox(child: Text(emptyText));
 
 class MukaConfigTheme {
   /// 图片补充地址 [https://www.baidu.com]
   final String baseUrl;
 
-  final Widget Function(BuildContext) emptyWidget;
+  final Widget Function(BuildContext context, String emptyText) emptyWidget;
 
   /// BottomSheetLayout
   final MukaBottomSheetLayoutTheme bottomSheetLayoutTheme;

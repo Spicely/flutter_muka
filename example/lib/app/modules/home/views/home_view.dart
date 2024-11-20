@@ -42,6 +42,14 @@ class HomeView extends GetView<HomeController> {
             ),
             ListItem(
               color: Colors.white,
+              title: Text('Layout'),
+              showArrow: true,
+              onTap: () {
+                Get.toNamed(Routes.LAYOUT);
+              },
+            ),
+            ListItem(
+              color: Colors.white,
               title: Text('文件选择'),
               showArrow: true,
               onTap: () {

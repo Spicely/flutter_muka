@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_muka/flutter_muka.dart';
 
 import 'package:get/get.dart';
 
 import 'app/routes/app_pages.dart';
 
 void main() {
+  MukaConfig.config = MukaConfigTheme(
+    futureLayoutBuilderTheme: MukaFutureLayoutBuilderTheme(
+      errorWidget: (p0, p1, reload) => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.error_outline),
+            Text("Error"),
+            TextButton(onPressed: reload, child: Text("Reload")),
+          ],
+        ),
+      ),
+    ),
+  );
   runApp(
     GetMaterialApp(
       title: "Application",

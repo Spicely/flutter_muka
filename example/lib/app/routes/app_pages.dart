@@ -6,6 +6,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/isolate/bindings/isolate_binding.dart';
 import '../modules/isolate/views/isolate_view.dart';
+import '../modules/layout/bindings/layout_binding.dart';
+import '../modules/layout/views/layout_view.dart';
 import '../modules/photoManager/bindings/photo_manager_binding.dart';
 import '../modules/photoManager/views/photo_manager_view.dart';
 
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.PHOTO_MANAGER,
       page: () => const PhotoManagerView(),
       binding: PhotoManagerBinding(),
+    ),
+    GetPage(
+      name: _Paths.LAYOUT,
+      page: () => const LayoutView(),
+      binding: LayoutBinding(),
     ),
   ];
 }
