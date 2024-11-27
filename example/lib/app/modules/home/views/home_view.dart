@@ -56,6 +56,15 @@ class HomeView extends GetView<HomeController> {
                 Get.toNamed(Routes.PHOTO_MANAGER);
               },
             ),
+            ListItem(
+              height: 30,
+              color: Colors.white,
+              title: Text('圆角'),
+              contentPadding: EdgeInsets.all(20),
+              borderRadius: BorderRadius.circular(60),
+              showArrow: true,
+              onTap: () {},
+            ),
             Container(
               height: 40,
               child: ITextField(
