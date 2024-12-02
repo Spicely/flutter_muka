@@ -12,10 +12,6 @@ class FormView extends GetView<FormController> {
   Widget build(BuildContext context) {
     return PageInit(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('FormView'),
-          centerTitle: true,
-        ),
         body: ListView(
           children: [],
         ),

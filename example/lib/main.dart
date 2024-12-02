@@ -20,8 +20,12 @@ void main() {
       ),
     ),
   );
+  final _navKey = GlobalKey<NavigatorState>();
+  final _winKey = GlobalKey<WinBarState>();
+
   runApp(
     GetMaterialApp(
+      navigatorKey: _navKey,
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
@@ -29,6 +33,18 @@ void main() {
         useMaterial3: true,
         dividerTheme: DividerThemeData(
           color: Colors.grey.withOpacity(0.1),
+        ),
+      ),
+      routingCallback: (_) {
+        WindowBarManager.update();
+      },
+      builder: (context, child) => ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Stack(
+          children: [
+            child ?? const SizedBox.expand(),
+            if (Utils.isDesktop) WindowBar(key: _winKey, exitApp: false, navigatorKey: _navKey),
+          ],
         ),
       ),
     ),

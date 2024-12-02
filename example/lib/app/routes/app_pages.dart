@@ -1,3 +1,4 @@
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../modules/form/bindings/form_binding.dart';
@@ -12,6 +13,13 @@ import '../modules/photoManager/bindings/photo_manager_binding.dart';
 import '../modules/photoManager/views/photo_manager_view.dart';
 
 part 'app_routes.dart';
+
+class RouteMiddleware extends GetMiddleware {
+  @override
+  Widget onPageBuilt(Widget page) {
+    return super.onPageBuilt(page);
+  }
+}
 
 class AppPages {
   AppPages._();

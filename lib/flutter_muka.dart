@@ -47,7 +47,6 @@ part 'components/page_init.dart';
 part 'components/text_field.dart';
 part 'components/virtual_keyboard.dart';
 part 'components/window_bar.dart';
-part 'mixins/widget_visibility_mixin.dart';
 part 'src/http_utils.dart';
 part 'src/muka_config_theme.dart';
 part 'src/utils.dart';
