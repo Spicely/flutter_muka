@@ -76,29 +76,25 @@ class WinBarState extends State<WindowBar> with WindowListener {
       height: WindowBar.barHeight,
       child: Row(
         children: [
+          if (widget.navigatorKey?.currentState?.canPop() ?? false)
+            IconButton(
+              iconSize: 16,
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(minWidth: widget.size, minHeight: widget.size),
+              icon: const Icon(Icons.arrow_back_rounded),
+              onPressed: () {
+                widget.navigatorKey?.currentState?.pop();
+              },
+              style: ButtonStyle(
+                shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
+              ),
+            ),
           Expanded(
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onPanStart: startDragging,
               onDoubleTap: Platform.isMacOS ? null : resetWindow,
-              child: Row(
-                children: [
-                  if (widget.navigatorKey?.currentState?.canPop() ?? false)
-                    IconButton(
-                      iconSize: 16,
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(minWidth: widget.size, minHeight: widget.size),
-                      icon: const Icon(Icons.arrow_back_rounded),
-                      onPressed: () {
-                        widget.navigatorKey?.currentState?.pop();
-                      },
-                      style: ButtonStyle(
-                        shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
-                      ),
-                    ),
-                  Expanded(child: SizedBox.expand()),
-                ],
-              ),
+              child: SizedBox.expand(),
             ),
           ),
           if (!Platform.isMacOS)
