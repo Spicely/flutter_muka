@@ -119,26 +119,14 @@ class CachedImage extends StatelessWidget {
 
       return ClipRRect(
         borderRadius: BorderRadius.circular(circular),
-        child: ExtendedImage.network(
-          baseUrl + imageUrl!,
-          cache: true,
+        child: CachedNetworkImage(
+          width: width,
+          height: height,
+          imageUrl: baseUrl + imageUrl!,
           filterQuality: filterQuality,
-          loadStateChanged: (state) {
-            switch (state.extendedImageLoadState) {
-              case LoadState.loading:
-                return config?.placeholder(width: width, height: height) ?? MukaConfig.config.cachedTheme.placeholder(width: width, height: height);
-              case LoadState.failed:
-                return config?.errorBuilder(context, width: width, height: height) ?? MukaConfig.config.cachedTheme.errorBuilder(context, width: width, height: height);
-              default:
-                return ExtendedRawImage(
-                  image: state.extendedImageInfo?.image,
-                  width: width,
-                  height: height,
-                  fit: fit,
-                  filterQuality: filterQuality,
-                );
-            }
-          },
+          fit: fit,
+          placeholder: (BuildContext context, String url) => config?.placeholder(context, url, width: width, height: height) ?? _cachePlaceholder(context, url, width: width, height: height),
+          errorWidget: (BuildContext context, String url, Object error) => config?.errorBuilder(context, url, error, width: width, height: height) ?? _errorBuilder(context, url, error, width: width, height: height),
         ),
       );
     }

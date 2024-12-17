@@ -118,7 +118,7 @@ class MukaConfigTheme {
   });
 }
 
-Widget _errorBuilder(BuildContext context, {double? width, double? height}) => SizedBox(
+Widget _errorBuilder(BuildContext context, String url, Object error, {double? width, double? height}) => SizedBox(
       width: width,
       height: height,
       child: Center(
@@ -126,17 +126,17 @@ Widget _errorBuilder(BuildContext context, {double? width, double? height}) => S
       ),
     );
 
-Widget _cachePlaceholder({double? width, double? height}) => Shimmer.fromColors(
+Widget _cachePlaceholder(BuildContext context, String url, {double? width, double? height}) => Shimmer.fromColors(
       baseColor: Colors.grey.shade200,
       highlightColor: Colors.grey.shade100,
       child: Container(width: width, height: height, color: Colors.grey),
     );
 
 class MukaCachedTheme {
-  final Widget Function(BuildContext, {double? width, double? height}) errorBuilder;
+  final Widget Function(BuildContext context, String url, Object error, {double? width, double? height}) errorBuilder;
 
   /// 占位图
-  final Widget Function({double? width, double? height}) placeholder;
+  final Widget Function(BuildContext context, String url, {double? width, double? height}) placeholder;
 
   const MukaCachedTheme({
     this.errorBuilder = _errorBuilder,

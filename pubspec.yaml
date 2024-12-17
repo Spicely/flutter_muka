@@ -5,26 +5,25 @@ homepage: https://github.com/Spicely/flutter-muka.git
 author: Spicely
 
 environment:
-  sdk: ">=2.16.1"
-  flutter: ">=2.10.0"
+  sdk: ">=3.5.4"
 
 dependencies:
   flutter:
     sdk: flutter
+    
   cookie_jar: 
   dio_cookie_manager:
   dio: 
-  # r_upgrade: 
   flutter_spinkit:
-  extended_image: 8.2.0
+  extended_image:
   flutter_image_compress: 
   pretty_dio_logger:
   flutter_blurhash: 
   logger:
   shimmer:
-  window_manager:  
   photo_manager: 
   photo_manager_image_provider:
+  cached_network_image:
   file_picker:
   back_to_desktop: 
     git:

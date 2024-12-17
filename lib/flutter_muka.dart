@@ -6,6 +6,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:back_to_desktop/back_to_desktop.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/io.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
@@ -18,7 +19,6 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:logger/logger.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'flutter_muka.dart';
 
@@ -46,7 +46,6 @@ part 'components/notice_dialog.dart';
 part 'components/page_init.dart';
 part 'components/text_field.dart';
 part 'components/virtual_keyboard.dart';
-part 'components/window_bar.dart';
 part 'src/http_utils.dart';
 part 'src/muka_config_theme.dart';
 part 'src/utils.dart';

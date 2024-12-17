@@ -302,8 +302,6 @@ class _ITextFieldState extends State<ITextField> {
         return TextInputType.url;
       case ITextInputType.password:
         return TextInputType.text;
-      default:
-        return TextInputType.text;
     }
   }
 

@@ -72,7 +72,7 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
                         child: Container(color: Colors.transparent),
                         onTap: () {
                           FocusScope.of(context).requestFocus(FocusNode());
-                          _hideKeybord();
+                          _hideKeyboard();
                         },
                       ),
                     ),
@@ -86,17 +86,16 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
                           Row(
                             children: [
                               Expanded(
-                                child: _getKeybordView(_getKeybordText('1'), val: '1'),
+                                child: _getKeyboardView(_getKeyboardText('1'), val: '1'),
                               ),
                               Expanded(
-                                child: _getKeybordView(_getKeybordText('2'), val: '2'),
+                                child: _getKeyboardView(_getKeyboardText('2'), val: '2'),
                               ),
                               Expanded(
-                                child: _getKeybordView(_getKeybordText('3'), val: '3'),
+                                child: _getKeyboardView(_getKeyboardText('3'), val: '3'),
                               ),
                               Expanded(
-                                child: _getKeybordView(Image.asset('assets/images/remove.png', package: 'flutter_muka', width: 18.5),
-                                    val: 'del'),
+                                child: _getKeyboardView(Image.asset('assets/images/remove.png', package: 'flutter_muka', width: 18.5), val: 'del'),
                               ),
                             ],
                           ),
@@ -110,26 +109,26 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('4'), val: '4'),
+                                            child: _getKeyboardView(_getKeyboardText('4'), val: '4'),
                                           ),
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('5'), val: '5'),
+                                            child: _getKeyboardView(_getKeyboardText('5'), val: '5'),
                                           ),
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('6'), val: '6'),
+                                            child: _getKeyboardView(_getKeyboardText('6'), val: '6'),
                                           ),
                                         ],
                                       ),
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('7'), val: '7'),
+                                            child: _getKeyboardView(_getKeyboardText('7'), val: '7'),
                                           ),
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('8'), val: '8'),
+                                            child: _getKeyboardView(_getKeyboardText('8'), val: '8'),
                                           ),
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('9'), val: '9'),
+                                            child: _getKeyboardView(_getKeyboardText('9'), val: '9'),
                                           ),
                                         ],
                                       ),
@@ -137,10 +136,10 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
                                         children: [
                                           Expanded(
                                             flex: 2,
-                                            child: _getKeybordView(_getKeybordText('0'), val: '0'),
+                                            child: _getKeyboardView(_getKeyboardText('0'), val: '0'),
                                           ),
                                           Expanded(
-                                            child: _getKeybordView(_getKeybordText('.'), val: '.'),
+                                            child: _getKeyboardView(_getKeyboardText('.'), val: '.'),
                                           ),
                                         ],
                                       ),
@@ -156,16 +155,13 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
                                         margin: EdgeInsets.only(top: 5, right: 5),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(5),
-                                          color: double.parse(_price.isEmpty ? '0' : _price) == 0
-                                              ? Color.fromRGBO(7, 193, 96, 0.6)
-                                              : Color.fromRGBO(7, 193, 96, 1),
+                                          color: double.parse(_price.isEmpty ? '0' : _price) == 0 ? Color.fromRGBO(7, 193, 96, 0.6) : Color.fromRGBO(7, 193, 96, 1),
                                         ),
-                                        child: Text(widget.completeText,
-                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
+                                        child: Text(widget.completeText, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
                                       ),
                                       onTap: () {
                                         if (double.parse(_price.isEmpty ? '0' : _price) != 0) {
-                                          _hideKeybord();
+                                          _hideKeyboard();
                                           FocusScope.of(context).requestFocus(FocusNode());
                                           widget.onComplete?.call(_price);
                                         }
@@ -184,7 +180,7 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
     );
   }
 
-  Widget _getKeybordView(Widget child, {bool topMar = true, String val = ''}) {
+  Widget _getKeyboardView(Widget child, {bool topMar = true, String val = ''}) {
     return GestureDetector(
       child: Container(
         height: 49.7,
@@ -204,12 +200,7 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
           if (_price.indexOf('.') != -1 && val != '.') _price += val;
         }
         List _arr = _price.split('.');
-        if (_arr.length > 1 && _arr[_arr.length - 1] != '')
-          _arr[_arr.length - 1] = (_arr[_arr.length - 1] as String).substring(
-              0,
-              (_arr[_arr.length - 1] as String).length < widget.decimalLength
-                  ? (_arr[_arr.length - 1] as String).length
-                  : widget.decimalLength);
+        if (_arr.length > 1 && _arr[_arr.length - 1] != '') _arr[_arr.length - 1] = (_arr[_arr.length - 1] as String).substring(0, (_arr[_arr.length - 1] as String).length < widget.decimalLength ? (_arr[_arr.length - 1] as String).length : widget.decimalLength);
         _price = _arr.join('.');
         widget.onChanged?.call(_price);
         setState(() {});
@@ -217,20 +208,20 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
     );
   }
 
-  Widget _getKeybordText(String val) {
+  Widget _getKeyboardText(String val) {
     return Text(
       val,
       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
     );
   }
 
-  void _showKeybord(String price) {
+  void _showKeyboard(String price) {
     _status = true;
     _price = price;
     setState(() {});
   }
 
-  void _hideKeybord() {
+  void _hideKeyboard() {
     _status = false;
     setState(() {});
   }
@@ -245,12 +236,12 @@ class VirtualKeyboardController {
   }
 
   /// 显示键盘
-  void showKeybord(String price) {
-    _state?._showKeybord(price);
+  void showKeyboard(String price) {
+    _state?._showKeyboard(price);
   }
 
   /// 隐藏键盘
-  void hideKeybord() {
-    _state?._hideKeybord();
+  void hideKeyboard() {
+    _state?._hideKeyboard();
   }
 }
