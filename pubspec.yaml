@@ -15,7 +15,6 @@ dependencies:
   dio_cookie_manager:
   dio: 
   flutter_spinkit:
-  extended_image:
   flutter_image_compress: 
   pretty_dio_logger:
   flutter_blurhash: 
